@@ -39,11 +39,16 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
-    mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+    host: smtp.gmail.com
+           port: 587
+           username: digitalblogcenfotec@gmail.com
+           password: digitalblog2017
+           protocol: smtp
+           tls: true
+           properties.mail.smtp:
+             starttls.enable: true
+             auth: true
+             ssl.trust: smtp.gmail.com
     thymeleaf:
         cache: true
 
