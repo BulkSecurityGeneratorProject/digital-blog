@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Coolaborador</span> {{vm.coolaborador.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Capitulo C</span></dt>
+        <dd>
+            <a ui-sref="capitulo-detail({id:vm.coolaborador.capituloCId})">{{vm.coolaborador.capituloCId}}</a>
+        </dd>
+        <dt><span>Publicacion</span></dt>
+        <dd>
+            <a ui-sref="publicacion-detail({id:vm.coolaborador.publicacionId})">{{vm.coolaborador.publicacionId}}</a>
+        </dd>
+        <dt><span>Id Usuario</span></dt>
+        <dd>
+            <a ui-sref="usuario-detail({id:vm.coolaborador.idUsuarioId})">{{vm.coolaborador.idUsuarioId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="coolaborador-detail.edit({id:vm.coolaborador.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

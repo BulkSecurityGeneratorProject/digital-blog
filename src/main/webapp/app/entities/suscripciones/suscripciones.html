@@ -1,0 +1,58 @@
+<div>
+    <h2>Suscripciones</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="suscripciones.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Suscripciones
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Id Canal</span></th>
+                    <th><span>Id Siguiendo</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="suscripciones in vm.suscripciones track by suscripciones.id">
+                    <td><a ui-sref="suscripciones-detail({id:suscripciones.id})">{{suscripciones.id}}</a></td>
+                    <td>{{suscripciones.idCanal}}</td>
+                    <td>{{suscripciones.idSiguiendo}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="suscripciones-detail({id:suscripciones.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="suscripciones.edit({id:suscripciones.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="suscripciones.delete({id:suscripciones.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

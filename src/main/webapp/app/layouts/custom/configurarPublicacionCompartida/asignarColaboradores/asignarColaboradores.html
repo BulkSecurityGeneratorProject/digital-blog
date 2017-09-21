@@ -1,0 +1,53 @@
+
+    <div class=" modal-dialog ">
+        <div class="panel-body">
+            <div class="col-md-5 modal-body"  style="overflow-y: auto; max-height:300px;">
+                <h3 class="secondaryText">Seguidores</h3>
+                <div ng-show="vm.seguidoresParaMostrar.length!=0" class="list-group "  ng-repeat="usuario in vm.seguidores">
+                  <div class="list-group-item row ">
+                      <img class="img-rounded" width="50" ng-show=" usuario.fotoperfilContentType != undefined|| usuario.fotoperfilContentType != null"   data-ng-src="{{usuario.fotoperfilContentType}}">
+                      <img class="img-rounded" width="50" ng-show="usuario.fotoperfilContentType== undefined" src="../../../../content/images/avatar.jpeg" />
+                      <a class="pull-right" ng-click="vm.elegir(usuario)"><img width="20" src="../../../../../content/images/plus.svg"></a>
+                      <div class="row-content">
+                          <h4 class="list-group-item-heading">{{usuario.nombre}}</h4>
+                          <p class="list-group-item-text">{{usuario.descripcion}}</p>
+                      </div>
+                  </div>
+                  <div class="list-group-separator"></div>
+              </div>
+                <div ng-show="vm.seguidores.length==0" class="list-group text-center">
+                    <img src="../../../../../content/images/lecture.svg" width="100">
+                    <h4  class="secondaryText">Elegiste a todos tus amigos para coolaborar</h4>
+                </div>
+          </div>
+
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-5 modal-body"   style="overflow-y: auto; max-height:300px;" >
+                <h3 class="secondaryText">Colaboradores</h3>
+                <div ng-show="vm.elegidos.length!=0" class="list-group "  ng-repeat="usuario in vm.elegidos">
+                    <div class="list-group-item row ">
+                        <img class="img-rounded" width="50" ng-show=" usuario.fotoperfilContentType != undefined|| usuario.fotoperfilContentType != null"   data-ng-src="{{usuario.fotoperfilContentType}}">
+                        <img class="img-rounded" width="50" ng-show="usuario.fotoperfilContentType== undefined" src="../../../../content/images/avatar.jpeg" />
+                        <a   class="pull-right" ng-click="vm.pop(usuario)"><img width="20" src="../../../../../content/images/error.svg"></a>
+                        <div class="row-content">
+                            <h4 class="list-group-item-heading">{{usuario.nombre}}</h4>
+                            <p class="list-group-item-text">{{usuario.descripcion}}</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                </div>
+                <div ng-show="vm.elegidos.length==0" class="list-group text-center">
+                    <img src="../../../../../content/images/book.svg" width="100">
+                   <h4  class="secondaryText">La publicación no tiene colaboradores</h4>
+                </div>
+            </div>
+            <div class=" modal-footer pull-right">
+                <button type="button" class="btn btn-raised btn-danger" ng-click="vm.close()">Cancelar</button>
+
+                <button type="button" class="btn btn-raised btn-primary" ng-click="vm.guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+

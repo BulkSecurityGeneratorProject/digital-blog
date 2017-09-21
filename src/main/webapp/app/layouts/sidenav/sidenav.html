@@ -1,0 +1,36 @@
+<div ng-switch="vm.isAuthenticated()">
+    <a ng-click="vm.nav()" id="sideNavOpenIcon" class="text-center" ng-switch-when="true">
+        <span id="iconNav" class="	glyphicon glyphicon-bookmark"></span>
+    </a>
+
+
+    <div id="mySidenav" class="sidenav" ng-switch-when="true">
+
+        <div ng-app="digitalBlogApp" ng-controller="SideNavController">
+
+            <div class="list-group">
+                <div class="seccionesDropdown">
+                    <div class="dropdown">
+                        <a href="" context-menu="vm.seccionMenu" type="button" data-toggle="dropdown">Secciones <span
+                            class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="item in vm.listaSeccion">
+                                <a type="submit" class="list-group-item" context-menu="vm.menuOptions" ng-click="vm.obtenerIdSeleccionado(item);$event.stopPropagation();">
+                                    <i id="folder" class="glyphicon glyphicon-folder-close"></i>
+                                    <span class="ng-hide"> {{ item.id}}</span>
+                                    {{ item.nombre}}
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--TODO:IMPORTANTE:
+        $event.stopPropagation() Esto hace que no se cierren las demas funciones como en el dropdown
+        si van agregar mas y ocupan otro metodo dentro del ng-click ponen ng-click="funcion();$event.stopPropagation();") y asi funciona.
+        -->
+        <a href="" ng-click="$event.stopPropagation();">Crear publicacion</a>
+    </div>
+</div>

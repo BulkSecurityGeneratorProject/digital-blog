@@ -1,0 +1,68 @@
+
+<div>
+    <h2><span>Usuario</span> {{vm.usuario.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Nombre</span></dt>
+        <dd>
+            <span>{{vm.usuario.nombre}}</span>
+        </dd>
+        <dt><span>Primer Apelldio</span></dt>
+        <dd>
+            <span>{{vm.usuario.primerApelldio}}</span>
+        </dd>
+        <dt><span>Segundo Apellido</span></dt>
+        <dd>
+            <span>{{vm.usuario.segundoApellido}}</span>
+        </dd>
+        <dt><span>Edad</span></dt>
+        <dd>
+            <span>{{vm.usuario.edad}}</span>
+        </dd>
+        <dt><span>Correo</span></dt>
+        <dd>
+            <span>{{vm.usuario.correo}}</span>
+        </dd>
+        <dt><span>Descripcion</span></dt>
+        <dd>
+            <span>{{vm.usuario.descripcion}}</span>
+        </dd>
+        <dt><span>Fotoperfil</span></dt>
+        <dd>
+            <div ng-if="vm.usuario.fotoperfil">
+                <a ng-click="vm.openFile(vm.usuario.fotoperfilContentType, vm.usuario.fotoperfil)">
+                    <img data-ng-src="{{'data:' + vm.usuario.fotoperfilContentType + ';base64,' + vm.usuario.fotoperfil}}" style="max-width: 100%;" alt="usuario image"/>
+                </a>
+                {{vm.usuario.fotoperfilContentType}}, {{vm.byteSize(vm.usuario.fotoperfil)}}
+            </div>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+            <span>{{vm.usuario.estado}}</span>
+        </dd>
+        <dt><span>Id JHI User</span></dt>
+        <dd>
+            <span>{{vm.usuario.idJHIUser}}</span>
+        </dd>
+        <dt><span>Fecha Nacimiento</span></dt>
+        <dd>
+            <span>{{vm.usuario.fechaNacimiento | date:'medium'}}</span>
+        </dd>
+        <dt><span>Rol</span></dt>
+        <dd>
+            <a ui-sref="rol-detail({id:vm.usuario.rolId})">{{vm.usuario.rolId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="usuario-detail.edit({id:vm.usuario.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

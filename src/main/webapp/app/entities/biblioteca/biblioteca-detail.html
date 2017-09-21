@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Biblioteca</span> {{vm.biblioteca.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Id Seccion</span></dt>
+        <dd>
+            <span>{{vm.biblioteca.idSeccion}}</span>
+        </dd>
+        <dt><span>Id Jhi User</span></dt>
+        <dd>
+            <span>{{vm.biblioteca.idJhiUser}}</span>
+        </dd>
+        <dt><span>Id Usuario B</span></dt>
+        <dd>
+            <a ui-sref="usuario-detail({id:vm.biblioteca.idUsuarioBId})">{{vm.biblioteca.idUsuarioBId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="biblioteca-detail.edit({id:vm.biblioteca.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

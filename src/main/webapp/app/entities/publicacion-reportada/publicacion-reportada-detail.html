@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span>Publicacion Reportada</span> {{vm.publicacionReportada.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Cantidad Reportes</span></dt>
+        <dd>
+            <span>{{vm.publicacionReportada.cantidadReportes}}</span>
+        </dd>
+        <dt><span>Id Publicacion</span></dt>
+        <dd>
+            <span>{{vm.publicacionReportada.idPublicacion}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="publicacion-reportada-detail.edit({id:vm.publicacionReportada.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

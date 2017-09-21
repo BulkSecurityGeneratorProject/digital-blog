@@ -1,0 +1,36 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idComentarioRespuesta",
+            "otherEntityName": "respuesta",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "comentario"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idComentarioU",
+            "otherEntityName": "usuario",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idComentarioP",
+            "otherEntityName": "publicacion",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "contenido",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "comentario",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

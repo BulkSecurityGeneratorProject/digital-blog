@@ -1,0 +1,32 @@
+
+<div>
+    <h2><span>Imagen Por Publicacion</span> {{vm.imagenPorPublicacion.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Id Publicacion</span></dt>
+        <dd>
+            <span>{{vm.imagenPorPublicacion.idPublicacion}}</span>
+        </dd>
+        <dt><span>Imagen</span></dt>
+        <dd>
+            <div ng-if="vm.imagenPorPublicacion.imagen">
+                <a ng-click="vm.openFile(vm.imagenPorPublicacion.imagenContentType, vm.imagenPorPublicacion.imagen)">
+                    <img data-ng-src="{{'data:' + vm.imagenPorPublicacion.imagenContentType + ';base64,' + vm.imagenPorPublicacion.imagen}}" style="max-width: 100%;" alt="imagenPorPublicacion image"/>
+                </a>
+                {{vm.imagenPorPublicacion.imagenContentType}}, {{vm.byteSize(vm.imagenPorPublicacion.imagen)}}
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="imagen-por-publicacion-detail.edit({id:vm.imagenPorPublicacion.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

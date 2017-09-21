@@ -1,0 +1,68 @@
+
+<div>
+    <h2><span>Publicacion</span> {{vm.publicacion.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Url Imagen</span></dt>
+        <dd>
+            <span>{{vm.publicacion.urlImagen}}</span>
+        </dd>
+        <dt><span>Descripcion</span></dt>
+        <dd>
+            <span>{{vm.publicacion.descripcion}}</span>
+        </dd>
+        <dt><span>Contenido</span></dt>
+        <dd>
+            <span>{{vm.publicacion.contenido}}</span>
+        </dd>
+        <dt><span>Tipo</span></dt>
+        <dd>
+            <span>{{vm.publicacion.tipo}}</span>
+        </dd>
+        <dt><span>Titulo</span></dt>
+        <dd>
+            <span>{{vm.publicacion.titulo}}</span>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+            <span>{{vm.publicacion.estado}}</span>
+        </dd>
+        <dt><span>Cantidad Iteraciones</span></dt>
+        <dd>
+            <span>{{vm.publicacion.cantidadIteraciones}}</span>
+        </dd>
+        <dt><span>Fotopublicacion</span></dt>
+        <dd>
+            <div ng-if="vm.publicacion.fotopublicacion">
+                <a ng-click="vm.openFile(vm.publicacion.fotopublicacionContentType, vm.publicacion.fotopublicacion)">
+                    <img data-ng-src="{{'data:' + vm.publicacion.fotopublicacionContentType + ';base64,' + vm.publicacion.fotopublicacion}}" style="max-width: 100%;" alt="publicacion image"/>
+                </a>
+                {{vm.publicacion.fotopublicacionContentType}}, {{vm.byteSize(vm.publicacion.fotopublicacion)}}
+            </div>
+        </dd>
+        <dt><span>Usuario</span></dt>
+        <dd>
+            <a ui-sref="usuario-detail({id:vm.publicacion.usuarioId})">{{vm.publicacion.usuarioId}}</a>
+        </dd>
+        <dt><span>Categoria</span></dt>
+        <dd>
+            <a ui-sref="categoria-detail({id:vm.publicacion.categoriaId})">{{vm.publicacion.categoriaId}}</a>
+        </dd>
+        <dt><span>Tema</span></dt>
+        <dd>
+            <a ui-sref="tema-detail({id:vm.publicacion.temaId})">{{vm.publicacion.temaId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="publicacion-detail.edit({id:vm.publicacion.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

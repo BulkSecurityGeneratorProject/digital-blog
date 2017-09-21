@@ -1,0 +1,64 @@
+<div>
+    <h2>Seguidors</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="seguidor.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Seguidor
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Estado Seguidor</span></th>
+                    <th><span>Id Seguidor</span></th>
+                    <th><span>Id Seguido</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="seguidor in vm.seguidors track by seguidor.id">
+                    <td><a ui-sref="seguidor-detail({id:seguidor.id})">{{seguidor.id}}</a></td>
+                    <td>{{seguidor.estadoSeguidor}}</td>
+                    <td>
+                        <a ui-sref="usuario-detail({id:seguidor.idSeguidorId})">{{seguidor.idSeguidorId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="usuario-detail({id:seguidor.idSeguidoId})">{{seguidor.idSeguidoId}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="seguidor-detail({id:seguidor.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="seguidor.edit({id:seguidor.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="seguidor.delete({id:seguidor.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

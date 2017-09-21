@@ -1,0 +1,202 @@
+ <div class="container" ng-show="vm.mostrarCol==false">
+            <div class="panel">
+                <div class="panel-body">
+                    <form  name="formConfigPub" novalidate ng-submit="vm.save()">
+                    <h2 class="modal-title standartitle" id="myPublicacionLabel">Crear publicación compartida</h2>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="field_titulo">Título</label>
+                            <input type="text" class="form-control" name="titulo" id="field_titulo"
+                                   ng-model="vm.publicacion.titulo" required ng-minlength="1" ng-maxlength="50" />
+                            <div ng-show="formConfigPub.titulo.$dirty && formConfigPub.titulo.$invalid">
+                                <p class="help-block"
+                                   ng-show="formConfigPub.titulo.$error.required">
+                                    Por favor debe ingresar el nombre de la publicación
+                                </p>
+                                <p class="help-block" ng-show="formConfigPub.titulo.$error.minlength">
+                                    Por favor el nombre debe tener al menos 1 caracter
+                                </p>
+                                <p class="help-block" ng-show="formConfigPub.titulo.$error.maxlength">
+                                    El nombre no puede tener más de 50 caracteres.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="field_descripcion">Descripción</label>
+                            <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                                   ng-model="vm.publicacion.descripcion" required  ng-minlength="1" ng-maxlength="100"/>
+                            <div ng-show="formConfigPub.descripcion.$dirty && formConfigPub.descripcion.$invalid">
+                                <p class="help-block"
+                                   ng-show="formConfigPub.descripcion.$error.required">
+                                    Por favor debe ingresar una descripcion de la publicación
+                                </p>
+                                <p class="help-block" ng-show="formConfigPub.descripcion.$error.minlength">
+                                    Por favor la descripcion debe tener al menos 1 caracter
+                                </p>
+                                <p class="help-block" ng-show="formConfigPub.descripcion.$error.maxlength">
+                                    La descripcion no puede tener más de 100 caracteres.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="field_cantidadIteraciones">Cantidad Iteraciones</label>
+                            <input type="number" class="form-control" name="cantidadIteraciones" id="field_cantidadIteraciones"
+                                   ng-model="vm.publicacion.cantidadIteraciones" required  ng-minlength="1" ng-maxlength="2" />
+                            <div ng-show="formConfigPub.cantidadIteraciones.$dirty && formConfigPub.cantidadIteraciones.$invalid">
+                                <p class="help-block"
+                                   ng-show="formConfigPub.cantidadIteraciones.$error.required">
+                                    Por favor debe cantidad de iteraciones
+                                </p>
+                                <p class="help-block" ng-show="formConfigPub.cantidadIteraciones.$error.minlength">
+                                    Por favor el nombre debe tener al menos 1 numero
+                                </p>
+                                <p class="help-block" ng-show="formConfigPub.cantidadIteraciones.$error.maxlength">
+                                    El nombre no puede tener más de 2 numeros.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : crearPublicacionFrm.temaId.$invalid && !crearPublicacionFrm.temaId.$pristine }">
+                            <label class="control-label">Tema</label>
+                            <div>
+                                <div ng-controller="CrearPublicacionIndividualCustomController">
+                                    <autocomplete type="text"
+                                                  name="temaId"
+                                                  id="sltTema"
+                                                  attr-class="form-control"
+                                                  click-activation="false"
+                                                  attr-placeholder="--- Seleccione o escriba un tema ---"
+                                                  ng-model="vm.completeTema"
+                                                  data="vm.temass" on-type="vm.updateTemas"
+                                                  on-select="vm.obtenerIdTema" required>
+                                    </autocomplete>
+                                </div>
+                                <p ng-show="crearPublicacionFrm.temaId.$invalid && !crearPublicacionFrm.temaId.$pristine"
+                                   class="help-block">El tema es requerido</p>
+                                <p ng-show="crearPublicacionFrm.temaId.$error.pattern && !crearPublicacionFrm.temaId.$pristine"
+                                   class="help-block">
+                                    Tema no puede contener numeros o caracteres.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : crearPublicacionFrm.categoriaId.$invalid && !crearPublicacionFrm.categoriaId.$pristine }">
+                            <label for="sltCategoria" class=" control-label">Categoría</label>
+                            <div class="">
+                                <select id="sltCategoria" name="categoriaId" class="form-control  secondaryText"
+                                        ng-model="vm.publicacion.categoriaId" required>
+                                    <option value="" class="text-center">--- Seleccione una categoría ---</option>
+                                    <option ng-selected="{{categoria.nombre == vm.publicacion.categoriaId}}"
+                                            ng-repeat="categoria in vm.categorias"
+                                            value="{{categoria.id}}">{{categoria.nombre}}
+                                    </option>
+                                </select>
+                                <p ng-show="crearPublicacionFrm.categoriaId.$invalid && !crearPublicacionFrm.categoriaId.$pristine"
+                                   class="help-block">La categoría es requerida</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button ng-click="vm.asignarColaboradores()" ng-disabled="formConfigPub.$invalid" class="btn btn-block top-head btn-raised btn-primary">Invitar Colaboradores</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ngf-drop ngf-change="vm.setFotopublicacion($file, vm.publicacion)" ngf-pattern="'image/*'">
+                            <label class="control-label" for="field_fotopublicacion">Foto publicación</label>
+                            <div>
+
+                                <div class="text-center">
+                                     <img ng-show=" vm.publicacion.fotopublicacionContentType!= undefined && vm.publicacion.fotopublicacion!=undefined" class="img-rounded" data-ng-src="{{'data:' + vm.publicacion.fotopublicacionContentType + ';base64,' + vm.publicacion.fotopublicacion}}" width="210" ng-if="vm.publicacion.fotopublicacion" alt="publicacion image"/>
+                                    <img ng-show=" vm.publicacion.fotopublicacionContentType== undefined && vm.publicacion.fotopublicacion==undefined" class="img-rounded" src="../../../../content/images/pictures.svg" width="150">
+
+                                </div>
+                                <div ng-if="vm.publicacion.fotopublicacion" class="help-block clearfix">
+                                    <span class="pull-left">{{vm.publicacion.fotopublicacionContentType}}, {{vm.byteSize(vm.publicacion.fotopublicacion)}}</span>
+                                    <button type="button" ng-click="vm.publicacion.fotopublicacion=null;vm.publicacion.fotopublicacionContentType=null;"
+                                            class="btn btn-default btn-xs pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+                                <a type="button" ngf-select
+                                   ngf-change="vm.setFotopublicacion($file, vm.publicacion)" accept="image/*">
+                                    <img src="../../../../content/images/image.svg" width="50" class="pull-left">
+                                </a>
+                            </div>
+                            <input type="hidden" class="form-control" name="fotopublicacion" id="field_fotopublicacion"
+                                   ng-model="vm.publicacion.fotopublicacion"
+                            />
+                            <input type="hidden" class="form-control" name="fotopublicacionContentType" id="field_fotopublicacionContentType"
+                                   ng-model="vm.publicacion.fotopublicacionContentType" />
+                        </div>
+                        <button type="submit"  ng-click="vm.crearPublicacion()" ng-disabled=" formConfigPub.$invalid" class="btn btn-raised btn-primary pull-right top-head">
+                            <i class="glyphicon glyphicon-floppy-disk btnsize"></i>
+                        </button>
+                    </div>
+                    </form>
+                    <div ng-show=" vm.errorCol == true " class="pull-right errorClass">
+                        <h6>Debe elegir colaboradores para la publicación</h6>
+                    </div>
+                </div>
+            </div>
+
+</div>
+ <div class="container" ng-show="vm.mostrarCol==true">
+     <div class="panel">
+         <div class="panel-body">
+             <h1 class="secondaryText">Elige los colaboradores</h1>
+
+             <div class="col-md-5 "  style="overflow-y: auto; max-height:300px;">
+             <h3 class="secondaryText">Seguidores</h3>
+             <div ng-show="vm.seguidoresParaMostrar.length!=0" class="list-group "  ng-repeat="usuario in vm.seguidores">
+                 <div class="list-group-item row ">
+                     <img class="img-rounded" width="50" ng-show=" usuario.fotoperfilContentType != undefined|| usuario.fotoperfilContentType != null"   data-ng-src="{{usuario.fotoperfilContentType}}">
+                     <img class="img-rounded" width="50" ng-show="usuario.fotoperfilContentType== undefined" src="../../../../content/images/avatar.jpeg" />
+                     <a class="pull-right" ng-click="vm.elegir(usuario)"><img width="20" src="../../../../../content/images/plus.svg"></a>
+                     <div class="row-content">
+                         <h4 class="list-group-item-heading">{{usuario.nombre}}</h4>
+                         <p class="list-group-item-text">{{usuario.descripcion}}</p>
+                     </div>
+                 </div>
+                 <div class="list-group-separator"></div>
+             </div>
+             <div ng-show="vm.seguidores.length==0" class="list-group text-center">
+                 <img src="../../../../../content/images/lecture.svg" width="100">
+                 <h4  class="standartitle">Elegiste a todos tus amigos para coolaborar</h4>
+             </div>
+         </div>
+         <div class="col-md-2">
+         </div>
+
+         <div class="col-md-5 "   style="overflow-y: auto; max-height:300px;" >
+             <h3 class="standartitle">Colaboradores</h3>
+             <div ng-show="vm.elegidos.length!=0" class="list-group "  ng-repeat="usuario in vm.elegidos">
+                 <div class="list-group-item row ">
+                     <img class="img-rounded" width="50" ng-show=" usuario.fotoperfilContentType != undefined|| usuario.fotoperfilContentType != null"   data-ng-src="{{usuario.fotoperfilContentType}}">
+                     <img class="img-rounded" width="50" ng-show="usuario.fotoperfilContentType== undefined" src="../../../../content/images/avatar.jpeg" />
+                     <a   class="pull-right" ng-click="vm.pop(usuario)"><img width="20" src="../../../../../content/images/error.svg"></a>
+                     <div class="row-content">
+                         <h4 class="list-group-item-heading">{{usuario.nombre}}</h4>
+                         <p class="list-group-item-text">{{usuario.descripcion}}</p>
+                     </div>
+                 </div>
+                 <div class="list-group-separator"></div>
+             </div>
+             <div ng-show="vm.elegidos.length==0" class="list-group text-center">
+                 <img src="../../../../../content/images/book.svg" width="100">
+                 <h4  class="standartitle">La publicación no tiene colaboradores</h4>
+             </div>
+         </div>
+         <div class=" pull-right">
+             <button type="button" class="btn btn-raised btn-info" ng-click="vm.volver()">Anterior</button>
+             <button type="button" class="btn btn-raised btn-primary" ng-click="vm.volver()">Listo</button>
+         </div>
+     </div>
+ </div>
+ </div>
+
+
+

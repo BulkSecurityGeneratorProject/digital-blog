@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Comentario</span> {{vm.comentario.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Contenido</span></dt>
+        <dd>
+            <span>{{vm.comentario.contenido}}</span>
+        </dd>
+        <dt><span>Id Comentario Respuesta</span></dt>
+        <dd>
+            <a ui-sref="respuesta-detail({id:vm.comentario.idComentarioRespuestaId})">{{vm.comentario.idComentarioRespuestaId}}</a>
+        </dd>
+        <dt><span>Id Comentario U</span></dt>
+        <dd>
+            <a ui-sref="usuario-detail({id:vm.comentario.idComentarioUId})">{{vm.comentario.idComentarioUId}}</a>
+        </dd>
+        <dt><span>Id Comentario P</span></dt>
+        <dd>
+            <a ui-sref="publicacion-detail({id:vm.comentario.idComentarioPId})">{{vm.comentario.idComentarioPId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="comentario-detail.edit({id:vm.comentario.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

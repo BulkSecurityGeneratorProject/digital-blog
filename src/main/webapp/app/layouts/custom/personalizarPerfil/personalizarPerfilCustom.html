@@ -1,0 +1,145 @@
+    <div class="container">
+
+        <div ng-if="vm.errorConection ==  true"  class="alert alert-danger">
+            <p>
+            ¡Lo sentimos! Error en el sistema , intente mas tarde.
+            </p>
+        </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+
+            <form class="pull-left col-lg-12" name="form" novalidate ng-submit="vm.save()" show-validation>
+                <div class=" text-center col-md-4">
+                    <h3 class="standartitle">Completa tu información personal </h3>
+
+                    <div class="form-group text-center" ngf-drop ngf-change="vm.setFotoperfil($file,vm.usuario)" ngf-pattern="'image/*'">
+                        <img  class="circle" data-ng-src="{{vm.usuario.fotoperfilContentType}}" width="300"/>
+                        <div class="row">
+                            <button type="submit" ngf-select class="btn" ngf-change="vm.setFotoperfil($file, vm.usuario)" accept="image/*">
+                                <img src="../../../../content/images/image.svg" width="50">
+                            </button>
+                        </div>
+                        <input type="hidden" class="form-control" name="fotoperfil" id="field_fotoperfil" ng-model="vm.usuario.fotoperfil"/>
+                    </div>
+                    <div class="pull-left">
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-raised btn-primary">
+                            <i class="glyphicon glyphicon-floppy-disk btnsize"></i>
+                        </button>
+                    </div>
+                </div>
+        <div class="col-lg-4">
+            <div class="form-group" ng-hide="vm.usuario.id">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                       ng-model="vm.usuario.id" readonly />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_nombre">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="field_nombre"
+                       ng-model="vm.usuario.nombre" required ng-minlength=1 ng-maxlength=15 />
+                <div ng-show="form.nombre.$dirty && form.nombre.$invalid">
+                    <p class="help-block"
+                       ng-show="form.nombre.$error.required">
+                        Por favor ingresar su nombre
+                    </p>
+                    <p class="help-block" ng-show="form.nombre.$error.minlength">
+                        El nombre debe tener al menos 1 carácteres.
+                    </p>
+                    <p class="help-block" ng-show="form.nombre.$error.maxlength">
+                        El nombre no puede tener más de 15 caracteres.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_primerApelldio">Primer Apelldio</label>
+                <input type="text" class="form-control" name="primerApelldio" id="field_primerApelldio"
+                       ng-model="vm.usuario.primerApelldio" ng-minlength=1 ng-maxlength=15  required/>
+                <div ng-show="form.primerApelldio.$dirty && form.primerApelldio.$invalid">
+                    <p class="help-block"
+                       ng-show="form.primerApelldio.$error.required">
+                        Por favor ingresar su primer apellido
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.primerApelldio.$error.minlength">
+                        El apellido debe tener al menos 1 carácteres.
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.primerApelldio.$error.maxlength">
+                        El apellido no puede tener más de 15 caracteres.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_segundoApellido">Segundo Apellido</label>
+                <input type="text" class="form-control" name="segundoApellido" id="field_segundoApellido"
+                       ng-model="vm.usuario.segundoApellido" ng-minlength=1 ng-maxlength=15  required/>
+                <div ng-show="form.segundoApellido.$dirty && form.segundoApellido.$invalid">
+                    <p class="help-block"
+                       ng-show="form.segundoApellido.$error.required">
+                        Por favor ingresar su segundo apellido
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.segundoApellido.$error.minlength">
+                        El apellido debe tener al menos 1 carácteres.
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.segundoApellido.$error.maxlength">
+                        El apellido no puede tener más de 15 caracteres.
+                    </p>
+                </div>
+            </div>
+        </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" for="field_correo">Correo</label>
+                    <input type="text" class="form-control" name="correo" id="field_correo"
+                           ng-model="vm.usuario.correo" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="field_descripcion">Descripción</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                           ng-model="vm.usuario.descripcion"  ng-minlength=3 ng-maxlength=50  required/>
+                    <div ng-show="form.descripcion.$dirty && form.descripcion.$invalid">
+                        <p class="help-block"
+                           ng-show="form.descripcion.$error.required">
+                            Por favor  ingrese una descripción
+                        </p>
+                        <p class="help-block" ng-show="form.descripcion.$error.minlength">
+                            La descripción debe tener al menos 3 carácteres.
+                        </p>
+                        <p class="help-block" ng-show="form.descripcion.$error.maxlength">
+                            La descripción no puede tener más de 25 carácteres.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="field_fechaNacimiento">Fecha Nacimiento</label>
+                    <div class="input-group dropup">
+                        <input id="field_fechaNacimiento" type="text" class="form-control" name="fechaNacimiento" datetime-picker="dd MMM yyyy"
+                               ng-model="vm.usuario.fechaNacimiento" is-open="vm.datePickerOpenStatus.fechaNacimiento"
+                        required/>
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-raised btn-primary" ng-click="vm.openCalendar('fechaNacimiento')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                        <div ng-show="form.fechaNacimiento.$dirty && form.fechaNacimiento.$invalid ">
+                            <p class="help-block"
+                               ng-show="form.fechaNacimiento.$error.required">
+                               Debe elegir su fecha de nacimiento
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <p class="help-block errorClass"
+                   ng-show="vm.invalidBornDate == true">
+                    Edad inválida
+                </p>
+            </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,109 @@
+<div class="container col-lg-3">
+    <div class="alert alert-danger alert-dismissable fade in" ng-if="vm.errorConnection == true">
+        <strong>El sistema no está disponible en este momento!</strong> Inténtelo más tarde.
+    </div>
+    <div class="sidenav">
+        <div class=" fontColor row divUserInfoSideNav">
+            <img class="img-rounded col-lg-3"
+                 ng-show=" vm.usuario.fotoperfilContentType != undefined|| vm.usuario.fotoperfilContentType != null"
+                 data-ng-src="{{vm.usuario.fotoperfilContentType}}"/>
+            <h5 class=" col-lg-9">{{vm.usuario.nombre +' '+vm.usuario.primerApelldio +'
+                '+vm.usuario.segundoApellido}}</h5>
+        </div>
+        <div class="divSeparatorSidenav">
+        </div>
+        <div ng-app="digitalBlogApp" ng-controller="SideNavController">
+
+            <div class="list-group">
+                <div class="seccionesDropdown">
+                    <div class="dropdown">
+                        <a href="" context-menu="vm.seccionMenu" type="button" data-toggle="dropdown">Secciones <span
+                            class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="item in vm.listaSeccion">
+                                <a type="submit" class="list-group-item" context-menu="vm.menuOptions"
+                                   ng-click="vm.obtenerIdSeleccionado(item);$event.stopPropagation();">
+                                    <i id="folder" class="glyphicon glyphicon-folder-close"></i>
+                                    <span class="ng-hide"> {{ item.id}}</span>
+                                    {{ item.nombre}}
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--TODO:IMPORTANTE:
+        $event.stopPropagation() Esto hace que no se cierren las demas funciones como en el dropdown
+        si van agregar mas y ocupan otro metodo dentro del ng-click ponen ng-click="funcion();$event.stopPropagation();") y asi funciona.
+        -->
+        <a ui-sref="crearPublicacionIndividual" ng-click="$event.stopPropagation();">Crear publicación</a>
+        <a ui-sref="configPublicacionCompartida" ng-click="$event.stopPropagation();">Crear publicación colaborativa</a>
+    </div>
+</div>
+
+<div class="container col-lg-9" id="listPubliSecc">
+    <h1 class="secondaryText">{{vm.temaNombre}}</h1>
+    <div ng-show="vm.publicaciones!=null">
+        <div class="panel" ng-repeat="publicacion in vm.publicaciones">
+            <div class="panel-body">
+                <div class="reportDropDown" ng-if="vm.mostrarEditar">
+                    <div class="dropdown navbar-right" style="right: 20px;" ng-click="vm.comprobar(publicacion)">
+                        <a data-toggle="dropdown" class="dropdown-toggle"><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li style="display: inline">
+                                <button ng-disabled="vm.seEncontro === true" type="submit"
+                                        class="btn btn-primary btn-sm" ng-click="vm.modificarPublicacion(publicacion)">
+                                    <span class="glyphicon glyphicon glyphicon-pencil"></span>&nbsp;<span>Modificar publicacion</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="col-lg-8 fontColor">{{publicacion.titulo}}</h4>
+                <p class="col-lg-8"><span class="secondaryText">{{publicacion.descripcion}}</span></p>
+                <img class="img-thumbnail pull-right " data-ng-src="{{publicacion.fotopublicacionContentType}}"
+                     style="min-width: 150px;max-width: 150px; max-height: 130px; min-height: 130px">
+
+                <div class="col pull-left">
+                    <button type="submit" class="btn" ng-click="vm.comentar(publicacion.id)">
+                        <i class="btnColorPublicacion"><img src="../../../../content/images/chat.svg"
+                                                            width="30"></i>
+                    </button>
+                    <button type="submit" class="btn" ng-click="vm.verPublicacion(publicacion)">
+                        <i class="btnColorPublicacion"><img src="../../../../content/images/eye.svg"
+                                                            width="30"></i>
+                    </button>
+                    <button type="submit" class="btn" ng-click="vm.eliminar(publicacion)">
+                        <i class="glyphicon  glyphicon-trash btnColorPublicacion"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="vm.publicaciones.length ==null" class="">
+        <div class=" text-center">
+            <div class=" text-center">
+                <div class="row">
+                    <h2 class="standartitle">Bienvenido a su biblioteca personal {{vm.usuario.nombre}}!</h2>
+                </div>
+                <div class="row">
+                    <img src="../../../../content/images/books.svg" width="100">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="vm.publicaciones.length ==0" class="panel">
+
+        <div class="panel-body text-center">
+
+            <div class="row">
+                <h2 class="secondaryText">No hay publicaciones que mostrar</h2>
+            </div>
+
+        </div>
+    </div>
+
+</div>

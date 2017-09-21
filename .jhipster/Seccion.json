@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "biblioteca",
+            "otherEntityName": "biblioteca",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "seccion",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

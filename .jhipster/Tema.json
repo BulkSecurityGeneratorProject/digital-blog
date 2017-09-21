@@ -1,0 +1,15 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "tema",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

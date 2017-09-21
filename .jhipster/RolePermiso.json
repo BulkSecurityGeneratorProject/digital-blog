@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idPermiso",
+            "otherEntityName": "permiso",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idRol",
+            "otherEntityName": "rol",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170311213456",
+    "entityTableName": "role_permiso",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

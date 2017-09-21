@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idSeccionSP",
+            "otherEntityName": "seccion",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idPublicacionSP",
+            "otherEntityName": "publicacion",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170311213456",
+    "entityTableName": "seccion_publicacion",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "capitulo",
+            "otherEntityName": "publicacion",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idPublicacionC",
+            "otherEntityName": "publicacion",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "numeroCapitulo",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "capitulo",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

@@ -1,0 +1,31 @@
+<div class="container">
+    <div ng-if="vm.errorConection ==  true"  class="alert alert-danger">
+        <p>
+            ¡Lo sentimos! Error en el sistema , intente mas tarde.
+        </p>
+    </div>
+    <h1 class="standartitle row">Seguidos</h1>
+    <div class="list-group col-lg-6"  ng-repeat="usuario in vm.seguidos">
+        <div class="list-group-item">
+            <a ui-sref="verPerfil({id:usuario.idJHIUser})" class="row-picture">
+                <img class="circle" ng-show =" usuario.fotoperfilContentType != undefined|| usuario.fotoperfilContentType != null"  data-ng-src="{{usuario.fotoperfilContentType}}" alt="icon">
+                <img class="img-circle" ng-show="usuario.fotoperfilContentType== undefined" src="../../../../content/images/avatar.jpeg" height="200" width="200"/>
+
+            </a>
+            <div class="row-content">
+                <h4 class="list-group-item-heading">{{usuario.nombre}}</h4>
+
+                <p class="list-group-item-text">{{usuario.descripcion}}</p>
+            </div>
+        </div>
+        <div class="list-group-separator"></div>
+    </div>
+    <div ng-hide="vm.seguidos!=0" class="list-group text-center panel">
+        <div class="panel-body">
+            <img src="../../../../content/images/stick-man.svg " width="250">
+            <h2 class="secondaryText">No sigues a ningún usuario</h2>
+        </div>
+
+    </div>
+</div>
+

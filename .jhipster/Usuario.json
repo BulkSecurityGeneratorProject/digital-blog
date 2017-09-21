@@ -1,0 +1,65 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "usuario",
+            "otherEntityName": "publicacion",
+            "otherEntityRelationshipName": "usuario"
+        },
+        {
+            "relationshipName": "rol",
+            "otherEntityName": "rol",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "primerApelldio",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "segundoApellido",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "edad",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "correo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fotoperfil",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "idJHIUser",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "fechaNacimiento",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "usuario",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

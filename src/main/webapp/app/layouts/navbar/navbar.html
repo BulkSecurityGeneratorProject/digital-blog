@@ -1,0 +1,357 @@
+<nav class="navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="vm.toggleNavbar()">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+               <a ui-sref="home"><img src="content/images/logo.png" width="320"/>
+               </a>
+
+        </div>
+        <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
+            <ul class="nav navbar-nav navbar-right">
+                <li ui-sref-active="active" ng-switch-when="true" >
+                    <a ui-sref="home" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="hidden-sm">Home</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active" ng-switch-when="true" >
+                    <a ui-sref="bibliotecaGeneral" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        <span class="hidden-sm">Biblioteca General</span>
+                    </a>
+                </li>
+
+
+                <!--<li ui-sref-active="active">-->
+                    <!--<a ui-sref="crearPublicacionIndividual" ng-switch-when="true" ng-click="vm.collapseNavbar()" has-authority="ROLE_USER">-->
+                        <!--<span class="glyphicon glyphicon-home"></span>-->
+                        <!--<span class="hidden-sm">Crear publicación</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+
+                <!--<li ui-sref-active="active">-->
+                    <!--<a ui-sref="imagenPublicacion" ng-switch-when="true" ng-click="vm.collapseNavbar()" has-authority="ROLE_USER">-->
+                        <!--<span class="hidden-sm">cargar imagenes</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+               <!-- <li ui-sref-active="active">
+                    <a ui-sref="digitalBlog" ng-click="vm.collapseNavbar()">
+                        <span class=""></span>
+                        <span class="hidden-sm">Digital Blog</span>
+                    </a>
+                </li>-->
+                <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true"  has-authority="ROLE_ADMIN" uib-dropdown dropdown>
+                    <a class="dropdown-toggle" uib-dropdown-toggle  id="entity-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="hidden-sm">
+                                Entities
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="">
+                            <a ui-sref="permiso" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Permiso</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="biblioteca" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor" >Biblioteca personal</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="categoria" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Categoria</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="comentario" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Comentario</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="coolaborador" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Coolaborador</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="like-t" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Like T</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="nota" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Nota</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="notificacion" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor" >Notificacion</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="pagina" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Pagina</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="permiso" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Permiso</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="capitulo" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Capitulo</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="respuesta" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Respuesta</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="rol" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Rol</span>
+                            </a>
+                        </li>
+
+                        <li ui-sref-active="">
+                            <a ui-sref="role-permiso" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Role Permiso</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="seccion" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor" >Seccion</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="seccion-publicacion" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Seccion Publicacion</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="seguidor" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Seguidor</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="tema" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Tema</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="usuario" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Usuario</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="respuesta" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Respuesta</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="publicacion-reportada" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Publicacion Reportada</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="publicacion" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Publicacion</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="canal" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Canal</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="suscripciones" ng-click="vm.collapseNavbar()">
+                                <span class="secondaryfontColor">Suscripciones</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                                <a ui-sref="imagen-por-publicacion" ng-click="vm.collapseNavbar()">
+                                    <span  class="secondaryfontColor">Imagen Por Publicacion</span>
+                                </a>
+                            </li>
+                        <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                    </ul>
+                </li>
+                <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown dropdown  has-authority="ROLE_ADMIN">
+                    <a class="dropdown-toggle" uib-dropdown-toggle id="account-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                Account
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <a ui-sref="settings" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Settings</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="true">
+                            <a ui-sref="password" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-lock secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Password</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="true">
+                            <a href="" ng-click="vm.logout()" id="logout">
+                                <span class="glyphicon glyphicon-log-out secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Sign out</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="false">
+                            <a href="" ng-click="vm.login()" id="login">
+                                <span class="glyphicon glyphicon-log-in secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Sign in</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="false">
+                            <a ui-sref="register" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-plus-sign secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Register</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" uib-dropdown dropdown>
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="admin-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-tower secondaryfontColor"></span>
+                            <span class="hidden-sm">Administration</span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="">
+                            <a ui-sref="user-management" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-user secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">User management</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="jhi-tracker" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-eye-open secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">User tracker</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="jhi-metrics" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-dashboard secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Metrics</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="jhi-health" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-heart secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Health</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="jhi-configuration" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-list-alt secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Configuration</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="audits" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-bell secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Audits</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="">
+                            <a ui-sref="logs" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-tasks secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Logs</span>
+                            </a>
+                        </li>
+                        <li ng-show="vm.swaggerEnabled" ui-sref-active="active">
+                            <a ui-sref="docs" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-book secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">API</span>
+                            </a>
+                        </li>
+                        <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
+                    </ul>
+                </li>
+                <li ui-sref-active="active" ng-switch-when="true" has-authority="ROLE_USER">
+                    <a ui-sref="listarPublicacionesPorSeccion"  ng-click="vm.collapseNavbar()">
+
+                        <span class="glyphicon glyphicon-book" ></span>&nbsp;
+                        <span>Biblioteca</span>
+
+                    </a>
+                </li>
+                <li ui-sref-active="active" ng-switch-when="true" has-authority="ROLE_MODERATOR">
+                    <a ui-sref="publicacionReportada" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-fire"></span>
+                        <span class="hidden-sm">Publicaciones Reportadas</span>
+                    </a>
+                </li>
+                <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown dropdown has-authority="ROLE_USER">
+                    <a class="dropdown-toggle" uib-dropdown-toggle id="obtenerUsuarioActual" ng-click="vm.obtenerUsuarioActual()">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                  {{vm.account.login}}
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu  >
+                        <li ui-sref-active="" ng-switch-when="true">
+                            <a ui-sref="verPerfil({id:vm.usuario.id})" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-eye-open secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Mi perfil</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="true">
+                            <a ui-sref="personalizarPerfilCustom" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-pencil secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Personalizar cuenta</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="true">
+                            <a ui-sref="password" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-lock secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Password</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="" ng-switch-when="true">
+                            <a ng-click="vm.logout()" id="logout()">
+                                <span class="glyphicon glyphicon-log-out secondaryfontColor"></span>&nbsp;
+                                <span class="secondaryfontColor">Salir</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ui-sref-active="active" ng-switch-when="true" has-authority="ROLE_USER">
+                    <a ui-sref="listarNotificaciones" >
+                        <notification-icon count="vm.notificationCounter" clear-trigger='click' appear-animation='bounce' update-animation='bounce' disappear-animation='shake'>
+                            <span class="glyphicon glyphicon-bell" id="notiIcon" ></span>&nbsp;
+                        </notification-icon>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</nav>

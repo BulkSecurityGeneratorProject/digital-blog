@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idSeguidor",
+            "otherEntityName": "usuario",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idSeguido",
+            "otherEntityName": "usuario",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "estadoSeguidor",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "seguidor",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

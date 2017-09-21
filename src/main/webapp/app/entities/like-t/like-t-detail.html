@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Like T</span> {{vm.likeT.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Cantidad</span></dt>
+        <dd>
+            <span>{{vm.likeT.cantidad}}</span>
+        </dd>
+        <dt><span>Id Usuario L</span></dt>
+        <dd>
+            <a ui-sref="usuario-detail({id:vm.likeT.idUsuarioLId})">{{vm.likeT.idUsuarioLId}}</a>
+        </dd>
+        <dt><span>Id Like P</span></dt>
+        <dd>
+            <a ui-sref="publicacion-detail({id:vm.likeT.idLikePId})">{{vm.likeT.idLikePId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="like-t-detail.edit({id:vm.likeT.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

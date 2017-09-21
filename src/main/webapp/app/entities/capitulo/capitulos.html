@@ -1,0 +1,64 @@
+<div>
+    <h2>Capitulos</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="capitulo.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Capitulo
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Numero Capitulo</span></th>
+                    <th><span>Capitulo</span></th>
+                    <th><span>Id Publicacion C</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="capitulo in vm.capitulos track by capitulo.id">
+                    <td><a ui-sref="capitulo-detail({id:capitulo.id})">{{capitulo.id}}</a></td>
+                    <td>{{capitulo.numeroCapitulo}}</td>
+                    <td>
+                        <a ui-sref="publicacion-detail({id:capitulo.capituloId})">{{capitulo.capituloId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="publicacion-detail({id:capitulo.idPublicacionCId})">{{capitulo.idPublicacionCId}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="capitulo-detail({id:capitulo.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="capitulo.edit({id:capitulo.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="capitulo.delete({id:capitulo.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

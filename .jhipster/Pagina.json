@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "capitulo",
+            "otherEntityName": "capitulo",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "contenido",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "numeroPagina",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "pagina",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

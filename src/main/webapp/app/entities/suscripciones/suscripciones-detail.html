@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span>Suscripciones</span> {{vm.suscripciones.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Id Canal</span></dt>
+        <dd>
+            <span>{{vm.suscripciones.idCanal}}</span>
+        </dd>
+        <dt><span>Id Siguiendo</span></dt>
+        <dd>
+            <span>{{vm.suscripciones.idSiguiendo}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="suscripciones-detail.edit({id:vm.suscripciones.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

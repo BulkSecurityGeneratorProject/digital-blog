@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Pagina</span> {{vm.pagina.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Contenido</span></dt>
+        <dd>
+            <span>{{vm.pagina.contenido}}</span>
+        </dd>
+        <dt><span>Numero Pagina</span></dt>
+        <dd>
+            <span>{{vm.pagina.numeroPagina}}</span>
+        </dd>
+        <dt><span>Capitulo</span></dt>
+        <dd>
+            <a ui-sref="capitulo-detail({id:vm.pagina.capituloId})">{{vm.pagina.capituloId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="pagina-detail.edit({id:vm.pagina.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

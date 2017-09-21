@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Capitulo</span> {{vm.capitulo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Numero Capitulo</span></dt>
+        <dd>
+            <span>{{vm.capitulo.numeroCapitulo}}</span>
+        </dd>
+        <dt><span>Capitulo</span></dt>
+        <dd>
+            <a ui-sref="publicacion-detail({id:vm.capitulo.capituloId})">{{vm.capitulo.capituloId}}</a>
+        </dd>
+        <dt><span>Id Publicacion C</span></dt>
+        <dd>
+            <a ui-sref="publicacion-detail({id:vm.capitulo.idPublicacionCId})">{{vm.capitulo.idPublicacionCId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="capitulo-detail.edit({id:vm.capitulo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

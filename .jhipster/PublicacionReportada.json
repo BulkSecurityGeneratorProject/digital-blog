@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "cantidadReportes",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "idPublicacion",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "publicacion_reportada",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

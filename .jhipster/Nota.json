@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "paginaNota",
+            "otherEntityName": "pagina",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "contenido",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "nota",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

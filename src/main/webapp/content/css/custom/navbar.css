@@ -1,0 +1,18 @@
+.navbar{
+    border-top: 20px solid #455A64;
+    background-color:#607D8B;
+    height: 150px;
+}
+.navbar-collapse  {
+    margin-top: 70px;
+
+}
+
+#notiIcon{
+
+ z-index: 2;
+
+ }
+.secondaryfontColor{
+    color:#757575;
+}

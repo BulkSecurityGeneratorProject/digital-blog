@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "idUsuarioB",
+            "otherEntityName": "usuario",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "biblioteca"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "idSeccionB",
+            "otherEntityName": "seccion",
+            "otherEntityRelationshipName": "biblioteca"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "idSeccion",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "idJhiUser",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "biblioteca",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

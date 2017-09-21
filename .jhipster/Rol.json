@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "idUsuario",
+            "otherEntityName": "usuario",
+            "otherEntityRelationshipName": "rol"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170311213456",
+    "entityTableName": "rol",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "capituloC",
+            "otherEntityName": "capitulo",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "publicacion",
+            "otherEntityName": "publicacion",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "idUsuario",
+            "otherEntityName": "usuario",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170311213456",
+    "entityTableName": "coolaborador",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

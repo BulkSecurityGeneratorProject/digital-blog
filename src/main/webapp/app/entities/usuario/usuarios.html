@@ -1,0 +1,83 @@
+<div>
+    <h2>Usuarios</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="usuario.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Usuario
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Nombre</span></th>
+                    <th><span>Primer Apelldio</span></th>
+                    <th><span>Segundo Apellido</span></th>
+                    <th><span>Edad</span></th>
+                    <th><span>Correo</span></th>
+                    <th><span>Descripcion</span></th>
+                    <th><span>Fotoperfil</span></th>
+                    <th><span>Estado</span></th>
+                    <th><span>Id JHI User</span></th>
+                    <th><span>Fecha Nacimiento</span></th>
+                    <th><span>Rol</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usuario in vm.usuarios track by usuario.id">
+                    <td><a ui-sref="usuario-detail({id:usuario.id})">{{usuario.id}}</a></td>
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.primerApelldio}}</td>
+                    <td>{{usuario.segundoApellido}}</td>
+                    <td>{{usuario.edad}}</td>
+                    <td>{{usuario.correo}}</td>
+                    <td>{{usuario.descripcion}}</td>
+                    <td>
+                        <a ng-if="usuario.fotoperfil" ng-click="vm.openFile(usuario.fotoperfilContentType, usuario.fotoperfil)">
+                            <img data-ng-src="{{'data:' + usuario.fotoperfilContentType + ';base64,' + usuario.fotoperfil}}" style="max-height: 30px;" alt="usuario image"/>
+                        </a>
+                        <span ng-if="usuario.fotoperfil">{{usuario.fotoperfilContentType}}, {{vm.byteSize(usuario.fotoperfil)}}</span>
+                    </td>
+                    <td>{{usuario.estado}}</td>
+                    <td>{{usuario.idJHIUser}}</td>
+                    <td>{{usuario.fechaNacimiento | date:'medium'}}</td>
+                    <td>
+                        <a ui-sref="rol-detail({id:usuario.rolId})">{{usuario.rolId}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="usuario-detail({id:usuario.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="usuario.edit({id:usuario.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="usuario.delete({id:usuario.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

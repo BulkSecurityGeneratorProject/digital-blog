@@ -1,0 +1,18 @@
+<div>
+    <div class="row panel">
+        <div class="col-md-8 col-md-offset-2 panel-body">
+            <h1 class="secondaryText">Activación</h1>
+
+            <div class="text-center " ng-show="vm.success">
+                <img src="../../../content/images/trophy.svg" width="200">
+                <p class="top-head"><strong>Usuario activado satisfactoriamente!</strong> Por favor <a class="alert-link" href="" ng-click="vm.login()">Iniciar</a>.
+                </p>
+            </div>
+            <div class="text-center" ng-show="vm.error">
+                <img src="../../../content/images/warning.png" width="200">
+                <p class="top-head"><strong>Problema al activar la cuenta</strong> Inténtalo de nuevo <a ui-sref="home"> volver </a></p>
+            </div>
+
+        </div>
+    </div>
+</div>

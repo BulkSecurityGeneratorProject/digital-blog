@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span>Nota</span> {{vm.nota.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Contenido</span></dt>
+        <dd>
+            <span>{{vm.nota.contenido}}</span>
+        </dd>
+        <dt><span>Pagina Nota</span></dt>
+        <dd>
+            <a ui-sref="pagina-detail({id:vm.nota.paginaNotaId})">{{vm.nota.paginaNotaId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="nota-detail.edit({id:vm.nota.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

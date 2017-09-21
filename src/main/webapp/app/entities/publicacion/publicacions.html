@@ -1,0 +1,87 @@
+<div>
+    <h2>Publicacions</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="publicacion.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Publicacion
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Url Imagen</span></th>
+                    <th><span>Descripcion</span></th>
+                    <th><span>Contenido</span></th>
+                    <th><span>Tipo</span></th>
+                    <th><span>Titulo</span></th>
+                    <th><span>Estado</span></th>
+                    <th><span>Cantidad Iteraciones</span></th>
+                    <th><span>Fotopublicacion</span></th>
+                    <th><span>Usuario</span></th>
+                    <th><span>Categoria</span></th>
+                    <th><span>Tema</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="publicacion in vm.publicacions track by publicacion.id">
+                    <td><a ui-sref="publicacion-detail({id:publicacion.id})">{{publicacion.id}}</a></td>
+                    <td>{{publicacion.urlImagen}}</td>
+                    <td>{{publicacion.descripcion}}</td>
+                    <td>{{publicacion.contenido}}</td>
+                    <td>{{publicacion.tipo}}</td>
+                    <td>{{publicacion.titulo}}</td>
+                    <td>{{publicacion.estado}}</td>
+                    <td>{{publicacion.cantidadIteraciones}}</td>
+                    <td>
+                        <a ng-if="publicacion.fotopublicacion" ng-click="vm.openFile(publicacion.fotopublicacionContentType, publicacion.fotopublicacion)">
+                            <img data-ng-src="{{'data:' + publicacion.fotopublicacionContentType + ';base64,' + publicacion.fotopublicacion}}" style="max-height: 30px;" alt="publicacion image"/>
+                        </a>
+                        <span ng-if="publicacion.fotopublicacion">{{publicacion.fotopublicacionContentType}}, {{vm.byteSize(publicacion.fotopublicacion)}}</span>
+                    </td>
+                    <td>
+                        <a ui-sref="usuario-detail({id:publicacion.usuarioId})">{{publicacion.usuarioId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="categoria-detail({id:publicacion.categoriaId})">{{publicacion.categoriaId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="tema-detail({id:publicacion.temaId})">{{publicacion.temaId}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="publicacion-detail({id:publicacion.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="publicacion.edit({id:publicacion.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="publicacion.delete({id:publicacion.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
