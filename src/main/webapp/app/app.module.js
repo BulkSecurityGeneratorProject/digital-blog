@@ -21,7 +21,8 @@
             'angular-notification-icons',
             'ngAnimate',
             'ui.bootstrap.contextMenu',
-            'ui.bootstrap.modal'
+            'ui.bootstrap.modal',
+
 
         ])
         .run(run);

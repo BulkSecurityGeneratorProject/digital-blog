@@ -71,7 +71,6 @@
                     vm.usuario = response;
                     obtenerSeguidores(vm.usuario.id);
                 }).error(function (error) {
-                    console.log("Problema obtenerUsuarioNormal");
                 });
             });
         }
@@ -85,7 +84,6 @@
             ListarSeguidores.obtenerSeguidores(vm.usuario.id).success(function (response) {
                 vm.seguidores = response;
             }).error(function (error) {
-                console.log("Problema inesperado al traer seguidores de un usuario en controller de asignar colaboradores");
             });
         }
 
@@ -164,7 +162,6 @@
             }
             ConfigurarPublicacionCompartida.crearCapitulos({capitulo: capitulos}).success(function (response) {
                 vm.capitulos = response;
-                console.log(vm.capitulos);
                 asignarElegidos();
             }).error(function (error) {
                 console.log('error al crear capitulos compartida')
@@ -197,7 +194,6 @@
                 vm.colaboraciones.push(colaborador);
             }
             ConfigurarPublicacionCompartida.registrarColaboradores({colaboradores: vm.colaboraciones}).success(function (response) {
-                console.log(response);
                 $state.go('home');
             }).error(function (error) {
                 console.log('error al crear colaboradores')
@@ -227,7 +223,6 @@
                         vm.publicacion.temaId = data[i].id;
                     }
                 }
-                console.log("Suggestion selected: " + suggestion + " id: " + vm.idTema);
             })
         }
 
@@ -273,7 +268,6 @@
                     rellenarListTema();
                     vm.verificar = false;
                 }).error(function () {
-                    console.log("fallo");
                     vm.completeTema = null;
                 })
             }
@@ -302,7 +296,6 @@
                     vm.usuario = response;
                     obtenerSeguidores(vm.usuario.id);
                 }).error(function (error) {
-                    console.log("Problema obtenerUsuarioNormal");
                 });
             });
         }
@@ -311,7 +304,6 @@
             ListarSeguidores.obtenerSeguidores(vm.usuario.id).success(function (response) {
                 vm.seguidores = response;
             }).error(function (error) {
-                console.log("Problema inesperado al traer seguidores de un usuario en controller de asignar colaboradores");
             });
         }
 
@@ -348,7 +340,6 @@
             }
             ConfigurarPublicacionCompartida.crearCapitulos({capitulo: capitulos}).success(function (response) {
                 vm.capitulos = response;
-                console.log(vm.capitulos);
                 asignarElegidos();
             }).error(function (error) {
                 console.log('error al crear capitulos compartida')

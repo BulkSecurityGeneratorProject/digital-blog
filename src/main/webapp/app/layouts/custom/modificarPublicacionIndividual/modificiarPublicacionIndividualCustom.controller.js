@@ -106,7 +106,6 @@
                                 var cant = editor.getBody().text.length;
                                 vm.buttons['pagina-guardar'].disabled(true);
                                 vm.pagina.contenido = editor.getBody().innerHTML;
-                                console.log(vm.paginaActual);
                                 if (vm.publicacion.id == null) {
                                     crearPublicacionIndividual();
                                 } else {
@@ -188,7 +187,6 @@
             CrearPublicacionIndividual.crearPublicacionIndividual({
                 publicacion: vm.publicacion//con solo enviar publicacion se saca el numero de capitulo
             }).success(function (data) {
-                console.log('todo bien publicacion');
                 vm.publicacion = data;
                 vm.capitulo.idPublicacionCId = vm.publicacion.id;
                 vm.buttons['pagina-guardar'].disabled(true);
@@ -261,7 +259,6 @@
             }).success(function (data) {
                 guardarNota(data);
                 vm.pagina = data;
-                console.log(vm.paginaActual);
                 console.log('todo bien pagina actualizar');
                 if (vm.paginaActual !== 0) {
                     vm.buttons['pagina-nueva'].disabled(false);
@@ -472,7 +469,6 @@
             PersonalizarCuenta.obtenerUsuarioNormal(vm.usuario.id).success(function(response){
                 vm.usuarioComentando=response;
             }).error(function (error){
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser error:" + error);
             });
         }
 
@@ -544,7 +540,6 @@
             vm.errorConnection = false;
         }
         function onSaveErrorN(result) {
-            console.log(result);
             vm.isSaving = false;
             vm.success = null;
             if (result.status === 500) {

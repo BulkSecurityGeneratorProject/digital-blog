@@ -29,7 +29,6 @@
             PersonalizarCuenta.obtenerUsuarioNormal(vm.account.id).success(function(response){
                 vm.usuario=response;
             }).error(function (error){
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser error:" + error);
             });
         }
 
@@ -55,7 +54,6 @@
                         SeccionCustomService.listarSeccion(vm.idBiblioteca).success(function (data) {
                             vm.listaSeccion = data;
                         }).error(function () {
-                            console.log("Ocurrio un problema");
                         });
                     });
                 }
@@ -70,12 +68,10 @@
          */
 
         vm.obtenerIdSeleccionado = function (item) {
-            console.log("ID " + item.id + "Nombre: " + item.nombre);
             vm.selectedSeccion = item.id;
             if(item.nombre === 'Mis publicaciones'){
                 vm.mostrarEditar = true;
                 console.log(item.nombre);
-                console.log('Mostrar editar');
             }else{
                 vm.mostrarEditar = false;
             }
@@ -302,12 +298,10 @@
                 idSeccionSPId:vm.selectedSeccion
             }
             listarPublicacionesPorSeccionService.eliminar({obj:seccionPublic}).success(function (response) {
-               console.log(response);
                 SeccionPublicacion.delete({id: response.id});
                 var index = vm.publicaciones.indexOf(publicacion);
                 vm.publicaciones.splice(index, 1);
             }).error(function () {
-                console.log("listarPublicacionesPorSeccionService.eliminar");
             });
 
 

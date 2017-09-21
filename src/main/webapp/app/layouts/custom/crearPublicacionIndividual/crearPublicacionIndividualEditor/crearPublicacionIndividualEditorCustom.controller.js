@@ -34,10 +34,8 @@
             $scope.$on('publicacionBroadcast', function () {
                 console.log(PublicacionServiceShare.publicacion);
             });
-            console.log('Publicacion!!!');
             vm.publicacion = PublicacionServiceShare.publicacion;
             console.log(PublicacionServiceShare.publicacion);
-            console.log(vm.publicacion.usuarioId);
              // if(vm.publicacion.titulo === undefined){
              //     $state.go('crearPublicacionIndividual');
              // }
@@ -75,12 +73,10 @@
                         //     vm.buttons['pagina-anterior'].disabled(true);
                         vm.buttons['pagina-guardar'].disabled(true);
                         vm.buttons['pagina-nueva'].disabled(true);
-                        // console.log('vacio');
                     } else {
                         //  vm.buttons['pagina-anterior'].disabled(false);
                         vm.buttons['pagina-guardar'].disabled(false);
                    //     vm.buttons['pagina-nueva'].disabled(false);
-                        // console.log('lleno');
                     }
 
                /*    vm.paginaActual = vm.pagina.numeroPagina;
@@ -189,7 +185,6 @@
             CrearPublicacionIndividual.crearPublicacionIndividual({
                 publicacion: vm.publicacion//con solo enviar publicacion se saca el numero de capitulo
             }).success(function (data) {
-                console.log('todo bien publicacion');
                 vm.publicacion = data;
                 vm.capitulo.idPublicacionCId = vm.publicacion.id;
                 vm.buttons['pagina-guardar'].disabled(true);
@@ -211,7 +206,6 @@
             CrearPublicacionIndividual.crearCapitulo({
                 capitulo: vm.capitulo//con solo enviar publicacion se saca el numero de capitulo
             }).success(function (data) {
-                console.log('todo bien capitulo');
                 vm.capitulo = data;
                 vm.pagina.capituloId = vm.capitulo.id;
                 crearPagina();
@@ -232,7 +226,6 @@
             }).success(function (data) {
                 guardarNota(data);
                 var objPagina = {};
-                console.log('todo bien pagina');
                 vm.pagina = data;
                 objPagina = data;
                 vm.buttons['pagina-nueva'].disabled(false);
@@ -265,7 +258,6 @@
             }).success(function (data) {
                 guardarNota(data);
                 vm.pagina = data;
-                console.log('todo bien pagina actualizar');
                 vm.buttons['pagina-nueva'].disabled(false);
                 vm.buttons['pagina-guardar'].disabled(false);
             }).error(function (error) {
@@ -294,7 +286,6 @@
         function verPaginaAnterior() {
             vm.paginaActual = vm.paginaActual - 1;
             vm.pagina = vm.paginasCapitulo[vm.paginaActual];
-            console.log(vm.pagina);
             vm.buttons['editorTexto'].getBody().innerHTML = vm.pagina.contenido;
             vm.buttons['editorUndoManager'].clear();
             if (vm.paginaActual == 1) {
@@ -395,7 +386,6 @@
                 vm.usuarioComentando=response;
             }).error(function (error){
                 vm.errorConnection = true;
-                // console.log("Problema inesperado al traer el usuario con el id de JHIuser error:" + error);
             });
             vm.errorConnection = false;
         }
@@ -468,7 +458,6 @@
             vm.errorConnection = false;
         }
         function onSaveErrorN(result) {
-            console.log(result);
             vm.isSaving = false;
             vm.success = null;
             if (result.status === 500) {

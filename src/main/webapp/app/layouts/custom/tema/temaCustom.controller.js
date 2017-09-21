@@ -42,7 +42,6 @@
                         vm.idTema = data[i].id;
                     }
                 }
-                console.log("Suggestion selected: " + suggestion + " id: " + vm.idTema);
             })
         }
 
@@ -101,7 +100,6 @@
                     rellenarListTema();
                     vm.verificar = false;
                 }).error(function () {
-                    console.log("fallo");
                     vm.completeTema = null;
                 })
             }

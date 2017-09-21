@@ -45,13 +45,11 @@
        function init () {
             //Si el tipo de publicacion es 1: Capitulo anterior. 2: Publicación entera
             if ($state.params.tipo == 2) {
-                console.log('Entro en el controller publicación entera');
                 vm.tipoVisor = $state.params.tipo;
                 obtenerPublicacion($state.params.id);
             } else {
                 obtenerPaginas($state.params.id);
                 vm.tipoVisor = $state.params.tipo;
-                console.log('Entro en el controller capitulo');
             }
         };
 

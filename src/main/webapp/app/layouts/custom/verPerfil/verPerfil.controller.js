@@ -59,7 +59,6 @@
                 if(error.description == "Not Found"){
                     vm.errorConection = true;
                 }
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser error:" + error);
             });
         }
 
@@ -80,7 +79,6 @@
                 vm.publicacionLikes = vm.publicaciones;
                 cargarListaLikes();
             }).error(function (error){
-                console.log("Problema inesperado al traer las pubicaciones de un usuario error: "+ error);
             });
         }
 
@@ -101,7 +99,6 @@
                     vm.icon="../../../../content/images/follow.svg";
 
                 }).error(function (error){
-                    console.log("Problema inesperado al traer el usuario con el id de JHIuser error: "+ error);
                 });
             }
         }
@@ -120,7 +117,6 @@
 
                 obtenerSeguimientos();
             }).error(function (error){
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser error :" + error);
             });
         }
         /**
@@ -134,7 +130,6 @@
                 vm.seguidores.splice(index, 1);
                 vm.cantSeguidores = vm.seguidores.length;
             }).error(function (error){
-                console.log("Problema inesperado al traer seguimiento error: "+ error);
             });
         }
 
@@ -150,14 +145,12 @@
                 vm.cantSeguidores= vm.seguidores.length;
 
             }).error(function (error){
-                console.log("Problema obtener seguidores error :"+ error);
             });
             ListarSeguidos.obtenerSeguidos(vm.usuario.id).success(function(response){
                 vm.seguidos=response;
                 vm.cantSeguidos= vm.seguidos.length;
 
             }).error(function (error){
-                console.log("Problema obtener seguidos error:" + error);
             });
         }
 
@@ -174,17 +167,14 @@
                 ListarSeguidos.obtenerSeguidos( vm.loginUser.id).success(function(response){
                     vm.seguidosLoginUser=response;
                     for(var i=0;i<vm.seguidosLoginUser.length;i++){
-                        console.log(vm.seguidosLoginUser[i].id +'='+ vm.usuario.id);
                         if(vm.usuario.id === vm.seguidosLoginUser[i].id){
                             vm.esSeguido=true;
                         }
                     }
                     botonSeguir();
                 }).error(function (error){
-                    console.log("Problema obtener seguidos erroe:"+ error);
                 });
             }).error(function (error){
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser error :" + error);
             });
         }
 

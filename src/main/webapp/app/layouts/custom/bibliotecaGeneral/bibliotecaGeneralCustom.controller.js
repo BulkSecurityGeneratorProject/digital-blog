@@ -338,7 +338,6 @@
                 })
 
             }).catch(function (response) {
-                console.log(response);
                 if (response.status === 500) {
                     vm.errorConnection = true;
                 }
@@ -372,7 +371,6 @@
                 BibliotecaGeneralService.updatePublicacion(PublicacionObjeto);
                 cargarAllLikeT();
             }).catch(function (response) {
-                console.log(response);
                 if (response.status === 500) {
                     vm.errorConnection = true;
                 }

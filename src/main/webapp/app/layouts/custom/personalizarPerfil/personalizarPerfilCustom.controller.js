@@ -29,7 +29,6 @@
                     response.fechaNacimiento = DateUtils.convertDateTimeFromServer(response.fechaNacimiento);
                     vm.usuario=response;
                 }).error(function (error){
-                    console.log("Problema obtenerUsuarioNormal");
                 });
             });
         }
@@ -55,7 +54,6 @@
                         if(error.description == "Internal server error"){
                             vm.errorConection = true;
                         }
-                        console.log("Problema inesperado al hacer update ");
                     });
                 }
 

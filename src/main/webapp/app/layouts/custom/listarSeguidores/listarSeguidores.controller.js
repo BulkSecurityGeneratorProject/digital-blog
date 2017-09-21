@@ -20,7 +20,7 @@
          */
         ListarSeguidores.obtenerSeguidores(vm.usuarioid).success(function(response){
             vm.seguidores=response;
-            console.log(vm.seguidores);
+
         }).error(function (error){
             if(error.description == "Internal server error"){
                 vm.errorConection = true;
@@ -29,7 +29,7 @@
                 vm.errorConection = true;
                 $state.go('notFound');
             }
-            console.log("Problema inesperado al traer seguidores de un usuario");
+
         });
 
 

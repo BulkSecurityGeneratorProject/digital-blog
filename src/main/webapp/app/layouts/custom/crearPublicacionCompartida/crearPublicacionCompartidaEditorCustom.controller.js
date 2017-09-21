@@ -31,7 +31,6 @@
          */
         function obtenerCapitulo() {
             vm.capitulo = CompartidaServiceShare.result;
-            console.log(vm.capitulo);
             //Si el numero de capitulo es mayor 1 se obtiene el capitulo anterior
             if (vm.capitulo.numeroCapitulo > 1) {
                 CrearPublicacionIndividual.obtenerCapituloAnterior({
@@ -41,7 +40,6 @@
                     vm.capituloAnterior = result;
                 }).error(function (error) {
                     console.error(error);
-                    console.log('Error al obtener el capitulo anterior de la publiacion compartida');
                 })
             }
         }
@@ -199,7 +197,6 @@
             CrearPublicacionIndividual.crearCapitulo({
                 capitulo: vm.capitulo//con solo enviar publicacion se saca el numero de capitulo
             }).success(function (data) {
-                console.log('todo bien capitulo');
                 vm.capitulo = data;
                 vm.pagina.capituloId = vm.capitulo.id;
                 crearPagina();
@@ -218,7 +215,6 @@
                 pagina: vm.pagina
             }).success(function (data) {
                 var objPagina = {};
-                console.log('todo bien pagina');
                 vm.pagina = data;
                 objPagina = data;
                 vm.buttons['pagina-nueva'].disabled(false);
@@ -248,7 +244,6 @@
                 pagina: vm.pagina
             }).success(function (data) {
                 vm.pagina = data;
-                console.log('todo bien pagina actualizar');
                 vm.buttons['pagina-nueva'].disabled(false);
                 vm.buttons['pagina-guardar'].disabled(false);
             }).error(function (error) {
@@ -356,12 +351,9 @@
             })
             $scope.$on('compartida', function () {
                 var result = CompartidaServiceShare.result;
-                console.log(result);
                 CrearPublicacionCompartida.terminarParticipacionCapitulo({capitulo: vm.capitulo}).success(function (result) {
                     $state.go('listarPublicacionesPorSeccion');
                 }).error(function (error) {
-                    console.log(error);
-                    console.log('Error al tratar de terminar participación en publicación compartida');
                 });
 
             });

@@ -27,6 +27,6 @@
     ],
     "jhiPrefix": "jhi",
     "enableTranslation": false,
-    "herokuAppName": null
+    "herokuAppName": "digitablog"
   }
 }

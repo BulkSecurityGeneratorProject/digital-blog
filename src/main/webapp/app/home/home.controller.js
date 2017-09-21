@@ -45,7 +45,6 @@
                     connectWebSocket();
                     redireccionar();
                 }).error(function (error) {
-                    console.log("Problema inesperado al hacer update ");
                 });
             }
         }
@@ -84,8 +83,6 @@
          */
         function connectWebSocket(){
                 webSocketService.connect(vm.usuario.id);
-                // webSocketService.subscribe(vm.usuario.id);
-                // console.log(vm.usuario.id + "se conecto a este web socket" );
             };
     }
 })();
