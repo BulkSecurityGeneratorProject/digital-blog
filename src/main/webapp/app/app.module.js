@@ -7,21 +7,22 @@
             'ngResource',
             'ngCookies',
             'ngAria',
+            'ngAnimate',
             'ngCacheBuster',
             'ngFileUpload',
             'ui.bootstrap',
             'ui.bootstrap.datetimepicker',
             'ui.router',
             'infinite-scroll',
-            // jhipster-needle-angularjs-add-module JHipster will add new module here
-            'angular-loading-bar',
-            'ui.tinymce',
             'autocomplete',
             'toastr',
+            'angular-loading-bar',
+            'ui.tinymce',
             'angular-notification-icons',
-            'ngAnimate',
             'ui.bootstrap.contextMenu',
             'ui.bootstrap.modal',
+            'ngSanitize'
+            // jhipster-needle-angularjs-add-module JHipster will add new module here
 
 
         ])
