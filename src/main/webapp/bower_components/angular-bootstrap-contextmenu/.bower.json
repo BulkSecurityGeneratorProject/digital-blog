@@ -4,6 +4,9 @@
   "main": [
     "contextMenu.js"
   ],
+    "dependencies": {
+        "angular": "1.5.8"
+    },
   "homepage": "https://github.com/Templarian/ui.bootstrap.contextMenu",
   "authors": [
     {
@@ -34,7 +37,6 @@
     "commit": "3f954aa54c37e5dfe0c42df6e199ffb9d36465d4"
   },
   "_source": "https://github.com/Templarian/ui.bootstrap.contextMenu.git",
-  "_target": "^0.9.9",
-  "_originalSource": "angular-bootstrap-contextmenu",
-  "_direct": true
+  "_target": "0.9.9",
+  "_originalSource": "angular-bootstrap-contextmenu"
 }

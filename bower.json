@@ -26,10 +26,14 @@
     "stomp-websocket": "2.3.4",
     "swagger-ui": "2.1.5",
     "arrive": "2.3.0",
+    "angular-animate":"1.5.8",
     "bootstrap-material-design": "0.5.10",
+    "angular-bootstrap-contextmenu":"0.9.9",
     "angular-ui-tinymce": "^0.0.18",
     "angular-notification-icons": "^0.4.4"
   },
+
+
   "devDependencies": {
     "angular-mocks": "1.5.8"
   },
@@ -48,6 +52,11 @@
       "main": [
         "dist/css/bootstrap.css"
       ]
+    },
+    "angular-notification-icons":{
+      "dependencies": {
+        "angular": "1.5.8"
+      }
     }
   },
   "resolutions": {
