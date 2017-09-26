@@ -14,16 +14,15 @@
             'ui.bootstrap.datetimepicker',
             'ui.router',
             'infinite-scroll',
-            'autocomplete',
-            'toastr',
             'angular-loading-bar',
             'ui.tinymce',
             'angular-notification-icons',
             'ui.bootstrap.contextMenu',
             'ui.bootstrap.modal',
-            'ngSanitize'
+            'ngSanitize',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
-
+            'autocomplete',
+            'toastr',
 
         ])
         .run(run);

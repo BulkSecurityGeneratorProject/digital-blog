@@ -4,14 +4,14 @@
         .module('digitalBlogApp')
         .factory('listarPublicacionesPorSeccionService', listarPublicacionesPorSeccionService);
 
-    listarPublicacionesPorSeccionService.$inject = ['$resource','$http'];
+    listarPublicacionesPorSeccionService.$inject = ['$http'];
 
-    function listarPublicacionesPorSeccionService ($resource,$http) {
+    function listarPublicacionesPorSeccionService ($http) {
         return {
-            getPublicacionTema: function (pathParams) {
-                return $http.get('apiCustom/getPublicacionesTema/' + pathParams.seccion);
+            getPublicacionTema:function (pathParams) {
+                return $http.get('apiCustom/getPublicacionesTema/'+ pathParams.seccion);
             },
-            eliminar: function (pathParams) {
+            eliminar:function (pathParams) {
                 return $http.post('apiCustom/publicacions-seccion',pathParams.obj);
             }
         }

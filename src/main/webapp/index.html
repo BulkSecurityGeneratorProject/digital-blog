@@ -72,8 +72,6 @@
 </script>-->
 
 <!-- build:js app/vendor.js -->
-
-
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/json3/lib/json3.js"></script>
@@ -82,7 +80,6 @@
 <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
 <script src="bower_components/arrive/src/arrive.js"></script>
 <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
-<script src="bower_components/angular-bootstrap-contextmenu/contextMenu.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-aria/angular-aria.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -99,6 +96,7 @@
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
 <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+<script src="bower_components/angular-bootstrap-contextmenu/contextMenu.js"></script>
 <script src="bower_components/angular-ui-tinymce/src/tinymce.js"></script>
 <script src="bower_components/angular-notification-icons/dist/angular-notification-icons.js"></script>
 <!-- endinject -->
@@ -107,6 +105,7 @@
 <!-- build:js app/app.js  -->
 <!-- inject:js -->
 <script src="app/app.module.js"></script>
+<script src="app/webSocketsService.service.js"></script>
 <script src="app/services/user/user.service.js"></script>
 <script src="app/services/profiles/profile.service.js"></script>
 <script src="app/services/profiles/page-ribbon.directive.js"></script>
@@ -127,7 +126,6 @@
 <script src="app/layouts/homeCustom/homeCustom.state.js"></script>
 <script src="app/layouts/homeCustom/homeCustom.controller.js"></script>
 <script src="app/layouts/error/error.state.js"></script>
-<script src="app/layouts/custom/webSocketsService.service.js"></script>
 <script src="app/layouts/custom/visorPublicacion/visorPublicacionCustom.state.js"></script>
 <script src="app/layouts/custom/visorPublicacion/visorPublicacionCustom.service.js"></script>
 <script src="app/layouts/custom/visorPublicacion/visorPublicacionCustom.controller.js"></script>
@@ -425,10 +423,7 @@
 <script src="app/account/activate/activate.controller.js"></script>
 <script src="app/account/account.state.js"></script>
 <!-- endinject -->
-<!--<script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>-->
+<!-- endbuild -->
 
-<script src="app/layouts/custom/webSocketsService.service.js"></script>
-
-<!-- build:js app/app.js  -->
 </body>
 </html>
