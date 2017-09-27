@@ -438,6 +438,9 @@
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
                     <configuration>
+                        <processTypes>
+                            <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+                        </processTypes>
                         <lifecycleMappingMetadata>
                             <pluginExecutions>
                                 <pluginExecution>
