@@ -18,10 +18,10 @@
             'ui.tinymce',
             'autocomplete',
             'toastr',
-            'angular-notification-icons',
             'ngAnimate',
             'ui.bootstrap.contextMenu',
-            'ui.bootstrap.modal'
+            'ui.bootstrap.modal',
+            'angular-notification-icons',
 
         ])
         .run(run);
