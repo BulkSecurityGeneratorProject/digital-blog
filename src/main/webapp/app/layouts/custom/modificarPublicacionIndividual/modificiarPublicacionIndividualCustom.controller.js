@@ -218,9 +218,7 @@
             vm.buttons['editorUndoManager'].clear();
             vm.buttons['nuevo-capitulo'].disabled(true);
             var idCapitulo = vm.pagina.capituloId;
-            var capitulo = vm.capitulos.find(x => x.id === idCapitulo
-        )
-            ;
+            var capitulo = vm.capitulos.find(x.id === idCapitulo);
             vm.capitulo.idPublicacionCId = capitulo.idPublicacionCId;
 
             crearCapitulo();

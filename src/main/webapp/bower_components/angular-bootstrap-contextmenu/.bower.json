@@ -4,6 +4,9 @@
   "main": [
     "contextMenu.js"
   ],
+    "dependencies": {
+        "angular": "1.5.8"
+    },
   "homepage": "https://github.com/Templarian/ui.bootstrap.contextMenu",
   "authors": [
     {
