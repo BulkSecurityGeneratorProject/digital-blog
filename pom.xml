@@ -441,9 +441,7 @@
                     <version>1.2.0</version>
                     <configuration>
                         <processTypes>
-                            <web>java $JAVA_OPTS -Xmx256m -jar target/*.war --spring.profiles.active=dev,heroku
-                                --server.port=$PORT
-                            </web>
+                            <web>java $JAVA_OPTS -cp -jar target/*.war</web>
                         </processTypes>
                     </configuration>
                 </plugin>
