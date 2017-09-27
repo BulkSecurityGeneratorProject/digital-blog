@@ -53,6 +53,11 @@
       "dependencies": {
         "angular": "1.5.8"
       }
+    },
+    "angular-animate":{
+    "dependencies": {
+      "angular": "1.5.8"
+    }
     }
   },
   "resolutions": {
