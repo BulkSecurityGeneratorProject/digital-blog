@@ -422,11 +422,17 @@
         <defaultGoal>spring-boot:run</defaultGoal>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                </plugin>
                 <!--
                     This plugin's configuration is used to store Eclipse m2e settings only.
                     It has no influence on the Maven build itself.
                     Remove when the m2e plugin can correctly bind to Maven lifecycle
                 -->
+
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
