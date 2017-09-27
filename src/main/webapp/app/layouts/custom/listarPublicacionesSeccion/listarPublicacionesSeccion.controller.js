@@ -70,12 +70,9 @@
          */
 
         vm.obtenerIdSeleccionado = function (item) {
-            console.log("ID " + item.id + "Nombre: " + item.nombre);
             vm.selectedSeccion = item.id;
             if(item.nombre === 'Mis publicaciones'){
                 vm.mostrarEditar = true;
-                console.log(item.nombre);
-                console.log('Mostrar editar');
             }else{
                 vm.mostrarEditar = false;
             }

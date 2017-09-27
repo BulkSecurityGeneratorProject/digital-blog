@@ -27,7 +27,6 @@
                 return $http.get('/api/capitulos/'+pathParams.id);
             },
             getSolicitudes: function (pathParams) {
-                console.log(pathParams.opc);
                 return $http.get('/apiCustom/notificacion/' + pathParams.id +'&'+ pathParams.opc);
 
             },
