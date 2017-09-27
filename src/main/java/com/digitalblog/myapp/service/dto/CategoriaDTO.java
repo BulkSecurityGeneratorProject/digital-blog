@@ -20,6 +20,7 @@ public class CategoriaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -38,22 +39,22 @@ public class CategoriaDTO implements Serializable {
         }
 
         CategoriaDTO categoriaDTO = (CategoriaDTO) o;
-
-        if ( ! Objects.equals(id, categoriaDTO.id)) { return false; }
-
-        return true;
+        if(categoriaDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), categoriaDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "CategoriaDTO{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

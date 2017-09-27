@@ -18,7 +18,7 @@ public interface SeccionPublicacionService {
 
     /**
      *  Get all the seccionPublicacions.
-     *  
+     *
      *  @return the list of entities
      */
     List<SeccionPublicacionDTO> findAll();

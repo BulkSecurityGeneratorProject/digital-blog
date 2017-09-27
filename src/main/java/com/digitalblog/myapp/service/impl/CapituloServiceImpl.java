@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.CapituloDTO;
 import com.digitalblog.myapp.service.mapper.CapituloMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class CapituloServiceImpl implements CapituloService{
 
     private final Logger log = LoggerFactory.getLogger(CapituloServiceImpl.class);
-    
+
     private final CapituloRepository capituloRepository;
 
     private final CapituloMapper capituloMapper;
@@ -41,26 +41,23 @@ public class CapituloServiceImpl implements CapituloService{
     @Override
     public CapituloDTO save(CapituloDTO capituloDTO) {
         log.debug("Request to save Capitulo : {}", capituloDTO);
-        Capitulo capitulo = capituloMapper.capituloDTOToCapitulo(capituloDTO);
+        Capitulo capitulo = capituloMapper.toEntity(capituloDTO);
         capitulo = capituloRepository.save(capitulo);
-        CapituloDTO result = capituloMapper.capituloToCapituloDTO(capitulo);
-        return result;
+        return capituloMapper.toDto(capitulo);
     }
 
     /**
      *  Get all the capitulos.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<CapituloDTO> findAll() {
         log.debug("Request to get all Capitulos");
-        List<CapituloDTO> result = capituloRepository.findAll().stream()
-            .map(capituloMapper::capituloToCapituloDTO)
+        return capituloRepository.findAll().stream()
+            .map(capituloMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class CapituloServiceImpl implements CapituloService{
     public CapituloDTO findOne(Long id) {
         log.debug("Request to get Capitulo : {}", id);
         Capitulo capitulo = capituloRepository.findOne(id);
-        CapituloDTO capituloDTO = capituloMapper.capituloToCapituloDTO(capitulo);
-        return capituloDTO;
+        return capituloMapper.toDto(capitulo);
     }
 
     /**

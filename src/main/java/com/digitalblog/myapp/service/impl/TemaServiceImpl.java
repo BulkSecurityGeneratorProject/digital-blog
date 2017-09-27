@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.TemaDTO;
 import com.digitalblog.myapp.service.mapper.TemaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class TemaServiceImpl implements TemaService{
 
     private final Logger log = LoggerFactory.getLogger(TemaServiceImpl.class);
-    
+
     private final TemaRepository temaRepository;
 
     private final TemaMapper temaMapper;
@@ -41,26 +41,23 @@ public class TemaServiceImpl implements TemaService{
     @Override
     public TemaDTO save(TemaDTO temaDTO) {
         log.debug("Request to save Tema : {}", temaDTO);
-        Tema tema = temaMapper.temaDTOToTema(temaDTO);
+        Tema tema = temaMapper.toEntity(temaDTO);
         tema = temaRepository.save(tema);
-        TemaDTO result = temaMapper.temaToTemaDTO(tema);
-        return result;
+        return temaMapper.toDto(tema);
     }
 
     /**
      *  Get all the temas.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<TemaDTO> findAll() {
         log.debug("Request to get all Temas");
-        List<TemaDTO> result = temaRepository.findAll().stream()
-            .map(temaMapper::temaToTemaDTO)
+        return temaRepository.findAll().stream()
+            .map(temaMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class TemaServiceImpl implements TemaService{
     public TemaDTO findOne(Long id) {
         log.debug("Request to get Tema : {}", id);
         Tema tema = temaRepository.findOne(id);
-        TemaDTO temaDTO = temaMapper.temaToTemaDTO(tema);
-        return temaDTO;
+        return temaMapper.toDto(tema);
     }
 
     /**

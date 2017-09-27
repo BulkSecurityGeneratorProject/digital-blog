@@ -18,7 +18,7 @@ public interface BibliotecaService {
 
     /**
      *  Get all the bibliotecas.
-     *  
+     *
      *  @return the list of entities
      */
     List<BibliotecaDTO> findAll();

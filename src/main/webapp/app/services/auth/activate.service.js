@@ -8,7 +8,7 @@
     Activate.$inject = ['$resource'];
 
     function Activate ($resource) {
-        var service = $resource('apiCustom/activate', {}, {
+        var service = $resource('api/activate', {}, {
             'get': { method: 'GET', params: {}, isArray: false}
         });
 

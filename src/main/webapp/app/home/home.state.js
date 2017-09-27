@@ -12,8 +12,7 @@
             parent: 'app',
             url: '/',
             data: {
-                authorities: [],
-                css:'content/css/custom/home.css'
+                authorities: []
             },
             views: {
                 'content@': {

@@ -55,6 +55,7 @@ public class Publicacion implements Serializable {
     @ManyToOne
     private Tema tema;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -218,6 +219,7 @@ public class Publicacion implements Serializable {
     public void setTema(Tema tema) {
         this.tema = tema;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -228,30 +230,30 @@ public class Publicacion implements Serializable {
             return false;
         }
         Publicacion publicacion = (Publicacion) o;
-        if (publicacion.id == null || id == null) {
+        if (publicacion.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, publicacion.id);
+        return Objects.equals(getId(), publicacion.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Publicacion{" +
-            "id=" + id +
-            ", urlImagen='" + urlImagen + "'" +
-            ", descripcion='" + descripcion + "'" +
-            ", contenido='" + contenido + "'" +
-            ", tipo='" + tipo + "'" +
-            ", titulo='" + titulo + "'" +
-            ", estado='" + estado + "'" +
-            ", cantidadIteraciones='" + cantidadIteraciones + "'" +
-            ", fotopublicacion='" + fotopublicacion + "'" +
+            "id=" + getId() +
+            ", urlImagen='" + getUrlImagen() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", contenido='" + getContenido() + "'" +
+            ", tipo='" + isTipo() + "'" +
+            ", titulo='" + getTitulo() + "'" +
+            ", estado='" + getEstado() + "'" +
+            ", cantidadIteraciones='" + getCantidadIteraciones() + "'" +
+            ", fotopublicacion='" + getFotopublicacion() + "'" +
             ", fotopublicacionContentType='" + fotopublicacionContentType + "'" +
-            '}';
+            "}";
     }
 }

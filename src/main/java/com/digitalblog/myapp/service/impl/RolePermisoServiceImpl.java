@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.RolePermisoDTO;
 import com.digitalblog.myapp.service.mapper.RolePermisoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RolePermisoServiceImpl implements RolePermisoService{
 
     private final Logger log = LoggerFactory.getLogger(RolePermisoServiceImpl.class);
-    
+
     private final RolePermisoRepository rolePermisoRepository;
 
     private final RolePermisoMapper rolePermisoMapper;
@@ -41,26 +41,23 @@ public class RolePermisoServiceImpl implements RolePermisoService{
     @Override
     public RolePermisoDTO save(RolePermisoDTO rolePermisoDTO) {
         log.debug("Request to save RolePermiso : {}", rolePermisoDTO);
-        RolePermiso rolePermiso = rolePermisoMapper.rolePermisoDTOToRolePermiso(rolePermisoDTO);
+        RolePermiso rolePermiso = rolePermisoMapper.toEntity(rolePermisoDTO);
         rolePermiso = rolePermisoRepository.save(rolePermiso);
-        RolePermisoDTO result = rolePermisoMapper.rolePermisoToRolePermisoDTO(rolePermiso);
-        return result;
+        return rolePermisoMapper.toDto(rolePermiso);
     }
 
     /**
      *  Get all the rolePermisos.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<RolePermisoDTO> findAll() {
         log.debug("Request to get all RolePermisos");
-        List<RolePermisoDTO> result = rolePermisoRepository.findAll().stream()
-            .map(rolePermisoMapper::rolePermisoToRolePermisoDTO)
+        return rolePermisoRepository.findAll().stream()
+            .map(rolePermisoMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class RolePermisoServiceImpl implements RolePermisoService{
     public RolePermisoDTO findOne(Long id) {
         log.debug("Request to get RolePermiso : {}", id);
         RolePermiso rolePermiso = rolePermisoRepository.findOne(id);
-        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.rolePermisoToRolePermisoDTO(rolePermiso);
-        return rolePermisoDTO;
+        return rolePermisoMapper.toDto(rolePermiso);
     }
 
     /**

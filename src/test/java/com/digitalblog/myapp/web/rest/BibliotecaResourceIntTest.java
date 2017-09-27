@@ -74,7 +74,7 @@ public class BibliotecaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        BibliotecaResource bibliotecaResource = new BibliotecaResource(bibliotecaService);
+        final BibliotecaResource bibliotecaResource = new BibliotecaResource(bibliotecaService);
         this.restBibliotecaMockMvc = MockMvcBuilders.standaloneSetup(bibliotecaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,8 +89,8 @@ public class BibliotecaResourceIntTest {
      */
     public static Biblioteca createEntity(EntityManager em) {
         Biblioteca biblioteca = new Biblioteca()
-                .idSeccion(DEFAULT_ID_SECCION)
-                .idJhiUser(DEFAULT_ID_JHI_USER);
+            .idSeccion(DEFAULT_ID_SECCION)
+            .idJhiUser(DEFAULT_ID_JHI_USER);
         return biblioteca;
     }
 
@@ -105,8 +105,7 @@ public class BibliotecaResourceIntTest {
         int databaseSizeBeforeCreate = bibliotecaRepository.findAll().size();
 
         // Create the Biblioteca
-        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.bibliotecaToBibliotecaDTO(biblioteca);
-
+        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.toDto(biblioteca);
         restBibliotecaMockMvc.perform(post("/api/bibliotecas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(bibliotecaDTO)))
@@ -126,17 +125,16 @@ public class BibliotecaResourceIntTest {
         int databaseSizeBeforeCreate = bibliotecaRepository.findAll().size();
 
         // Create the Biblioteca with an existing ID
-        Biblioteca existingBiblioteca = new Biblioteca();
-        existingBiblioteca.setId(1L);
-        BibliotecaDTO existingBibliotecaDTO = bibliotecaMapper.bibliotecaToBibliotecaDTO(existingBiblioteca);
+        biblioteca.setId(1L);
+        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.toDto(biblioteca);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBibliotecaMockMvc.perform(post("/api/bibliotecas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingBibliotecaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bibliotecaDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Biblioteca in the database
         List<Biblioteca> bibliotecaList = bibliotecaRepository.findAll();
         assertThat(bibliotecaList).hasSize(databaseSizeBeforeCreate);
     }
@@ -189,9 +187,9 @@ public class BibliotecaResourceIntTest {
         // Update the biblioteca
         Biblioteca updatedBiblioteca = bibliotecaRepository.findOne(biblioteca.getId());
         updatedBiblioteca
-                .idSeccion(UPDATED_ID_SECCION)
-                .idJhiUser(UPDATED_ID_JHI_USER);
-        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.bibliotecaToBibliotecaDTO(updatedBiblioteca);
+            .idSeccion(UPDATED_ID_SECCION)
+            .idJhiUser(UPDATED_ID_JHI_USER);
+        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.toDto(updatedBiblioteca);
 
         restBibliotecaMockMvc.perform(put("/api/bibliotecas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -212,7 +210,7 @@ public class BibliotecaResourceIntTest {
         int databaseSizeBeforeUpdate = bibliotecaRepository.findAll().size();
 
         // Create the Biblioteca
-        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.bibliotecaToBibliotecaDTO(biblioteca);
+        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.toDto(biblioteca);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restBibliotecaMockMvc.perform(put("/api/bibliotecas")
@@ -243,7 +241,40 @@ public class BibliotecaResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Biblioteca.class);
+        Biblioteca biblioteca1 = new Biblioteca();
+        biblioteca1.setId(1L);
+        Biblioteca biblioteca2 = new Biblioteca();
+        biblioteca2.setId(biblioteca1.getId());
+        assertThat(biblioteca1).isEqualTo(biblioteca2);
+        biblioteca2.setId(2L);
+        assertThat(biblioteca1).isNotEqualTo(biblioteca2);
+        biblioteca1.setId(null);
+        assertThat(biblioteca1).isNotEqualTo(biblioteca2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(BibliotecaDTO.class);
+        BibliotecaDTO bibliotecaDTO1 = new BibliotecaDTO();
+        bibliotecaDTO1.setId(1L);
+        BibliotecaDTO bibliotecaDTO2 = new BibliotecaDTO();
+        assertThat(bibliotecaDTO1).isNotEqualTo(bibliotecaDTO2);
+        bibliotecaDTO2.setId(bibliotecaDTO1.getId());
+        assertThat(bibliotecaDTO1).isEqualTo(bibliotecaDTO2);
+        bibliotecaDTO2.setId(2L);
+        assertThat(bibliotecaDTO1).isNotEqualTo(bibliotecaDTO2);
+        bibliotecaDTO1.setId(null);
+        assertThat(bibliotecaDTO1).isNotEqualTo(bibliotecaDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(bibliotecaMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(bibliotecaMapper.fromId(null)).isNull();
     }
 }

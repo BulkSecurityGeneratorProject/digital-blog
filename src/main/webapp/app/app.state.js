@@ -16,15 +16,6 @@
                     controller: 'NavbarController',
                     controllerAs: 'vm'
                 }
-                // ,'sidenav@': {
-                //     templateUrl: 'app/layouts/sidenav/sidenav.html',
-                //     data:{
-                //         css:'content/css/custom/sidenav.css',
-                //         authorities: ['ROLE_USER'],
-                //     },
-                //     controller: 'SideNavController',
-                //     controllerAs: 'vm'
-                // }
             },
             resolve: {
                 authorize: ['Auth',

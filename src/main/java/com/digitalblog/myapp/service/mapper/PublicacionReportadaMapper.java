@@ -4,19 +4,20 @@ import com.digitalblog.myapp.domain.*;
 import com.digitalblog.myapp.service.dto.PublicacionReportadaDTO;
 
 import org.mapstruct.*;
-import java.util.List;
 
 /**
  * Mapper for the entity PublicacionReportada and its DTO PublicacionReportadaDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
-public interface PublicacionReportadaMapper {
-
-    PublicacionReportadaDTO publicacionReportadaToPublicacionReportadaDTO(PublicacionReportada publicacionReportada);
-
-    List<PublicacionReportadaDTO> publicacionReportadasToPublicacionReportadaDTOs(List<PublicacionReportada> publicacionReportadas);
-
-    PublicacionReportada publicacionReportadaDTOToPublicacionReportada(PublicacionReportadaDTO publicacionReportadaDTO);
-
-    List<PublicacionReportada> publicacionReportadaDTOsToPublicacionReportadas(List<PublicacionReportadaDTO> publicacionReportadaDTOs);
+public interface PublicacionReportadaMapper extends EntityMapper <PublicacionReportadaDTO, PublicacionReportada> {
+    
+    
+    default PublicacionReportada fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        PublicacionReportada publicacionReportada = new PublicacionReportada();
+        publicacionReportada.setId(id);
+        return publicacionReportada;
+    }
 }

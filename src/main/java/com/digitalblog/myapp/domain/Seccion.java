@@ -24,6 +24,7 @@ public class Seccion implements Serializable {
     @ManyToOne
     private Biblioteca biblioteca;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class Seccion implements Serializable {
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -67,22 +69,22 @@ public class Seccion implements Serializable {
             return false;
         }
         Seccion seccion = (Seccion) o;
-        if (seccion.id == null || id == null) {
+        if (seccion.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, seccion.id);
+        return Objects.equals(getId(), seccion.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Seccion{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

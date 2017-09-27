@@ -18,7 +18,7 @@ public interface CapituloService {
 
     /**
      *  Get all the capitulos.
-     *  
+     *
      *  @return the list of entities
      */
     List<CapituloDTO> findAll();

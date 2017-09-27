@@ -95,7 +95,7 @@ public class PublicacionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        PublicacionResource publicacionResource = new PublicacionResource(publicacionService);
+        final PublicacionResource publicacionResource = new PublicacionResource(publicacionService);
         this.restPublicacionMockMvc = MockMvcBuilders.standaloneSetup(publicacionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -110,15 +110,15 @@ public class PublicacionResourceIntTest {
      */
     public static Publicacion createEntity(EntityManager em) {
         Publicacion publicacion = new Publicacion()
-                .urlImagen(DEFAULT_URL_IMAGEN)
-                .descripcion(DEFAULT_DESCRIPCION)
-                .contenido(DEFAULT_CONTENIDO)
-                .tipo(DEFAULT_TIPO)
-                .titulo(DEFAULT_TITULO)
-                .estado(DEFAULT_ESTADO)
-                .cantidadIteraciones(DEFAULT_CANTIDAD_ITERACIONES)
-                .fotopublicacion(DEFAULT_FOTOPUBLICACION)
-                .fotopublicacionContentType(DEFAULT_FOTOPUBLICACION_CONTENT_TYPE);
+            .urlImagen(DEFAULT_URL_IMAGEN)
+            .descripcion(DEFAULT_DESCRIPCION)
+            .contenido(DEFAULT_CONTENIDO)
+            .tipo(DEFAULT_TIPO)
+            .titulo(DEFAULT_TITULO)
+            .estado(DEFAULT_ESTADO)
+            .cantidadIteraciones(DEFAULT_CANTIDAD_ITERACIONES)
+            .fotopublicacion(DEFAULT_FOTOPUBLICACION)
+            .fotopublicacionContentType(DEFAULT_FOTOPUBLICACION_CONTENT_TYPE);
         return publicacion;
     }
 
@@ -133,8 +133,7 @@ public class PublicacionResourceIntTest {
         int databaseSizeBeforeCreate = publicacionRepository.findAll().size();
 
         // Create the Publicacion
-        PublicacionDTO publicacionDTO = publicacionMapper.publicacionToPublicacionDTO(publicacion);
-
+        PublicacionDTO publicacionDTO = publicacionMapper.toDto(publicacion);
         restPublicacionMockMvc.perform(post("/api/publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(publicacionDTO)))
@@ -161,17 +160,16 @@ public class PublicacionResourceIntTest {
         int databaseSizeBeforeCreate = publicacionRepository.findAll().size();
 
         // Create the Publicacion with an existing ID
-        Publicacion existingPublicacion = new Publicacion();
-        existingPublicacion.setId(1L);
-        PublicacionDTO existingPublicacionDTO = publicacionMapper.publicacionToPublicacionDTO(existingPublicacion);
+        publicacion.setId(1L);
+        PublicacionDTO publicacionDTO = publicacionMapper.toDto(publicacion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPublicacionMockMvc.perform(post("/api/publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPublicacionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(publicacionDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Publicacion in the database
         List<Publicacion> publicacionList = publicacionRepository.findAll();
         assertThat(publicacionList).hasSize(databaseSizeBeforeCreate);
     }
@@ -238,16 +236,16 @@ public class PublicacionResourceIntTest {
         // Update the publicacion
         Publicacion updatedPublicacion = publicacionRepository.findOne(publicacion.getId());
         updatedPublicacion
-                .urlImagen(UPDATED_URL_IMAGEN)
-                .descripcion(UPDATED_DESCRIPCION)
-                .contenido(UPDATED_CONTENIDO)
-                .tipo(UPDATED_TIPO)
-                .titulo(UPDATED_TITULO)
-                .estado(UPDATED_ESTADO)
-                .cantidadIteraciones(UPDATED_CANTIDAD_ITERACIONES)
-                .fotopublicacion(UPDATED_FOTOPUBLICACION)
-                .fotopublicacionContentType(UPDATED_FOTOPUBLICACION_CONTENT_TYPE);
-        PublicacionDTO publicacionDTO = publicacionMapper.publicacionToPublicacionDTO(updatedPublicacion);
+            .urlImagen(UPDATED_URL_IMAGEN)
+            .descripcion(UPDATED_DESCRIPCION)
+            .contenido(UPDATED_CONTENIDO)
+            .tipo(UPDATED_TIPO)
+            .titulo(UPDATED_TITULO)
+            .estado(UPDATED_ESTADO)
+            .cantidadIteraciones(UPDATED_CANTIDAD_ITERACIONES)
+            .fotopublicacion(UPDATED_FOTOPUBLICACION)
+            .fotopublicacionContentType(UPDATED_FOTOPUBLICACION_CONTENT_TYPE);
+        PublicacionDTO publicacionDTO = publicacionMapper.toDto(updatedPublicacion);
 
         restPublicacionMockMvc.perform(put("/api/publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -275,7 +273,7 @@ public class PublicacionResourceIntTest {
         int databaseSizeBeforeUpdate = publicacionRepository.findAll().size();
 
         // Create the Publicacion
-        PublicacionDTO publicacionDTO = publicacionMapper.publicacionToPublicacionDTO(publicacion);
+        PublicacionDTO publicacionDTO = publicacionMapper.toDto(publicacion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPublicacionMockMvc.perform(put("/api/publicacions")
@@ -306,7 +304,40 @@ public class PublicacionResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Publicacion.class);
+        Publicacion publicacion1 = new Publicacion();
+        publicacion1.setId(1L);
+        Publicacion publicacion2 = new Publicacion();
+        publicacion2.setId(publicacion1.getId());
+        assertThat(publicacion1).isEqualTo(publicacion2);
+        publicacion2.setId(2L);
+        assertThat(publicacion1).isNotEqualTo(publicacion2);
+        publicacion1.setId(null);
+        assertThat(publicacion1).isNotEqualTo(publicacion2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PublicacionDTO.class);
+        PublicacionDTO publicacionDTO1 = new PublicacionDTO();
+        publicacionDTO1.setId(1L);
+        PublicacionDTO publicacionDTO2 = new PublicacionDTO();
+        assertThat(publicacionDTO1).isNotEqualTo(publicacionDTO2);
+        publicacionDTO2.setId(publicacionDTO1.getId());
+        assertThat(publicacionDTO1).isEqualTo(publicacionDTO2);
+        publicacionDTO2.setId(2L);
+        assertThat(publicacionDTO1).isNotEqualTo(publicacionDTO2);
+        publicacionDTO1.setId(null);
+        assertThat(publicacionDTO1).isNotEqualTo(publicacionDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(publicacionMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(publicacionMapper.fromId(null)).isNull();
     }
 }

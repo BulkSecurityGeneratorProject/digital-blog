@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing SeccionPublicacion.
@@ -27,7 +26,7 @@ public class SeccionPublicacionResource {
     private final Logger log = LoggerFactory.getLogger(SeccionPublicacionResource.class);
 
     private static final String ENTITY_NAME = "seccionPublicacion";
-        
+
     private final SeccionPublicacionService seccionPublicacionService;
 
     public SeccionPublicacionResource(SeccionPublicacionService seccionPublicacionService) {
@@ -60,7 +59,7 @@ public class SeccionPublicacionResource {
      * @param seccionPublicacionDTO the seccionPublicacionDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated seccionPublicacionDTO,
      * or with status 400 (Bad Request) if the seccionPublicacionDTO is not valid,
-     * or with status 500 (Internal Server Error) if the seccionPublicacionDTO couldnt be updated
+     * or with status 500 (Internal Server Error) if the seccionPublicacionDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/seccion-publicacions")
@@ -86,7 +85,7 @@ public class SeccionPublicacionResource {
     public List<SeccionPublicacionDTO> getAllSeccionPublicacions() {
         log.debug("REST request to get all SeccionPublicacions");
         return seccionPublicacionService.findAll();
-    }
+        }
 
     /**
      * GET  /seccion-publicacions/:id : get the "id" seccionPublicacion.
@@ -115,5 +114,4 @@ public class SeccionPublicacionResource {
         seccionPublicacionService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

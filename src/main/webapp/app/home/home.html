@@ -1,77 +1,41 @@
-<div class="well text-center" ng-hide="vm.isAuthenticated()"  >
+<div ng-cloak>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="hipster img-responsive img-rounded"></span>
+        </div>
+        <div class="col-md-8">
+            <h1>Welcome, Java Hipster!</h1>
+            <p class="lead">This is your homepage</p>
 
-    <h1 class="top-head principalTitle ">Bienvenido DigitalBLOG!</h1>
-    <h1 class=" secondaryTitle">Stamp your ideas in digital</h1>
-
-    <button  class="btn btn-raised btn-danger " ng-click="vm.login()">Entrar</button>
-    <button  class="btn btn-raised btn-info  " ui-sref="register">Registrarse</button>
-</div>
-
-<div class="containerHeight text-center fontcolor container  top-head" ng-hide="vm.isAuthenticated()">
-    <div class="col-md-4 ">
-        <img src="../../content/images/creativity.svg" width="150">
-        <h3>Crear</h3>
-        <p class="text-justify ">Imagina un espacio en donde podrás hacer realidad tus ideas,
-            para llevarlas a cabo de forma individual o colaborativa.</p>
-    </div>
-    <div class="col-md-4 ">
-        <img src="../../content/images/presentation.svg" width="150">
-        <h3>Compartir</h3>
-        <p class="text-justify ">Podrás compartir con otras personas interesadas en los mismos temas que tu , recibirás opiniones sobre tus creaciones y podrás opinar sobre las creaciones de otros</p>
-    </div>
-    <div class="col-md-4 ">
-        <img src="../../content/images/resume.svg" width="150">
-        <h3 >Leer</h3>
-        <p class="text-justify ">Tendrás  tu propia biblioteca donde podrás almacenar todo aquello que te parezca valioso e interesante</p>
-    </div>
-</div>
-
-<div class=" text-center containerHeight colorcontainer3  fontcolorwhite" ng-hide="vm.isAuthenticated()">
-    <h1 class=" principalTitle paddingtop "> ¡Atrévete! a publicar colaborativamente</h1>
-
-</div>
-<div class="containerHeight text-center fontcolor container  top-head" ng-hide="vm.isAuthenticated()">
-    <img src="../../content/images/library.svg" width="150">
-
-    <h3 class=" fontcolor"> Te ofrecemos tu propia </h4>
-
-        <h1 class=" fontcolor"> Biblioteca personal </h4>
-
-</div>
-
-<div class=" text-center fontcolor container">
-    <div ng-switch="vm.isAuthenticated()">
-        <div ng-switch-when="true" class="row text-center ">
-            <h2  class="subtitle">¡Hola {{vm.account.login}} elige una opción!</h2>
-
-            <div>
-                <div class="row">
-                    <img src="../../content/images/idea.svg" width="50">
+            <div ng-switch="vm.isAuthenticated()">
+                <div class="alert alert-success" ng-switch-when="true">
+                    You are logged in as user "{{vm.account.login}}".
                 </div>
-                <div class="row top">
-                    <img src="../../content/images/iconGuy.png" width="120">
+
+                <div class="alert alert-warning" ng-switch-when="false">
+                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+                </div>
+
+                <div class="alert alert-warning" ng-switch-when="false">
+                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
                 </div>
             </div>
 
-            <div class="col-lg-2"></div>
-            <div>
-                <div class="col-lg-2">
-                    <a ui-sref="listarNotificaciones"><img src="../../content/images/bell.svg" width="120"></a>
-                    <h5>Notificaciones</h5>
-                </div>
-                <div class="col-lg-2">
-                    <a ui-sref="listarPublicacionesPorSeccion"><img src="../../content/images/libraryMenu.svg" width="120"></a>
-                    <h5>Biblioteca Personal</h5>
-                </div>
-                <div class="col-lg-2">
-                    <a ui-sref="listarUsuarios" ><img src="../../content/images/searchMenu.svg" width="120"></a>
-                    <h5>Conectar con otros</h5>
-                </div>
-                <div class="col-lg-2">
-                    <a ui-sref="verPerfil({id:vm.usuario.idJHIUser})"><img src="../../content/images/id-cardMenu.svg" width="120"></a>
-                    <h5>Mi perfil</h5>
-                </div>
-            </div>
+            <p>
+                If you have any question on JHipster:
+            </p>
+
+            <ul>
+                <li><a href="http://www.jhipster.tech/" target="_blank" rel="noopener">JHipster homepage</a></li>
+                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>
+                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>
+                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>
+                <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>
+            </ul>
+
+            <p>
+             <span>If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">GitHub</a>!
+            </p>
         </div>
     </div>
 </div>

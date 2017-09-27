@@ -31,6 +31,7 @@ public class Rol implements Serializable {
     @JsonIgnore
     private Set<Usuario> idUsuarios = new HashSet<>();
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -89,6 +90,7 @@ public class Rol implements Serializable {
     public void setIdUsuarios(Set<Usuario> usuarios) {
         this.idUsuarios = usuarios;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -99,23 +101,23 @@ public class Rol implements Serializable {
             return false;
         }
         Rol rol = (Rol) o;
-        if (rol.id == null || id == null) {
+        if (rol.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, rol.id);
+        return Objects.equals(getId(), rol.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Rol{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            ", descripcion='" + descripcion + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            "}";
     }
 }

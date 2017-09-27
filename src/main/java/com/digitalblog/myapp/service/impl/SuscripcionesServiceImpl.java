@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.SuscripcionesDTO;
 import com.digitalblog.myapp.service.mapper.SuscripcionesMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class SuscripcionesServiceImpl implements SuscripcionesService{
 
     private final Logger log = LoggerFactory.getLogger(SuscripcionesServiceImpl.class);
-    
+
     private final SuscripcionesRepository suscripcionesRepository;
 
     private final SuscripcionesMapper suscripcionesMapper;
@@ -41,26 +41,23 @@ public class SuscripcionesServiceImpl implements SuscripcionesService{
     @Override
     public SuscripcionesDTO save(SuscripcionesDTO suscripcionesDTO) {
         log.debug("Request to save Suscripciones : {}", suscripcionesDTO);
-        Suscripciones suscripciones = suscripcionesMapper.suscripcionesDTOToSuscripciones(suscripcionesDTO);
+        Suscripciones suscripciones = suscripcionesMapper.toEntity(suscripcionesDTO);
         suscripciones = suscripcionesRepository.save(suscripciones);
-        SuscripcionesDTO result = suscripcionesMapper.suscripcionesToSuscripcionesDTO(suscripciones);
-        return result;
+        return suscripcionesMapper.toDto(suscripciones);
     }
 
     /**
      *  Get all the suscripciones.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<SuscripcionesDTO> findAll() {
         log.debug("Request to get all Suscripciones");
-        List<SuscripcionesDTO> result = suscripcionesRepository.findAll().stream()
-            .map(suscripcionesMapper::suscripcionesToSuscripcionesDTO)
+        return suscripcionesRepository.findAll().stream()
+            .map(suscripcionesMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class SuscripcionesServiceImpl implements SuscripcionesService{
     public SuscripcionesDTO findOne(Long id) {
         log.debug("Request to get Suscripciones : {}", id);
         Suscripciones suscripciones = suscripcionesRepository.findOne(id);
-        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.suscripcionesToSuscripcionesDTO(suscripciones);
-        return suscripcionesDTO;
+        return suscripcionesMapper.toDto(suscripciones);
     }
 
     /**

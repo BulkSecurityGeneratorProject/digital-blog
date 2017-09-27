@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.PermisoDTO;
 import com.digitalblog.myapp.service.mapper.PermisoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class PermisoServiceImpl implements PermisoService{
 
     private final Logger log = LoggerFactory.getLogger(PermisoServiceImpl.class);
-    
+
     private final PermisoRepository permisoRepository;
 
     private final PermisoMapper permisoMapper;
@@ -41,26 +41,23 @@ public class PermisoServiceImpl implements PermisoService{
     @Override
     public PermisoDTO save(PermisoDTO permisoDTO) {
         log.debug("Request to save Permiso : {}", permisoDTO);
-        Permiso permiso = permisoMapper.permisoDTOToPermiso(permisoDTO);
+        Permiso permiso = permisoMapper.toEntity(permisoDTO);
         permiso = permisoRepository.save(permiso);
-        PermisoDTO result = permisoMapper.permisoToPermisoDTO(permiso);
-        return result;
+        return permisoMapper.toDto(permiso);
     }
 
     /**
      *  Get all the permisos.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<PermisoDTO> findAll() {
         log.debug("Request to get all Permisos");
-        List<PermisoDTO> result = permisoRepository.findAll().stream()
-            .map(permisoMapper::permisoToPermisoDTO)
+        return permisoRepository.findAll().stream()
+            .map(permisoMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class PermisoServiceImpl implements PermisoService{
     public PermisoDTO findOne(Long id) {
         log.debug("Request to get Permiso : {}", id);
         Permiso permiso = permisoRepository.findOne(id);
-        PermisoDTO permisoDTO = permisoMapper.permisoToPermisoDTO(permiso);
-        return permisoDTO;
+        return permisoMapper.toDto(permiso);
     }
 
     /**

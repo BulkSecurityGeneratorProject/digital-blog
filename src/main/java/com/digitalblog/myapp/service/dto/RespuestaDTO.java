@@ -24,6 +24,7 @@ public class RespuestaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getContenido() {
         return contenido;
     }
@@ -50,22 +51,22 @@ public class RespuestaDTO implements Serializable {
         }
 
         RespuestaDTO respuestaDTO = (RespuestaDTO) o;
-
-        if ( ! Objects.equals(id, respuestaDTO.id)) { return false; }
-
-        return true;
+        if(respuestaDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), respuestaDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "RespuestaDTO{" +
-            "id=" + id +
-            ", contenido='" + contenido + "'" +
-            '}';
+            "id=" + getId() +
+            ", contenido='" + getContenido() + "'" +
+            "}";
     }
 }

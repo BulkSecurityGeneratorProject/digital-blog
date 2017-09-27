@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.CanalDTO;
 import com.digitalblog.myapp.service.mapper.CanalMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class CanalServiceImpl implements CanalService{
 
     private final Logger log = LoggerFactory.getLogger(CanalServiceImpl.class);
-    
+
     private final CanalRepository canalRepository;
 
     private final CanalMapper canalMapper;
@@ -41,26 +41,23 @@ public class CanalServiceImpl implements CanalService{
     @Override
     public CanalDTO save(CanalDTO canalDTO) {
         log.debug("Request to save Canal : {}", canalDTO);
-        Canal canal = canalMapper.canalDTOToCanal(canalDTO);
+        Canal canal = canalMapper.toEntity(canalDTO);
         canal = canalRepository.save(canal);
-        CanalDTO result = canalMapper.canalToCanalDTO(canal);
-        return result;
+        return canalMapper.toDto(canal);
     }
 
     /**
      *  Get all the canals.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<CanalDTO> findAll() {
         log.debug("Request to get all Canals");
-        List<CanalDTO> result = canalRepository.findAll().stream()
-            .map(canalMapper::canalToCanalDTO)
+        return canalRepository.findAll().stream()
+            .map(canalMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class CanalServiceImpl implements CanalService{
     public CanalDTO findOne(Long id) {
         log.debug("Request to get Canal : {}", id);
         Canal canal = canalRepository.findOne(id);
-        CanalDTO canalDTO = canalMapper.canalToCanalDTO(canal);
-        return canalDTO;
+        return canalMapper.toDto(canal);
     }
 
     /**

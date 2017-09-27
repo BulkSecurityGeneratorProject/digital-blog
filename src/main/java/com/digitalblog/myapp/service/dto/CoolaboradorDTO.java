@@ -61,21 +61,21 @@ public class CoolaboradorDTO implements Serializable {
         }
 
         CoolaboradorDTO coolaboradorDTO = (CoolaboradorDTO) o;
-
-        if ( ! Objects.equals(id, coolaboradorDTO.id)) { return false; }
-
-        return true;
+        if(coolaboradorDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), coolaboradorDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "CoolaboradorDTO{" +
-            "id=" + id +
-            '}';
+            "id=" + getId() +
+            "}";
     }
 }

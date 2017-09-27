@@ -18,7 +18,7 @@ public interface PublicacionReportadaService {
 
     /**
      *  Get all the publicacionReportadas.
-     *  
+     *
      *  @return the list of entities
      */
     List<PublicacionReportadaDTO> findAll();

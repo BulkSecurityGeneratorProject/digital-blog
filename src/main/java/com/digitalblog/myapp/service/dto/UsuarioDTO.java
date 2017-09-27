@@ -46,6 +46,7 @@ public class UsuarioDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -53,6 +54,7 @@ public class UsuarioDTO implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getPrimerApelldio() {
         return primerApelldio;
     }
@@ -60,6 +62,7 @@ public class UsuarioDTO implements Serializable {
     public void setPrimerApelldio(String primerApelldio) {
         this.primerApelldio = primerApelldio;
     }
+
     public String getSegundoApellido() {
         return segundoApellido;
     }
@@ -67,6 +70,7 @@ public class UsuarioDTO implements Serializable {
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
     }
+
     public Integer getEdad() {
         return edad;
     }
@@ -74,6 +78,7 @@ public class UsuarioDTO implements Serializable {
     public void setEdad(Integer edad) {
         this.edad = edad;
     }
+
     public String getCorreo() {
         return correo;
     }
@@ -81,6 +86,7 @@ public class UsuarioDTO implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -88,6 +94,7 @@ public class UsuarioDTO implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public byte[] getFotoperfil() {
         return fotoperfil;
     }
@@ -103,13 +110,15 @@ public class UsuarioDTO implements Serializable {
     public void setFotoperfilContentType(String fotoperfilContentType) {
         this.fotoperfilContentType = fotoperfilContentType;
     }
-    public Boolean getEstado() {
+
+    public Boolean isEstado() {
         return estado;
     }
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
+
     public Long getIdJHIUser() {
         return idJHIUser;
     }
@@ -117,6 +126,7 @@ public class UsuarioDTO implements Serializable {
     public void setIdJHIUser(Long idJHIUser) {
         this.idJHIUser = idJHIUser;
     }
+
     public ZonedDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -143,31 +153,31 @@ public class UsuarioDTO implements Serializable {
         }
 
         UsuarioDTO usuarioDTO = (UsuarioDTO) o;
-
-        if ( ! Objects.equals(id, usuarioDTO.id)) { return false; }
-
-        return true;
+        if(usuarioDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), usuarioDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "UsuarioDTO{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            ", primerApelldio='" + primerApelldio + "'" +
-            ", segundoApellido='" + segundoApellido + "'" +
-            ", edad='" + edad + "'" +
-            ", correo='" + correo + "'" +
-            ", descripcion='" + descripcion + "'" +
-            ", fotoperfil='" + fotoperfil + "'" +
-            ", estado='" + estado + "'" +
-            ", idJHIUser='" + idJHIUser + "'" +
-            ", fechaNacimiento='" + fechaNacimiento + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            ", primerApelldio='" + getPrimerApelldio() + "'" +
+            ", segundoApellido='" + getSegundoApellido() + "'" +
+            ", edad='" + getEdad() + "'" +
+            ", correo='" + getCorreo() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", fotoperfil='" + getFotoperfil() + "'" +
+            ", estado='" + isEstado() + "'" +
+            ", idJHIUser='" + getIdJHIUser() + "'" +
+            ", fechaNacimiento='" + getFechaNacimiento() + "'" +
+            "}";
     }
 }

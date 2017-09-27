@@ -24,6 +24,7 @@ public class Suscripciones implements Serializable {
     @Column(name = "id_siguiendo")
     private Integer idSiguiendo;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class Suscripciones implements Serializable {
     public void setIdSiguiendo(Integer idSiguiendo) {
         this.idSiguiendo = idSiguiendo;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -67,23 +69,23 @@ public class Suscripciones implements Serializable {
             return false;
         }
         Suscripciones suscripciones = (Suscripciones) o;
-        if (suscripciones.id == null || id == null) {
+        if (suscripciones.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, suscripciones.id);
+        return Objects.equals(getId(), suscripciones.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Suscripciones{" +
-            "id=" + id +
-            ", idCanal='" + idCanal + "'" +
-            ", idSiguiendo='" + idSiguiendo + "'" +
-            '}';
+            "id=" + getId() +
+            ", idCanal='" + getIdCanal() + "'" +
+            ", idSiguiendo='" + getIdSiguiendo() + "'" +
+            "}";
     }
 }

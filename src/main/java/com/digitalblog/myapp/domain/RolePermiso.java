@@ -24,6 +24,7 @@ public class RolePermiso implements Serializable {
     @ManyToOne
     private Rol idRol;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class RolePermiso implements Serializable {
     public void setIdRol(Rol rol) {
         this.idRol = rol;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -67,21 +69,21 @@ public class RolePermiso implements Serializable {
             return false;
         }
         RolePermiso rolePermiso = (RolePermiso) o;
-        if (rolePermiso.id == null || id == null) {
+        if (rolePermiso.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, rolePermiso.id);
+        return Objects.equals(getId(), rolePermiso.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "RolePermiso{" +
-            "id=" + id +
-            '}';
+            "id=" + getId() +
+            "}";
     }
 }

@@ -68,7 +68,7 @@ public class RolePermisoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        RolePermisoResource rolePermisoResource = new RolePermisoResource(rolePermisoService);
+        final RolePermisoResource rolePermisoResource = new RolePermisoResource(rolePermisoService);
         this.restRolePermisoMockMvc = MockMvcBuilders.standaloneSetup(rolePermisoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -97,8 +97,7 @@ public class RolePermisoResourceIntTest {
         int databaseSizeBeforeCreate = rolePermisoRepository.findAll().size();
 
         // Create the RolePermiso
-        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.rolePermisoToRolePermisoDTO(rolePermiso);
-
+        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.toDto(rolePermiso);
         restRolePermisoMockMvc.perform(post("/api/role-permisos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(rolePermisoDTO)))
@@ -116,17 +115,16 @@ public class RolePermisoResourceIntTest {
         int databaseSizeBeforeCreate = rolePermisoRepository.findAll().size();
 
         // Create the RolePermiso with an existing ID
-        RolePermiso existingRolePermiso = new RolePermiso();
-        existingRolePermiso.setId(1L);
-        RolePermisoDTO existingRolePermisoDTO = rolePermisoMapper.rolePermisoToRolePermisoDTO(existingRolePermiso);
+        rolePermiso.setId(1L);
+        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.toDto(rolePermiso);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRolePermisoMockMvc.perform(post("/api/role-permisos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingRolePermisoDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(rolePermisoDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the RolePermiso in the database
         List<RolePermiso> rolePermisoList = rolePermisoRepository.findAll();
         assertThat(rolePermisoList).hasSize(databaseSizeBeforeCreate);
     }
@@ -174,7 +172,7 @@ public class RolePermisoResourceIntTest {
 
         // Update the rolePermiso
         RolePermiso updatedRolePermiso = rolePermisoRepository.findOne(rolePermiso.getId());
-        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.rolePermisoToRolePermisoDTO(updatedRolePermiso);
+        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.toDto(updatedRolePermiso);
 
         restRolePermisoMockMvc.perform(put("/api/role-permisos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -193,7 +191,7 @@ public class RolePermisoResourceIntTest {
         int databaseSizeBeforeUpdate = rolePermisoRepository.findAll().size();
 
         // Create the RolePermiso
-        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.rolePermisoToRolePermisoDTO(rolePermiso);
+        RolePermisoDTO rolePermisoDTO = rolePermisoMapper.toDto(rolePermiso);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRolePermisoMockMvc.perform(put("/api/role-permisos")
@@ -224,7 +222,40 @@ public class RolePermisoResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(RolePermiso.class);
+        RolePermiso rolePermiso1 = new RolePermiso();
+        rolePermiso1.setId(1L);
+        RolePermiso rolePermiso2 = new RolePermiso();
+        rolePermiso2.setId(rolePermiso1.getId());
+        assertThat(rolePermiso1).isEqualTo(rolePermiso2);
+        rolePermiso2.setId(2L);
+        assertThat(rolePermiso1).isNotEqualTo(rolePermiso2);
+        rolePermiso1.setId(null);
+        assertThat(rolePermiso1).isNotEqualTo(rolePermiso2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(RolePermisoDTO.class);
+        RolePermisoDTO rolePermisoDTO1 = new RolePermisoDTO();
+        rolePermisoDTO1.setId(1L);
+        RolePermisoDTO rolePermisoDTO2 = new RolePermisoDTO();
+        assertThat(rolePermisoDTO1).isNotEqualTo(rolePermisoDTO2);
+        rolePermisoDTO2.setId(rolePermisoDTO1.getId());
+        assertThat(rolePermisoDTO1).isEqualTo(rolePermisoDTO2);
+        rolePermisoDTO2.setId(2L);
+        assertThat(rolePermisoDTO1).isNotEqualTo(rolePermisoDTO2);
+        rolePermisoDTO1.setId(null);
+        assertThat(rolePermisoDTO1).isNotEqualTo(rolePermisoDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(rolePermisoMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(rolePermisoMapper.fromId(null)).isNull();
     }
 }

@@ -71,7 +71,7 @@ public class CanalResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        CanalResource canalResource = new CanalResource(canalService);
+        final CanalResource canalResource = new CanalResource(canalService);
         this.restCanalMockMvc = MockMvcBuilders.standaloneSetup(canalResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class CanalResourceIntTest {
      */
     public static Canal createEntity(EntityManager em) {
         Canal canal = new Canal()
-                .idUsuario(DEFAULT_ID_USUARIO);
+            .idUsuario(DEFAULT_ID_USUARIO);
         return canal;
     }
 
@@ -101,8 +101,7 @@ public class CanalResourceIntTest {
         int databaseSizeBeforeCreate = canalRepository.findAll().size();
 
         // Create the Canal
-        CanalDTO canalDTO = canalMapper.canalToCanalDTO(canal);
-
+        CanalDTO canalDTO = canalMapper.toDto(canal);
         restCanalMockMvc.perform(post("/api/canals")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(canalDTO)))
@@ -121,17 +120,16 @@ public class CanalResourceIntTest {
         int databaseSizeBeforeCreate = canalRepository.findAll().size();
 
         // Create the Canal with an existing ID
-        Canal existingCanal = new Canal();
-        existingCanal.setId(1L);
-        CanalDTO existingCanalDTO = canalMapper.canalToCanalDTO(existingCanal);
+        canal.setId(1L);
+        CanalDTO canalDTO = canalMapper.toDto(canal);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCanalMockMvc.perform(post("/api/canals")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingCanalDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(canalDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Canal in the database
         List<Canal> canalList = canalRepository.findAll();
         assertThat(canalList).hasSize(databaseSizeBeforeCreate);
     }
@@ -182,8 +180,8 @@ public class CanalResourceIntTest {
         // Update the canal
         Canal updatedCanal = canalRepository.findOne(canal.getId());
         updatedCanal
-                .idUsuario(UPDATED_ID_USUARIO);
-        CanalDTO canalDTO = canalMapper.canalToCanalDTO(updatedCanal);
+            .idUsuario(UPDATED_ID_USUARIO);
+        CanalDTO canalDTO = canalMapper.toDto(updatedCanal);
 
         restCanalMockMvc.perform(put("/api/canals")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,7 +201,7 @@ public class CanalResourceIntTest {
         int databaseSizeBeforeUpdate = canalRepository.findAll().size();
 
         // Create the Canal
-        CanalDTO canalDTO = canalMapper.canalToCanalDTO(canal);
+        CanalDTO canalDTO = canalMapper.toDto(canal);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCanalMockMvc.perform(put("/api/canals")
@@ -234,7 +232,40 @@ public class CanalResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Canal.class);
+        Canal canal1 = new Canal();
+        canal1.setId(1L);
+        Canal canal2 = new Canal();
+        canal2.setId(canal1.getId());
+        assertThat(canal1).isEqualTo(canal2);
+        canal2.setId(2L);
+        assertThat(canal1).isNotEqualTo(canal2);
+        canal1.setId(null);
+        assertThat(canal1).isNotEqualTo(canal2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CanalDTO.class);
+        CanalDTO canalDTO1 = new CanalDTO();
+        canalDTO1.setId(1L);
+        CanalDTO canalDTO2 = new CanalDTO();
+        assertThat(canalDTO1).isNotEqualTo(canalDTO2);
+        canalDTO2.setId(canalDTO1.getId());
+        assertThat(canalDTO1).isEqualTo(canalDTO2);
+        canalDTO2.setId(2L);
+        assertThat(canalDTO1).isNotEqualTo(canalDTO2);
+        canalDTO1.setId(null);
+        assertThat(canalDTO1).isNotEqualTo(canalDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(canalMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(canalMapper.fromId(null)).isNull();
     }
 }

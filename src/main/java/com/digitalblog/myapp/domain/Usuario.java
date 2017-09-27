@@ -63,6 +63,7 @@ public class Usuario implements Serializable {
     @ManyToOne
     private Rol rol;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -251,6 +252,7 @@ public class Usuario implements Serializable {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -261,32 +263,32 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario usuario = (Usuario) o;
-        if (usuario.id == null || id == null) {
+        if (usuario.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, usuario.id);
+        return Objects.equals(getId(), usuario.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            ", primerApelldio='" + primerApelldio + "'" +
-            ", segundoApellido='" + segundoApellido + "'" +
-            ", edad='" + edad + "'" +
-            ", correo='" + correo + "'" +
-            ", descripcion='" + descripcion + "'" +
-            ", fotoperfil='" + fotoperfil + "'" +
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            ", primerApelldio='" + getPrimerApelldio() + "'" +
+            ", segundoApellido='" + getSegundoApellido() + "'" +
+            ", edad='" + getEdad() + "'" +
+            ", correo='" + getCorreo() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", fotoperfil='" + getFotoperfil() + "'" +
             ", fotoperfilContentType='" + fotoperfilContentType + "'" +
-            ", estado='" + estado + "'" +
-            ", idJHIUser='" + idJHIUser + "'" +
-            ", fechaNacimiento='" + fechaNacimiento + "'" +
-            '}';
+            ", estado='" + isEstado() + "'" +
+            ", idJHIUser='" + getIdJHIUser() + "'" +
+            ", fechaNacimiento='" + getFechaNacimiento() + "'" +
+            "}";
     }
 }

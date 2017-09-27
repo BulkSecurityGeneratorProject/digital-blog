@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.SeccionPublicacionDTO;
 import com.digitalblog.myapp.service.mapper.SeccionPublicacionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class SeccionPublicacionServiceImpl implements SeccionPublicacionService{
 
     private final Logger log = LoggerFactory.getLogger(SeccionPublicacionServiceImpl.class);
-    
+
     private final SeccionPublicacionRepository seccionPublicacionRepository;
 
     private final SeccionPublicacionMapper seccionPublicacionMapper;
@@ -41,26 +41,23 @@ public class SeccionPublicacionServiceImpl implements SeccionPublicacionService{
     @Override
     public SeccionPublicacionDTO save(SeccionPublicacionDTO seccionPublicacionDTO) {
         log.debug("Request to save SeccionPublicacion : {}", seccionPublicacionDTO);
-        SeccionPublicacion seccionPublicacion = seccionPublicacionMapper.seccionPublicacionDTOToSeccionPublicacion(seccionPublicacionDTO);
+        SeccionPublicacion seccionPublicacion = seccionPublicacionMapper.toEntity(seccionPublicacionDTO);
         seccionPublicacion = seccionPublicacionRepository.save(seccionPublicacion);
-        SeccionPublicacionDTO result = seccionPublicacionMapper.seccionPublicacionToSeccionPublicacionDTO(seccionPublicacion);
-        return result;
+        return seccionPublicacionMapper.toDto(seccionPublicacion);
     }
 
     /**
      *  Get all the seccionPublicacions.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<SeccionPublicacionDTO> findAll() {
         log.debug("Request to get all SeccionPublicacions");
-        List<SeccionPublicacionDTO> result = seccionPublicacionRepository.findAll().stream()
-            .map(seccionPublicacionMapper::seccionPublicacionToSeccionPublicacionDTO)
+        return seccionPublicacionRepository.findAll().stream()
+            .map(seccionPublicacionMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class SeccionPublicacionServiceImpl implements SeccionPublicacionService{
     public SeccionPublicacionDTO findOne(Long id) {
         log.debug("Request to get SeccionPublicacion : {}", id);
         SeccionPublicacion seccionPublicacion = seccionPublicacionRepository.findOne(id);
-        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.seccionPublicacionToSeccionPublicacionDTO(seccionPublicacion);
-        return seccionPublicacionDTO;
+        return seccionPublicacionMapper.toDto(seccionPublicacion);
     }
 
     /**

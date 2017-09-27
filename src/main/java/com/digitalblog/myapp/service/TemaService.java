@@ -18,7 +18,7 @@ public interface TemaService {
 
     /**
      *  Get all the temas.
-     *  
+     *
      *  @return the list of entities
      */
     List<TemaDTO> findAll();

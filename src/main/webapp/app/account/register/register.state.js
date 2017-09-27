@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('register', {
-            parent: 'app',
+            parent: 'account',
             url: '/register',
             data: {
                 authorities: [],

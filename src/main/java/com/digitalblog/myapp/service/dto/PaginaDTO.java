@@ -26,6 +26,7 @@ public class PaginaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getContenido() {
         return contenido;
     }
@@ -33,6 +34,7 @@ public class PaginaDTO implements Serializable {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+
     public Integer getNumeroPagina() {
         return numeroPagina;
     }
@@ -59,23 +61,23 @@ public class PaginaDTO implements Serializable {
         }
 
         PaginaDTO paginaDTO = (PaginaDTO) o;
-
-        if ( ! Objects.equals(id, paginaDTO.id)) { return false; }
-
-        return true;
+        if(paginaDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), paginaDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "PaginaDTO{" +
-            "id=" + id +
-            ", contenido='" + contenido + "'" +
-            ", numeroPagina='" + numeroPagina + "'" +
-            '}';
+            "id=" + getId() +
+            ", contenido='" + getContenido() + "'" +
+            ", numeroPagina='" + getNumeroPagina() + "'" +
+            "}";
     }
 }

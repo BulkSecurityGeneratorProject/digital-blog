@@ -1,10 +1,9 @@
-
 package com.digitalblog.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.digitalblog.myapp.service.PublicacionService;
-import com.digitalblog.myapp.service.dto.PublicacionDTO;
 import com.digitalblog.myapp.web.rest.util.HeaderUtil;
+import com.digitalblog.myapp.service.dto.PublicacionDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +59,7 @@ public class PublicacionResource {
      * @param publicacionDTO the publicacionDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated publicacionDTO,
      * or with status 400 (Bad Request) if the publicacionDTO is not valid,
-     * or with status 500 (Internal Server Error) if the publicacionDTO couldnt be updated
+     * or with status 500 (Internal Server Error) if the publicacionDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/publicacions")
@@ -85,7 +85,7 @@ public class PublicacionResource {
     public List<PublicacionDTO> getAllPublicacions() {
         log.debug("REST request to get all Publicacions");
         return publicacionService.findAll();
-    }
+        }
 
     /**
      * GET  /publicacions/:id : get the "id" publicacion.
@@ -114,5 +114,4 @@ public class PublicacionResource {
         publicacionService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

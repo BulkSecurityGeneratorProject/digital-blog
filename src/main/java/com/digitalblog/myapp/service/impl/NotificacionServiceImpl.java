@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.NotificacionDTO;
 import com.digitalblog.myapp.service.mapper.NotificacionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,10 +41,9 @@ public class NotificacionServiceImpl implements NotificacionService{
     @Override
     public NotificacionDTO save(NotificacionDTO notificacionDTO) {
         log.debug("Request to save Notificacion : {}", notificacionDTO);
-        Notificacion notificacion = notificacionMapper.notificacionDTOToNotificacion(notificacionDTO);
+        Notificacion notificacion = notificacionMapper.toEntity(notificacionDTO);
         notificacion = notificacionRepository.save(notificacion);
-        NotificacionDTO result = notificacionMapper.notificacionToNotificacionDTO(notificacion);
-        return result;
+        return notificacionMapper.toDto(notificacion);
     }
 
     /**
@@ -56,11 +55,9 @@ public class NotificacionServiceImpl implements NotificacionService{
     @Transactional(readOnly = true)
     public List<NotificacionDTO> findAll() {
         log.debug("Request to get all Notificacions");
-        List<NotificacionDTO> result = notificacionRepository.findAll().stream()
-            .map(notificacionMapper::notificacionToNotificacionDTO)
+        return notificacionRepository.findAll().stream()
+            .map(notificacionMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class NotificacionServiceImpl implements NotificacionService{
     public NotificacionDTO findOne(Long id) {
         log.debug("Request to get Notificacion : {}", id);
         Notificacion notificacion = notificacionRepository.findOne(id);
-        NotificacionDTO notificacionDTO = notificacionMapper.notificacionToNotificacionDTO(notificacion);
-        return notificacionDTO;
+        return notificacionMapper.toDto(notificacion);
     }
 
     /**

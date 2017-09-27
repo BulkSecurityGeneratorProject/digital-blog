@@ -27,6 +27,7 @@ public class Coolaborador implements Serializable {
     @ManyToOne
     private Usuario idUsuario;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -73,6 +74,7 @@ public class Coolaborador implements Serializable {
     public void setIdUsuario(Usuario usuario) {
         this.idUsuario = usuario;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -83,21 +85,21 @@ public class Coolaborador implements Serializable {
             return false;
         }
         Coolaborador coolaborador = (Coolaborador) o;
-        if (coolaborador.id == null || id == null) {
+        if (coolaborador.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, coolaborador.id);
+        return Objects.equals(getId(), coolaborador.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Coolaborador{" +
-            "id=" + id +
-            '}';
+            "id=" + getId() +
+            "}";
     }
 }

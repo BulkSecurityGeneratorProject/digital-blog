@@ -74,7 +74,7 @@ public class PublicacionReportadaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        PublicacionReportadaResource publicacionReportadaResource = new PublicacionReportadaResource(publicacionReportadaService);
+        final PublicacionReportadaResource publicacionReportadaResource = new PublicacionReportadaResource(publicacionReportadaService);
         this.restPublicacionReportadaMockMvc = MockMvcBuilders.standaloneSetup(publicacionReportadaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,8 +89,8 @@ public class PublicacionReportadaResourceIntTest {
      */
     public static PublicacionReportada createEntity(EntityManager em) {
         PublicacionReportada publicacionReportada = new PublicacionReportada()
-                .cantidadReportes(DEFAULT_CANTIDAD_REPORTES)
-                .idPublicacion(DEFAULT_ID_PUBLICACION);
+            .cantidadReportes(DEFAULT_CANTIDAD_REPORTES)
+            .idPublicacion(DEFAULT_ID_PUBLICACION);
         return publicacionReportada;
     }
 
@@ -105,8 +105,7 @@ public class PublicacionReportadaResourceIntTest {
         int databaseSizeBeforeCreate = publicacionReportadaRepository.findAll().size();
 
         // Create the PublicacionReportada
-        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.publicacionReportadaToPublicacionReportadaDTO(publicacionReportada);
-
+        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.toDto(publicacionReportada);
         restPublicacionReportadaMockMvc.perform(post("/api/publicacion-reportadas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(publicacionReportadaDTO)))
@@ -126,17 +125,16 @@ public class PublicacionReportadaResourceIntTest {
         int databaseSizeBeforeCreate = publicacionReportadaRepository.findAll().size();
 
         // Create the PublicacionReportada with an existing ID
-        PublicacionReportada existingPublicacionReportada = new PublicacionReportada();
-        existingPublicacionReportada.setId(1L);
-        PublicacionReportadaDTO existingPublicacionReportadaDTO = publicacionReportadaMapper.publicacionReportadaToPublicacionReportadaDTO(existingPublicacionReportada);
+        publicacionReportada.setId(1L);
+        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.toDto(publicacionReportada);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPublicacionReportadaMockMvc.perform(post("/api/publicacion-reportadas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPublicacionReportadaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(publicacionReportadaDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the PublicacionReportada in the database
         List<PublicacionReportada> publicacionReportadaList = publicacionReportadaRepository.findAll();
         assertThat(publicacionReportadaList).hasSize(databaseSizeBeforeCreate);
     }
@@ -189,9 +187,9 @@ public class PublicacionReportadaResourceIntTest {
         // Update the publicacionReportada
         PublicacionReportada updatedPublicacionReportada = publicacionReportadaRepository.findOne(publicacionReportada.getId());
         updatedPublicacionReportada
-                .cantidadReportes(UPDATED_CANTIDAD_REPORTES)
-                .idPublicacion(UPDATED_ID_PUBLICACION);
-        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.publicacionReportadaToPublicacionReportadaDTO(updatedPublicacionReportada);
+            .cantidadReportes(UPDATED_CANTIDAD_REPORTES)
+            .idPublicacion(UPDATED_ID_PUBLICACION);
+        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.toDto(updatedPublicacionReportada);
 
         restPublicacionReportadaMockMvc.perform(put("/api/publicacion-reportadas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -212,7 +210,7 @@ public class PublicacionReportadaResourceIntTest {
         int databaseSizeBeforeUpdate = publicacionReportadaRepository.findAll().size();
 
         // Create the PublicacionReportada
-        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.publicacionReportadaToPublicacionReportadaDTO(publicacionReportada);
+        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.toDto(publicacionReportada);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPublicacionReportadaMockMvc.perform(put("/api/publicacion-reportadas")
@@ -243,7 +241,40 @@ public class PublicacionReportadaResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(PublicacionReportada.class);
+        PublicacionReportada publicacionReportada1 = new PublicacionReportada();
+        publicacionReportada1.setId(1L);
+        PublicacionReportada publicacionReportada2 = new PublicacionReportada();
+        publicacionReportada2.setId(publicacionReportada1.getId());
+        assertThat(publicacionReportada1).isEqualTo(publicacionReportada2);
+        publicacionReportada2.setId(2L);
+        assertThat(publicacionReportada1).isNotEqualTo(publicacionReportada2);
+        publicacionReportada1.setId(null);
+        assertThat(publicacionReportada1).isNotEqualTo(publicacionReportada2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PublicacionReportadaDTO.class);
+        PublicacionReportadaDTO publicacionReportadaDTO1 = new PublicacionReportadaDTO();
+        publicacionReportadaDTO1.setId(1L);
+        PublicacionReportadaDTO publicacionReportadaDTO2 = new PublicacionReportadaDTO();
+        assertThat(publicacionReportadaDTO1).isNotEqualTo(publicacionReportadaDTO2);
+        publicacionReportadaDTO2.setId(publicacionReportadaDTO1.getId());
+        assertThat(publicacionReportadaDTO1).isEqualTo(publicacionReportadaDTO2);
+        publicacionReportadaDTO2.setId(2L);
+        assertThat(publicacionReportadaDTO1).isNotEqualTo(publicacionReportadaDTO2);
+        publicacionReportadaDTO1.setId(null);
+        assertThat(publicacionReportadaDTO1).isNotEqualTo(publicacionReportadaDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(publicacionReportadaMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(publicacionReportadaMapper.fromId(null)).isNull();
     }
 }

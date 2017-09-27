@@ -38,16 +38,6 @@ public class PublicacionDTO implements Serializable {
 
     private Long temaId;
 
-    private String fotoPublicador;
-
-    public String getFotoPublicador() {
-        return fotoPublicador;
-    }
-
-    public void setFotoPublicador(String fotoPublicador) {
-        this.fotoPublicador = fotoPublicador;
-    }
-
     public Long getId() {
         return id;
     }
@@ -55,6 +45,7 @@ public class PublicacionDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getUrlImagen() {
         return urlImagen;
     }
@@ -62,6 +53,7 @@ public class PublicacionDTO implements Serializable {
     public void setUrlImagen(String urlImagen) {
         this.urlImagen = urlImagen;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -69,6 +61,7 @@ public class PublicacionDTO implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public String getContenido() {
         return contenido;
     }
@@ -76,13 +69,15 @@ public class PublicacionDTO implements Serializable {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-    public Boolean getTipo() {
+
+    public Boolean isTipo() {
         return tipo;
     }
 
     public void setTipo(Boolean tipo) {
         this.tipo = tipo;
     }
+
     public String getTitulo() {
         return titulo;
     }
@@ -90,6 +85,7 @@ public class PublicacionDTO implements Serializable {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
     public Integer getEstado() {
         return estado;
     }
@@ -97,6 +93,7 @@ public class PublicacionDTO implements Serializable {
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
+
     public Integer getCantidadIteraciones() {
         return cantidadIteraciones;
     }
@@ -104,6 +101,7 @@ public class PublicacionDTO implements Serializable {
     public void setCantidadIteraciones(Integer cantidadIteraciones) {
         this.cantidadIteraciones = cantidadIteraciones;
     }
+
     public byte[] getFotopublicacion() {
         return fotopublicacion;
     }
@@ -154,29 +152,29 @@ public class PublicacionDTO implements Serializable {
         }
 
         PublicacionDTO publicacionDTO = (PublicacionDTO) o;
-
-        if ( ! Objects.equals(id, publicacionDTO.id)) { return false; }
-
-        return true;
+        if(publicacionDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), publicacionDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "PublicacionDTO{" +
-            "id=" + id +
-            ", urlImagen='" + urlImagen + "'" +
-            ", descripcion='" + descripcion + "'" +
-            ", contenido='" + contenido + "'" +
-            ", tipo='" + tipo + "'" +
-            ", titulo='" + titulo + "'" +
-            ", estado='" + estado + "'" +
-            ", cantidadIteraciones='" + cantidadIteraciones + "'" +
-            ", fotopublicacion='" + fotopublicacion + "'" +
-            '}';
+            "id=" + getId() +
+            ", urlImagen='" + getUrlImagen() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", contenido='" + getContenido() + "'" +
+            ", tipo='" + isTipo() + "'" +
+            ", titulo='" + getTitulo() + "'" +
+            ", estado='" + getEstado() + "'" +
+            ", cantidadIteraciones='" + getCantidadIteraciones() + "'" +
+            ", fotopublicacion='" + getFotopublicacion() + "'" +
+            "}";
     }
 }

@@ -18,7 +18,7 @@ public interface SuscripcionesService {
 
     /**
      *  Get all the suscripciones.
-     *  
+     *
      *  @return the list of entities
      */
     List<SuscripcionesDTO> findAll();

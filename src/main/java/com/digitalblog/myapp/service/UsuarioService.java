@@ -18,7 +18,7 @@ public interface UsuarioService {
 
     /**
      *  Get all the usuarios.
-     *  
+     *
      *  @return the list of entities
      */
     List<UsuarioDTO> findAll();

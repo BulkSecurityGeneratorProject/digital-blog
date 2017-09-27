@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.PublicacionReportadaDTO;
 import com.digitalblog.myapp.service.mapper.PublicacionReportadaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class PublicacionReportadaServiceImpl implements PublicacionReportadaService{
 
     private final Logger log = LoggerFactory.getLogger(PublicacionReportadaServiceImpl.class);
-    
+
     private final PublicacionReportadaRepository publicacionReportadaRepository;
 
     private final PublicacionReportadaMapper publicacionReportadaMapper;
@@ -41,26 +41,23 @@ public class PublicacionReportadaServiceImpl implements PublicacionReportadaServ
     @Override
     public PublicacionReportadaDTO save(PublicacionReportadaDTO publicacionReportadaDTO) {
         log.debug("Request to save PublicacionReportada : {}", publicacionReportadaDTO);
-        PublicacionReportada publicacionReportada = publicacionReportadaMapper.publicacionReportadaDTOToPublicacionReportada(publicacionReportadaDTO);
+        PublicacionReportada publicacionReportada = publicacionReportadaMapper.toEntity(publicacionReportadaDTO);
         publicacionReportada = publicacionReportadaRepository.save(publicacionReportada);
-        PublicacionReportadaDTO result = publicacionReportadaMapper.publicacionReportadaToPublicacionReportadaDTO(publicacionReportada);
-        return result;
+        return publicacionReportadaMapper.toDto(publicacionReportada);
     }
 
     /**
      *  Get all the publicacionReportadas.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<PublicacionReportadaDTO> findAll() {
         log.debug("Request to get all PublicacionReportadas");
-        List<PublicacionReportadaDTO> result = publicacionReportadaRepository.findAll().stream()
-            .map(publicacionReportadaMapper::publicacionReportadaToPublicacionReportadaDTO)
+        return publicacionReportadaRepository.findAll().stream()
+            .map(publicacionReportadaMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class PublicacionReportadaServiceImpl implements PublicacionReportadaServ
     public PublicacionReportadaDTO findOne(Long id) {
         log.debug("Request to get PublicacionReportada : {}", id);
         PublicacionReportada publicacionReportada = publicacionReportadaRepository.findOne(id);
-        PublicacionReportadaDTO publicacionReportadaDTO = publicacionReportadaMapper.publicacionReportadaToPublicacionReportadaDTO(publicacionReportada);
-        return publicacionReportadaDTO;
+        return publicacionReportadaMapper.toDto(publicacionReportada);
     }
 
     /**

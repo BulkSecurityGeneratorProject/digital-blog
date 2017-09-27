@@ -18,7 +18,7 @@ public interface PaginaService {
 
     /**
      *  Get all the paginas.
-     *  
+     *
      *  @return the list of entities
      */
     List<PaginaDTO> findAll();

@@ -22,6 +22,7 @@ public class SuscripcionesDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Integer getIdCanal() {
         return idCanal;
     }
@@ -29,6 +30,7 @@ public class SuscripcionesDTO implements Serializable {
     public void setIdCanal(Integer idCanal) {
         this.idCanal = idCanal;
     }
+
     public Integer getIdSiguiendo() {
         return idSiguiendo;
     }
@@ -47,23 +49,23 @@ public class SuscripcionesDTO implements Serializable {
         }
 
         SuscripcionesDTO suscripcionesDTO = (SuscripcionesDTO) o;
-
-        if ( ! Objects.equals(id, suscripcionesDTO.id)) { return false; }
-
-        return true;
+        if(suscripcionesDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), suscripcionesDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "SuscripcionesDTO{" +
-            "id=" + id +
-            ", idCanal='" + idCanal + "'" +
-            ", idSiguiendo='" + idSiguiendo + "'" +
-            '}';
+            "id=" + getId() +
+            ", idCanal='" + getIdCanal() + "'" +
+            ", idSiguiendo='" + getIdSiguiendo() + "'" +
+            "}";
     }
 }

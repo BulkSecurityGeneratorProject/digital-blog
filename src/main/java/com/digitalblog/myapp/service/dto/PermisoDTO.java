@@ -22,6 +22,7 @@ public class PermisoDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -29,6 +30,7 @@ public class PermisoDTO implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -47,23 +49,23 @@ public class PermisoDTO implements Serializable {
         }
 
         PermisoDTO permisoDTO = (PermisoDTO) o;
-
-        if ( ! Objects.equals(id, permisoDTO.id)) { return false; }
-
-        return true;
+        if(permisoDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), permisoDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "PermisoDTO{" +
-            "id=" + id +
-            ", descripcion='" + descripcion + "'" +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

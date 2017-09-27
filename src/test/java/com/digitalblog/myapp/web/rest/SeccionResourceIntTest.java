@@ -71,7 +71,7 @@ public class SeccionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        SeccionResource seccionResource = new SeccionResource(seccionService);
+        final SeccionResource seccionResource = new SeccionResource(seccionService);
         this.restSeccionMockMvc = MockMvcBuilders.standaloneSetup(seccionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class SeccionResourceIntTest {
      */
     public static Seccion createEntity(EntityManager em) {
         Seccion seccion = new Seccion()
-                .nombre(DEFAULT_NOMBRE);
+            .nombre(DEFAULT_NOMBRE);
         return seccion;
     }
 
@@ -101,8 +101,7 @@ public class SeccionResourceIntTest {
         int databaseSizeBeforeCreate = seccionRepository.findAll().size();
 
         // Create the Seccion
-        SeccionDTO seccionDTO = seccionMapper.seccionToSeccionDTO(seccion);
-
+        SeccionDTO seccionDTO = seccionMapper.toDto(seccion);
         restSeccionMockMvc.perform(post("/api/seccions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(seccionDTO)))
@@ -121,17 +120,16 @@ public class SeccionResourceIntTest {
         int databaseSizeBeforeCreate = seccionRepository.findAll().size();
 
         // Create the Seccion with an existing ID
-        Seccion existingSeccion = new Seccion();
-        existingSeccion.setId(1L);
-        SeccionDTO existingSeccionDTO = seccionMapper.seccionToSeccionDTO(existingSeccion);
+        seccion.setId(1L);
+        SeccionDTO seccionDTO = seccionMapper.toDto(seccion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSeccionMockMvc.perform(post("/api/seccions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingSeccionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(seccionDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Seccion in the database
         List<Seccion> seccionList = seccionRepository.findAll();
         assertThat(seccionList).hasSize(databaseSizeBeforeCreate);
     }
@@ -182,8 +180,8 @@ public class SeccionResourceIntTest {
         // Update the seccion
         Seccion updatedSeccion = seccionRepository.findOne(seccion.getId());
         updatedSeccion
-                .nombre(UPDATED_NOMBRE);
-        SeccionDTO seccionDTO = seccionMapper.seccionToSeccionDTO(updatedSeccion);
+            .nombre(UPDATED_NOMBRE);
+        SeccionDTO seccionDTO = seccionMapper.toDto(updatedSeccion);
 
         restSeccionMockMvc.perform(put("/api/seccions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,7 +201,7 @@ public class SeccionResourceIntTest {
         int databaseSizeBeforeUpdate = seccionRepository.findAll().size();
 
         // Create the Seccion
-        SeccionDTO seccionDTO = seccionMapper.seccionToSeccionDTO(seccion);
+        SeccionDTO seccionDTO = seccionMapper.toDto(seccion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSeccionMockMvc.perform(put("/api/seccions")
@@ -234,7 +232,40 @@ public class SeccionResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Seccion.class);
+        Seccion seccion1 = new Seccion();
+        seccion1.setId(1L);
+        Seccion seccion2 = new Seccion();
+        seccion2.setId(seccion1.getId());
+        assertThat(seccion1).isEqualTo(seccion2);
+        seccion2.setId(2L);
+        assertThat(seccion1).isNotEqualTo(seccion2);
+        seccion1.setId(null);
+        assertThat(seccion1).isNotEqualTo(seccion2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(SeccionDTO.class);
+        SeccionDTO seccionDTO1 = new SeccionDTO();
+        seccionDTO1.setId(1L);
+        SeccionDTO seccionDTO2 = new SeccionDTO();
+        assertThat(seccionDTO1).isNotEqualTo(seccionDTO2);
+        seccionDTO2.setId(seccionDTO1.getId());
+        assertThat(seccionDTO1).isEqualTo(seccionDTO2);
+        seccionDTO2.setId(2L);
+        assertThat(seccionDTO1).isNotEqualTo(seccionDTO2);
+        seccionDTO1.setId(null);
+        assertThat(seccionDTO1).isNotEqualTo(seccionDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(seccionMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(seccionMapper.fromId(null)).isNull();
     }
 }

@@ -25,6 +25,7 @@ public class ImagenPorPublicacionDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Integer getIdPublicacion() {
         return idPublicacion;
     }
@@ -32,6 +33,7 @@ public class ImagenPorPublicacionDTO implements Serializable {
     public void setIdPublicacion(Integer idPublicacion) {
         this.idPublicacion = idPublicacion;
     }
+
     public byte[] getImagen() {
         return imagen;
     }
@@ -58,23 +60,23 @@ public class ImagenPorPublicacionDTO implements Serializable {
         }
 
         ImagenPorPublicacionDTO imagenPorPublicacionDTO = (ImagenPorPublicacionDTO) o;
-
-        if ( ! Objects.equals(id, imagenPorPublicacionDTO.id)) { return false; }
-
-        return true;
+        if(imagenPorPublicacionDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), imagenPorPublicacionDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "ImagenPorPublicacionDTO{" +
-            "id=" + id +
-            ", idPublicacion='" + idPublicacion + "'" +
-            ", imagen='" + imagen + "'" +
-            '}';
+            "id=" + getId() +
+            ", idPublicacion='" + getIdPublicacion() + "'" +
+            ", imagen='" + getImagen() + "'" +
+            "}";
     }
 }

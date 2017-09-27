@@ -18,7 +18,7 @@ public interface CoolaboradorService {
 
     /**
      *  Get all the coolaboradors.
-     *  
+     *
      *  @return the list of entities
      */
     List<CoolaboradorDTO> findAll();

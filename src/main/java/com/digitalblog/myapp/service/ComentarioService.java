@@ -18,7 +18,7 @@ public interface ComentarioService {
 
     /**
      *  Get all the comentarios.
-     *  
+     *
      *  @return the list of entities
      */
     List<ComentarioDTO> findAll();

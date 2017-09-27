@@ -22,6 +22,7 @@ public class PublicacionReportadaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Integer getCantidadReportes() {
         return cantidadReportes;
     }
@@ -29,6 +30,7 @@ public class PublicacionReportadaDTO implements Serializable {
     public void setCantidadReportes(Integer cantidadReportes) {
         this.cantidadReportes = cantidadReportes;
     }
+
     public Integer getIdPublicacion() {
         return idPublicacion;
     }
@@ -47,23 +49,23 @@ public class PublicacionReportadaDTO implements Serializable {
         }
 
         PublicacionReportadaDTO publicacionReportadaDTO = (PublicacionReportadaDTO) o;
-
-        if ( ! Objects.equals(id, publicacionReportadaDTO.id)) { return false; }
-
-        return true;
+        if(publicacionReportadaDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), publicacionReportadaDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "PublicacionReportadaDTO{" +
-            "id=" + id +
-            ", cantidadReportes='" + cantidadReportes + "'" +
-            ", idPublicacion='" + idPublicacion + "'" +
-            '}';
+            "id=" + getId() +
+            ", cantidadReportes='" + getCantidadReportes() + "'" +
+            ", idPublicacion='" + getIdPublicacion() + "'" +
+            "}";
     }
 }

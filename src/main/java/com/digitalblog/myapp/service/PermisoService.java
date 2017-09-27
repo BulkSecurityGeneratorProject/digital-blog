@@ -18,7 +18,7 @@ public interface PermisoService {
 
     /**
      *  Get all the permisos.
-     *  
+     *
      *  @return the list of entities
      */
     List<PermisoDTO> findAll();

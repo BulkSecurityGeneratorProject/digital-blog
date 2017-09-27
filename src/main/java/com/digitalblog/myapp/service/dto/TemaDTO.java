@@ -20,6 +20,7 @@ public class TemaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -38,22 +39,22 @@ public class TemaDTO implements Serializable {
         }
 
         TemaDTO temaDTO = (TemaDTO) o;
-
-        if ( ! Objects.equals(id, temaDTO.id)) { return false; }
-
-        return true;
+        if(temaDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), temaDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "TemaDTO{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

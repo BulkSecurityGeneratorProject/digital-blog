@@ -15,8 +15,6 @@ public class SeccionDTO implements Serializable {
 
     private String nombre;
 
-    private String seccionName;
-
     private Long bibliotecaId;
 
     public Long getId() {
@@ -26,6 +24,7 @@ public class SeccionDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -42,14 +41,6 @@ public class SeccionDTO implements Serializable {
         this.bibliotecaId = bibliotecaId;
     }
 
-    public String getSeccionName() {
-        return seccionName;
-    }
-
-    public void setSeccionName(String seccionName) {
-        this.seccionName = seccionName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -60,22 +51,22 @@ public class SeccionDTO implements Serializable {
         }
 
         SeccionDTO seccionDTO = (SeccionDTO) o;
-
-        if ( ! Objects.equals(id, seccionDTO.id)) { return false; }
-
-        return true;
+        if(seccionDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), seccionDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "SeccionDTO{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

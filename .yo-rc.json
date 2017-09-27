@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.7",
+    "jhipsterVersion": "4.8.2",
     "baseName": "digitalBLOG",
     "packageName": "com.digitalblog.myapp",
     "packageFolder": "com/digitalblog/myapp",

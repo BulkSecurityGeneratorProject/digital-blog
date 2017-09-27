@@ -24,6 +24,7 @@ public class PublicacionReportada implements Serializable {
     @Column(name = "id_publicacion")
     private Integer idPublicacion;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class PublicacionReportada implements Serializable {
     public void setIdPublicacion(Integer idPublicacion) {
         this.idPublicacion = idPublicacion;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -67,23 +69,23 @@ public class PublicacionReportada implements Serializable {
             return false;
         }
         PublicacionReportada publicacionReportada = (PublicacionReportada) o;
-        if (publicacionReportada.id == null || id == null) {
+        if (publicacionReportada.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, publicacionReportada.id);
+        return Objects.equals(getId(), publicacionReportada.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "PublicacionReportada{" +
-            "id=" + id +
-            ", cantidadReportes='" + cantidadReportes + "'" +
-            ", idPublicacion='" + idPublicacion + "'" +
-            '}';
+            "id=" + getId() +
+            ", cantidadReportes='" + getCantidadReportes() + "'" +
+            ", idPublicacion='" + getIdPublicacion() + "'" +
+            "}";
     }
 }

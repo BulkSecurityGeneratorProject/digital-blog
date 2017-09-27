@@ -18,7 +18,7 @@ public interface NotaService {
 
     /**
      *  Get all the notas.
-     *  
+     *
      *  @return the list of entities
      */
     List<NotaDTO> findAll();

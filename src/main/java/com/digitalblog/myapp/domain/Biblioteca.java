@@ -35,6 +35,7 @@ public class Biblioteca implements Serializable {
     @JsonIgnore
     private Set<Seccion> idSeccionBS = new HashSet<>();
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -106,6 +107,7 @@ public class Biblioteca implements Serializable {
     public void setIdSeccionBS(Set<Seccion> seccions) {
         this.idSeccionBS = seccions;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -116,23 +118,23 @@ public class Biblioteca implements Serializable {
             return false;
         }
         Biblioteca biblioteca = (Biblioteca) o;
-        if (biblioteca.id == null || id == null) {
+        if (biblioteca.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, biblioteca.id);
+        return Objects.equals(getId(), biblioteca.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Biblioteca{" +
-            "id=" + id +
-            ", idSeccion='" + idSeccion + "'" +
-            ", idJhiUser='" + idJhiUser + "'" +
-            '}';
+            "id=" + getId() +
+            ", idSeccion='" + getIdSeccion() + "'" +
+            ", idJhiUser='" + getIdJhiUser() + "'" +
+            "}";
     }
 }

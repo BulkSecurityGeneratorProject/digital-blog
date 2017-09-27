@@ -24,6 +24,7 @@ public class Respuesta implements Serializable {
     @ManyToOne
     private Comentario idComentarioR;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class Respuesta implements Serializable {
     public void setIdComentarioR(Comentario comentario) {
         this.idComentarioR = comentario;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -67,22 +69,22 @@ public class Respuesta implements Serializable {
             return false;
         }
         Respuesta respuesta = (Respuesta) o;
-        if (respuesta.id == null || id == null) {
+        if (respuesta.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, respuesta.id);
+        return Objects.equals(getId(), respuesta.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Respuesta{" +
-            "id=" + id +
-            ", contenido='" + contenido + "'" +
-            '}';
+            "id=" + getId() +
+            ", contenido='" + getContenido() + "'" +
+            "}";
     }
 }

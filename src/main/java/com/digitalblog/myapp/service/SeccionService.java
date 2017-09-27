@@ -18,7 +18,7 @@ public interface SeccionService {
 
     /**
      *  Get all the seccions.
-     *  
+     *
      *  @return the list of entities
      */
     List<SeccionDTO> findAll();

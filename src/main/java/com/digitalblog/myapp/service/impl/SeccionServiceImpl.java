@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.SeccionDTO;
 import com.digitalblog.myapp.service.mapper.SeccionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class SeccionServiceImpl implements SeccionService{
 
     private final Logger log = LoggerFactory.getLogger(SeccionServiceImpl.class);
-    
+
     private final SeccionRepository seccionRepository;
 
     private final SeccionMapper seccionMapper;
@@ -41,26 +41,23 @@ public class SeccionServiceImpl implements SeccionService{
     @Override
     public SeccionDTO save(SeccionDTO seccionDTO) {
         log.debug("Request to save Seccion : {}", seccionDTO);
-        Seccion seccion = seccionMapper.seccionDTOToSeccion(seccionDTO);
+        Seccion seccion = seccionMapper.toEntity(seccionDTO);
         seccion = seccionRepository.save(seccion);
-        SeccionDTO result = seccionMapper.seccionToSeccionDTO(seccion);
-        return result;
+        return seccionMapper.toDto(seccion);
     }
 
     /**
      *  Get all the seccions.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<SeccionDTO> findAll() {
         log.debug("Request to get all Seccions");
-        List<SeccionDTO> result = seccionRepository.findAll().stream()
-            .map(seccionMapper::seccionToSeccionDTO)
+        return seccionRepository.findAll().stream()
+            .map(seccionMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class SeccionServiceImpl implements SeccionService{
     public SeccionDTO findOne(Long id) {
         log.debug("Request to get Seccion : {}", id);
         Seccion seccion = seccionRepository.findOne(id);
-        SeccionDTO seccionDTO = seccionMapper.seccionToSeccionDTO(seccion);
-        return seccionDTO;
+        return seccionMapper.toDto(seccion);
     }
 
     /**

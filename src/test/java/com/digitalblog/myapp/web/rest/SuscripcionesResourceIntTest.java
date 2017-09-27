@@ -74,7 +74,7 @@ public class SuscripcionesResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        SuscripcionesResource suscripcionesResource = new SuscripcionesResource(suscripcionesService);
+        final SuscripcionesResource suscripcionesResource = new SuscripcionesResource(suscripcionesService);
         this.restSuscripcionesMockMvc = MockMvcBuilders.standaloneSetup(suscripcionesResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,8 +89,8 @@ public class SuscripcionesResourceIntTest {
      */
     public static Suscripciones createEntity(EntityManager em) {
         Suscripciones suscripciones = new Suscripciones()
-                .idCanal(DEFAULT_ID_CANAL)
-                .idSiguiendo(DEFAULT_ID_SIGUIENDO);
+            .idCanal(DEFAULT_ID_CANAL)
+            .idSiguiendo(DEFAULT_ID_SIGUIENDO);
         return suscripciones;
     }
 
@@ -105,8 +105,7 @@ public class SuscripcionesResourceIntTest {
         int databaseSizeBeforeCreate = suscripcionesRepository.findAll().size();
 
         // Create the Suscripciones
-        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.suscripcionesToSuscripcionesDTO(suscripciones);
-
+        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.toDto(suscripciones);
         restSuscripcionesMockMvc.perform(post("/api/suscripciones")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(suscripcionesDTO)))
@@ -126,17 +125,16 @@ public class SuscripcionesResourceIntTest {
         int databaseSizeBeforeCreate = suscripcionesRepository.findAll().size();
 
         // Create the Suscripciones with an existing ID
-        Suscripciones existingSuscripciones = new Suscripciones();
-        existingSuscripciones.setId(1L);
-        SuscripcionesDTO existingSuscripcionesDTO = suscripcionesMapper.suscripcionesToSuscripcionesDTO(existingSuscripciones);
+        suscripciones.setId(1L);
+        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.toDto(suscripciones);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSuscripcionesMockMvc.perform(post("/api/suscripciones")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingSuscripcionesDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(suscripcionesDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Suscripciones in the database
         List<Suscripciones> suscripcionesList = suscripcionesRepository.findAll();
         assertThat(suscripcionesList).hasSize(databaseSizeBeforeCreate);
     }
@@ -189,9 +187,9 @@ public class SuscripcionesResourceIntTest {
         // Update the suscripciones
         Suscripciones updatedSuscripciones = suscripcionesRepository.findOne(suscripciones.getId());
         updatedSuscripciones
-                .idCanal(UPDATED_ID_CANAL)
-                .idSiguiendo(UPDATED_ID_SIGUIENDO);
-        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.suscripcionesToSuscripcionesDTO(updatedSuscripciones);
+            .idCanal(UPDATED_ID_CANAL)
+            .idSiguiendo(UPDATED_ID_SIGUIENDO);
+        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.toDto(updatedSuscripciones);
 
         restSuscripcionesMockMvc.perform(put("/api/suscripciones")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -212,7 +210,7 @@ public class SuscripcionesResourceIntTest {
         int databaseSizeBeforeUpdate = suscripcionesRepository.findAll().size();
 
         // Create the Suscripciones
-        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.suscripcionesToSuscripcionesDTO(suscripciones);
+        SuscripcionesDTO suscripcionesDTO = suscripcionesMapper.toDto(suscripciones);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSuscripcionesMockMvc.perform(put("/api/suscripciones")
@@ -243,7 +241,40 @@ public class SuscripcionesResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Suscripciones.class);
+        Suscripciones suscripciones1 = new Suscripciones();
+        suscripciones1.setId(1L);
+        Suscripciones suscripciones2 = new Suscripciones();
+        suscripciones2.setId(suscripciones1.getId());
+        assertThat(suscripciones1).isEqualTo(suscripciones2);
+        suscripciones2.setId(2L);
+        assertThat(suscripciones1).isNotEqualTo(suscripciones2);
+        suscripciones1.setId(null);
+        assertThat(suscripciones1).isNotEqualTo(suscripciones2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(SuscripcionesDTO.class);
+        SuscripcionesDTO suscripcionesDTO1 = new SuscripcionesDTO();
+        suscripcionesDTO1.setId(1L);
+        SuscripcionesDTO suscripcionesDTO2 = new SuscripcionesDTO();
+        assertThat(suscripcionesDTO1).isNotEqualTo(suscripcionesDTO2);
+        suscripcionesDTO2.setId(suscripcionesDTO1.getId());
+        assertThat(suscripcionesDTO1).isEqualTo(suscripcionesDTO2);
+        suscripcionesDTO2.setId(2L);
+        assertThat(suscripcionesDTO1).isNotEqualTo(suscripcionesDTO2);
+        suscripcionesDTO1.setId(null);
+        assertThat(suscripcionesDTO1).isNotEqualTo(suscripcionesDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(suscripcionesMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(suscripcionesMapper.fromId(null)).isNull();
     }
 }

@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Seccion.
@@ -27,7 +26,7 @@ public class SeccionResource {
     private final Logger log = LoggerFactory.getLogger(SeccionResource.class);
 
     private static final String ENTITY_NAME = "seccion";
-        
+
     private final SeccionService seccionService;
 
     public SeccionResource(SeccionService seccionService) {
@@ -60,7 +59,7 @@ public class SeccionResource {
      * @param seccionDTO the seccionDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated seccionDTO,
      * or with status 400 (Bad Request) if the seccionDTO is not valid,
-     * or with status 500 (Internal Server Error) if the seccionDTO couldnt be updated
+     * or with status 500 (Internal Server Error) if the seccionDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/seccions")
@@ -86,7 +85,7 @@ public class SeccionResource {
     public List<SeccionDTO> getAllSeccions() {
         log.debug("REST request to get all Seccions");
         return seccionService.findAll();
-    }
+        }
 
     /**
      * GET  /seccions/:id : get the "id" seccion.
@@ -115,5 +114,4 @@ public class SeccionResource {
         seccionService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

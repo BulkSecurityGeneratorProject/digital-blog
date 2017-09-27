@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Permiso.
@@ -27,7 +26,7 @@ public class PermisoResource {
     private final Logger log = LoggerFactory.getLogger(PermisoResource.class);
 
     private static final String ENTITY_NAME = "permiso";
-        
+
     private final PermisoService permisoService;
 
     public PermisoResource(PermisoService permisoService) {
@@ -60,7 +59,7 @@ public class PermisoResource {
      * @param permisoDTO the permisoDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated permisoDTO,
      * or with status 400 (Bad Request) if the permisoDTO is not valid,
-     * or with status 500 (Internal Server Error) if the permisoDTO couldnt be updated
+     * or with status 500 (Internal Server Error) if the permisoDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/permisos")
@@ -86,7 +85,7 @@ public class PermisoResource {
     public List<PermisoDTO> getAllPermisos() {
         log.debug("REST request to get all Permisos");
         return permisoService.findAll();
-    }
+        }
 
     /**
      * GET  /permisos/:id : get the "id" permiso.
@@ -115,5 +114,4 @@ public class PermisoResource {
         permisoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

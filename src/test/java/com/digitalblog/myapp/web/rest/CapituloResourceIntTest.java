@@ -71,7 +71,7 @@ public class CapituloResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        CapituloResource capituloResource = new CapituloResource(capituloService);
+        final CapituloResource capituloResource = new CapituloResource(capituloService);
         this.restCapituloMockMvc = MockMvcBuilders.standaloneSetup(capituloResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class CapituloResourceIntTest {
      */
     public static Capitulo createEntity(EntityManager em) {
         Capitulo capitulo = new Capitulo()
-                .numeroCapitulo(DEFAULT_NUMERO_CAPITULO);
+            .numeroCapitulo(DEFAULT_NUMERO_CAPITULO);
         return capitulo;
     }
 
@@ -101,8 +101,7 @@ public class CapituloResourceIntTest {
         int databaseSizeBeforeCreate = capituloRepository.findAll().size();
 
         // Create the Capitulo
-        CapituloDTO capituloDTO = capituloMapper.capituloToCapituloDTO(capitulo);
-
+        CapituloDTO capituloDTO = capituloMapper.toDto(capitulo);
         restCapituloMockMvc.perform(post("/api/capitulos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(capituloDTO)))
@@ -121,17 +120,16 @@ public class CapituloResourceIntTest {
         int databaseSizeBeforeCreate = capituloRepository.findAll().size();
 
         // Create the Capitulo with an existing ID
-        Capitulo existingCapitulo = new Capitulo();
-        existingCapitulo.setId(1L);
-        CapituloDTO existingCapituloDTO = capituloMapper.capituloToCapituloDTO(existingCapitulo);
+        capitulo.setId(1L);
+        CapituloDTO capituloDTO = capituloMapper.toDto(capitulo);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCapituloMockMvc.perform(post("/api/capitulos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingCapituloDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(capituloDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Capitulo in the database
         List<Capitulo> capituloList = capituloRepository.findAll();
         assertThat(capituloList).hasSize(databaseSizeBeforeCreate);
     }
@@ -182,8 +180,8 @@ public class CapituloResourceIntTest {
         // Update the capitulo
         Capitulo updatedCapitulo = capituloRepository.findOne(capitulo.getId());
         updatedCapitulo
-                .numeroCapitulo(UPDATED_NUMERO_CAPITULO);
-        CapituloDTO capituloDTO = capituloMapper.capituloToCapituloDTO(updatedCapitulo);
+            .numeroCapitulo(UPDATED_NUMERO_CAPITULO);
+        CapituloDTO capituloDTO = capituloMapper.toDto(updatedCapitulo);
 
         restCapituloMockMvc.perform(put("/api/capitulos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,7 +201,7 @@ public class CapituloResourceIntTest {
         int databaseSizeBeforeUpdate = capituloRepository.findAll().size();
 
         // Create the Capitulo
-        CapituloDTO capituloDTO = capituloMapper.capituloToCapituloDTO(capitulo);
+        CapituloDTO capituloDTO = capituloMapper.toDto(capitulo);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCapituloMockMvc.perform(put("/api/capitulos")
@@ -234,7 +232,40 @@ public class CapituloResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Capitulo.class);
+        Capitulo capitulo1 = new Capitulo();
+        capitulo1.setId(1L);
+        Capitulo capitulo2 = new Capitulo();
+        capitulo2.setId(capitulo1.getId());
+        assertThat(capitulo1).isEqualTo(capitulo2);
+        capitulo2.setId(2L);
+        assertThat(capitulo1).isNotEqualTo(capitulo2);
+        capitulo1.setId(null);
+        assertThat(capitulo1).isNotEqualTo(capitulo2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CapituloDTO.class);
+        CapituloDTO capituloDTO1 = new CapituloDTO();
+        capituloDTO1.setId(1L);
+        CapituloDTO capituloDTO2 = new CapituloDTO();
+        assertThat(capituloDTO1).isNotEqualTo(capituloDTO2);
+        capituloDTO2.setId(capituloDTO1.getId());
+        assertThat(capituloDTO1).isEqualTo(capituloDTO2);
+        capituloDTO2.setId(2L);
+        assertThat(capituloDTO1).isNotEqualTo(capituloDTO2);
+        capituloDTO1.setId(null);
+        assertThat(capituloDTO1).isNotEqualTo(capituloDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(capituloMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(capituloMapper.fromId(null)).isNull();
     }
 }

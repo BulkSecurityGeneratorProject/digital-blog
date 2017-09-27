@@ -33,30 +33,6 @@
                         templateUrl: 'app/layouts/error/accessdenied.html'
                     }
                 }
-            })
-            .state('notFound', {
-            parent: 'app',
-            url: '/notFound',
-            data: {
-                authorities: []
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/layouts/error/notFound.html'
-                }
-            }
-        })
-            .state('error500', {
-                parent: 'app',
-                url: '/error500',
-                data: {
-                    authorities: []
-                },
-                views: {
-                    'content@': {
-                        templateUrl: 'app/layouts/error/error500.html'
-                    }
-                }
             });
     }
 })();

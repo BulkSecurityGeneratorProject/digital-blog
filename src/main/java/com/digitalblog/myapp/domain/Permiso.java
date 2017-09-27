@@ -24,6 +24,7 @@ public class Permiso implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -57,6 +58,7 @@ public class Permiso implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -67,23 +69,23 @@ public class Permiso implements Serializable {
             return false;
         }
         Permiso permiso = (Permiso) o;
-        if (permiso.id == null || id == null) {
+        if (permiso.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, permiso.id);
+        return Objects.equals(getId(), permiso.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Permiso{" +
-            "id=" + id +
-            ", descripcion='" + descripcion + "'" +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

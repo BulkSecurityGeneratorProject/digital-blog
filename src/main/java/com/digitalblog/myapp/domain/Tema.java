@@ -21,6 +21,7 @@ public class Tema implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -41,6 +42,7 @@ public class Tema implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -51,22 +53,22 @@ public class Tema implements Serializable {
             return false;
         }
         Tema tema = (Tema) o;
-        if (tema.id == null || id == null) {
+        if (tema.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, tema.id);
+        return Objects.equals(getId(), tema.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Tema{" +
-            "id=" + id +
-            ", nombre='" + nombre + "'" +
-            '}';
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            "}";
     }
 }

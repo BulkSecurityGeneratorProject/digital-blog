@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.RolDTO;
 import com.digitalblog.myapp.service.mapper.RolMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RolServiceImpl implements RolService{
 
     private final Logger log = LoggerFactory.getLogger(RolServiceImpl.class);
-    
+
     private final RolRepository rolRepository;
 
     private final RolMapper rolMapper;
@@ -41,26 +41,23 @@ public class RolServiceImpl implements RolService{
     @Override
     public RolDTO save(RolDTO rolDTO) {
         log.debug("Request to save Rol : {}", rolDTO);
-        Rol rol = rolMapper.rolDTOToRol(rolDTO);
+        Rol rol = rolMapper.toEntity(rolDTO);
         rol = rolRepository.save(rol);
-        RolDTO result = rolMapper.rolToRolDTO(rol);
-        return result;
+        return rolMapper.toDto(rol);
     }
 
     /**
      *  Get all the rols.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<RolDTO> findAll() {
         log.debug("Request to get all Rols");
-        List<RolDTO> result = rolRepository.findAll().stream()
-            .map(rolMapper::rolToRolDTO)
+        return rolRepository.findAll().stream()
+            .map(rolMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
     }
 
     /**
@@ -74,8 +71,7 @@ public class RolServiceImpl implements RolService{
     public RolDTO findOne(Long id) {
         log.debug("Request to get Rol : {}", id);
         Rol rol = rolRepository.findOne(id);
-        RolDTO rolDTO = rolMapper.rolToRolDTO(rol);
-        return rolDTO;
+        return rolMapper.toDto(rol);
     }
 
     /**

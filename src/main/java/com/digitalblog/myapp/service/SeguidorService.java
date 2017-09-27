@@ -18,7 +18,7 @@ public interface SeguidorService {
 
     /**
      *  Get all the seguidors.
-     *  
+     *
      *  @return the list of entities
      */
     List<SeguidorDTO> findAll();

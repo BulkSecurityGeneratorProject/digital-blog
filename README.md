@@ -1,5 +1,5 @@
 # digitalBLOG
-This application was generated using JHipster 4.0.7, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.0.7](https://jhipster.github.io/documentation-archive/v4.0.7).
+This application was generated using JHipster 4.8.2, you can find documentation and help at [http://www.jhipster.tech/documentation-archive/v4.8.2](http://www.jhipster.tech/documentation-archive/v4.8.2).
 
 ## Development
 
@@ -9,7 +9,7 @@ Before you can build this project, you must install and configure the following 
    Depending on your system, you can install Node either from source or as a pre-packaged bundle.
 
 After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in `package.json`.
+You will only need to run this command when dependencies change in [package.json](package.json).
 
     npm install
 
@@ -24,10 +24,11 @@ auto-refreshes when files change on your hard drive.
     gulp
 
 [Bower][] is used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in `bower.json`. You can also run `bower update` and `bower install` to manage dependencies.
+specifying a newer version in [bower.json](bower.json). You can also run `bower update` and `bower install` to manage dependencies.
 Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
 
 For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
+
 
 
 ## Building for production
@@ -53,14 +54,14 @@ To launch your application's tests, run:
 
 ### Client tests
 
-Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in `src/test/javascript/` and can be run with:
+Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
 
     gulp test
 
 
 ### Other tests
 
-Performance tests are run by [Gatling][] and written in Scala. They're located in `src/test/gatling` and can be run with:
+Performance tests are run by [Gatling][] and written in Scala. They're located in [src/test/gatling](src/test/gatling) and can be run with:
 
     ./mvnw gatling:execute
 
@@ -68,7 +69,7 @@ For more information, refer to the [Running tests page][].
 
 ## Using Docker to simplify development (optional)
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the `src/main/docker` folder to launch required third party services.
+You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 For example, to start a mysql database in a docker container, run:
 
     docker-compose -f src/main/docker/mysql.yml up -d
@@ -80,26 +81,26 @@ To stop it and remove the container, run:
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
 
-    ./mvnw package -Pprod docker:build
+    ./mvnw package -Pprod dockerfile:build
 
 Then run:
 
     docker-compose -f src/main/docker/app.yml up -d
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`yo jhipster:docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
 ## Continuous Integration (optional)
 
-To configure CI for your project, run the ci-cd sub-generator (`yo jhipster:ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
-[JHipster Homepage and latest documentation]: https://jhipster.github.io
-[JHipster 4.0.7 archive]: https://jhipster.github.io/documentation-archive/v4.0.7
+[JHipster Homepage and latest documentation]: http://www.jhipster.tech
+[JHipster 4.8.2 archive]: http://www.jhipster.tech/documentation-archive/v4.8.2
 
-[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.0.7/development/
-[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.0.7/docker-compose
-[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.0.7/production/
-[Running tests page]: https://jhipster.github.io/documentation-archive/v4.0.7/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.0.7/setting-up-ci/
+[Using JHipster in development]: http://www.jhipster.tech/documentation-archive/v4.8.2/development/
+[Using Docker and Docker-Compose]: http://www.jhipster.tech/documentation-archive/v4.8.2/docker-compose
+[Using JHipster in production]: http://www.jhipster.tech/documentation-archive/v4.8.2/production/
+[Running tests page]: http://www.jhipster.tech/documentation-archive/v4.8.2/running-tests/
+[Setting up Continuous Integration]: http://www.jhipster.tech/documentation-archive/v4.8.2/setting-up-ci/
 
 [Gatling]: http://gatling.io/
 [Node.js]: https://nodejs.org/

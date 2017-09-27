@@ -71,7 +71,7 @@ public class TemaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        TemaResource temaResource = new TemaResource(temaService);
+        final TemaResource temaResource = new TemaResource(temaService);
         this.restTemaMockMvc = MockMvcBuilders.standaloneSetup(temaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class TemaResourceIntTest {
      */
     public static Tema createEntity(EntityManager em) {
         Tema tema = new Tema()
-                .nombre(DEFAULT_NOMBRE);
+            .nombre(DEFAULT_NOMBRE);
         return tema;
     }
 
@@ -101,8 +101,7 @@ public class TemaResourceIntTest {
         int databaseSizeBeforeCreate = temaRepository.findAll().size();
 
         // Create the Tema
-        TemaDTO temaDTO = temaMapper.temaToTemaDTO(tema);
-
+        TemaDTO temaDTO = temaMapper.toDto(tema);
         restTemaMockMvc.perform(post("/api/temas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(temaDTO)))
@@ -121,17 +120,16 @@ public class TemaResourceIntTest {
         int databaseSizeBeforeCreate = temaRepository.findAll().size();
 
         // Create the Tema with an existing ID
-        Tema existingTema = new Tema();
-        existingTema.setId(1L);
-        TemaDTO existingTemaDTO = temaMapper.temaToTemaDTO(existingTema);
+        tema.setId(1L);
+        TemaDTO temaDTO = temaMapper.toDto(tema);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTemaMockMvc.perform(post("/api/temas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingTemaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(temaDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Tema in the database
         List<Tema> temaList = temaRepository.findAll();
         assertThat(temaList).hasSize(databaseSizeBeforeCreate);
     }
@@ -155,6 +153,7 @@ public class TemaResourceIntTest {
     public void getTema() throws Exception {
         // Initialize the database
         temaRepository.saveAndFlush(tema);
+
         // Get the tema
         restTemaMockMvc.perform(get("/api/temas/{id}", tema.getId()))
             .andExpect(status().isOk())
@@ -181,8 +180,8 @@ public class TemaResourceIntTest {
         // Update the tema
         Tema updatedTema = temaRepository.findOne(tema.getId());
         updatedTema
-                .nombre(UPDATED_NOMBRE);
-        TemaDTO temaDTO = temaMapper.temaToTemaDTO(updatedTema);
+            .nombre(UPDATED_NOMBRE);
+        TemaDTO temaDTO = temaMapper.toDto(updatedTema);
 
         restTemaMockMvc.perform(put("/api/temas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -202,7 +201,7 @@ public class TemaResourceIntTest {
         int databaseSizeBeforeUpdate = temaRepository.findAll().size();
 
         // Create the Tema
-        TemaDTO temaDTO = temaMapper.temaToTemaDTO(tema);
+        TemaDTO temaDTO = temaMapper.toDto(tema);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restTemaMockMvc.perform(put("/api/temas")
@@ -233,7 +232,40 @@ public class TemaResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Tema.class);
+        Tema tema1 = new Tema();
+        tema1.setId(1L);
+        Tema tema2 = new Tema();
+        tema2.setId(tema1.getId());
+        assertThat(tema1).isEqualTo(tema2);
+        tema2.setId(2L);
+        assertThat(tema1).isNotEqualTo(tema2);
+        tema1.setId(null);
+        assertThat(tema1).isNotEqualTo(tema2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(TemaDTO.class);
+        TemaDTO temaDTO1 = new TemaDTO();
+        temaDTO1.setId(1L);
+        TemaDTO temaDTO2 = new TemaDTO();
+        assertThat(temaDTO1).isNotEqualTo(temaDTO2);
+        temaDTO2.setId(temaDTO1.getId());
+        assertThat(temaDTO1).isEqualTo(temaDTO2);
+        temaDTO2.setId(2L);
+        assertThat(temaDTO1).isNotEqualTo(temaDTO2);
+        temaDTO1.setId(null);
+        assertThat(temaDTO1).isNotEqualTo(temaDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(temaMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(temaMapper.fromId(null)).isNull();
     }
 }

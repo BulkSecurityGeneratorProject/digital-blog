@@ -18,7 +18,7 @@ public interface LikeTService {
 
     /**
      *  Get all the likeTS.
-     *  
+     *
      *  @return the list of entities
      */
     List<LikeTDTO> findAll();

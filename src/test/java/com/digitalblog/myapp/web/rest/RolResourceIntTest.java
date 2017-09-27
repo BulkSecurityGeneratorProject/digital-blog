@@ -74,7 +74,7 @@ public class RolResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        RolResource rolResource = new RolResource(rolService);
+        final RolResource rolResource = new RolResource(rolService);
         this.restRolMockMvc = MockMvcBuilders.standaloneSetup(rolResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,8 +89,8 @@ public class RolResourceIntTest {
      */
     public static Rol createEntity(EntityManager em) {
         Rol rol = new Rol()
-                .nombre(DEFAULT_NOMBRE)
-                .descripcion(DEFAULT_DESCRIPCION);
+            .nombre(DEFAULT_NOMBRE)
+            .descripcion(DEFAULT_DESCRIPCION);
         return rol;
     }
 
@@ -105,8 +105,7 @@ public class RolResourceIntTest {
         int databaseSizeBeforeCreate = rolRepository.findAll().size();
 
         // Create the Rol
-        RolDTO rolDTO = rolMapper.rolToRolDTO(rol);
-
+        RolDTO rolDTO = rolMapper.toDto(rol);
         restRolMockMvc.perform(post("/api/rols")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(rolDTO)))
@@ -126,17 +125,16 @@ public class RolResourceIntTest {
         int databaseSizeBeforeCreate = rolRepository.findAll().size();
 
         // Create the Rol with an existing ID
-        Rol existingRol = new Rol();
-        existingRol.setId(1L);
-        RolDTO existingRolDTO = rolMapper.rolToRolDTO(existingRol);
+        rol.setId(1L);
+        RolDTO rolDTO = rolMapper.toDto(rol);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRolMockMvc.perform(post("/api/rols")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingRolDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(rolDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Rol in the database
         List<Rol> rolList = rolRepository.findAll();
         assertThat(rolList).hasSize(databaseSizeBeforeCreate);
     }
@@ -189,9 +187,9 @@ public class RolResourceIntTest {
         // Update the rol
         Rol updatedRol = rolRepository.findOne(rol.getId());
         updatedRol
-                .nombre(UPDATED_NOMBRE)
-                .descripcion(UPDATED_DESCRIPCION);
-        RolDTO rolDTO = rolMapper.rolToRolDTO(updatedRol);
+            .nombre(UPDATED_NOMBRE)
+            .descripcion(UPDATED_DESCRIPCION);
+        RolDTO rolDTO = rolMapper.toDto(updatedRol);
 
         restRolMockMvc.perform(put("/api/rols")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -212,7 +210,7 @@ public class RolResourceIntTest {
         int databaseSizeBeforeUpdate = rolRepository.findAll().size();
 
         // Create the Rol
-        RolDTO rolDTO = rolMapper.rolToRolDTO(rol);
+        RolDTO rolDTO = rolMapper.toDto(rol);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRolMockMvc.perform(put("/api/rols")
@@ -243,7 +241,40 @@ public class RolResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Rol.class);
+        Rol rol1 = new Rol();
+        rol1.setId(1L);
+        Rol rol2 = new Rol();
+        rol2.setId(rol1.getId());
+        assertThat(rol1).isEqualTo(rol2);
+        rol2.setId(2L);
+        assertThat(rol1).isNotEqualTo(rol2);
+        rol1.setId(null);
+        assertThat(rol1).isNotEqualTo(rol2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(RolDTO.class);
+        RolDTO rolDTO1 = new RolDTO();
+        rolDTO1.setId(1L);
+        RolDTO rolDTO2 = new RolDTO();
+        assertThat(rolDTO1).isNotEqualTo(rolDTO2);
+        rolDTO2.setId(rolDTO1.getId());
+        assertThat(rolDTO1).isEqualTo(rolDTO2);
+        rolDTO2.setId(2L);
+        assertThat(rolDTO1).isNotEqualTo(rolDTO2);
+        rolDTO1.setId(null);
+        assertThat(rolDTO1).isNotEqualTo(rolDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(rolMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(rolMapper.fromId(null)).isNull();
     }
 }
