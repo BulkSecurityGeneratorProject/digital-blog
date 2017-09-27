@@ -425,7 +425,11 @@
                 <plugin>
                     <groupId>com.heroku.sdk</groupId>
                     <artifactId>heroku-maven-plugin</artifactId>
-                    <version>1.2.0</version>
+                    <configuration>
+                        <processTypes>
+                            <web>java $JAVA_OPTS -Xmx256m -jar target/*.war --spring.profiles.active=dev,heroku --server.port=$PORT </web>
+                        </processTypes>
+                    </configuration>
                 </plugin>
                 <!--
                     This plugin's configuration is used to store Eclipse m2e settings only.
@@ -438,9 +442,6 @@
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
                     <configuration>
-                        <processTypes>
-                            <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
-                        </processTypes>
                         <lifecycleMappingMetadata>
                             <pluginExecutions>
                                 <pluginExecution>
