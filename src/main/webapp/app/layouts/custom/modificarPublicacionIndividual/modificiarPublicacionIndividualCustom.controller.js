@@ -106,7 +106,6 @@
                                 var cant = editor.getBody().text.length;
                                 vm.buttons['pagina-guardar'].disabled(true);
                                 vm.pagina.contenido = editor.getBody().innerHTML;
-                                console.log(vm.paginaActual);
                                 if (vm.publicacion.id == null) {
                                     crearPublicacionIndividual();
                                 } else {
@@ -259,7 +258,6 @@
             }).success(function (data) {
                 guardarNota(data);
                 vm.pagina = data;
-                console.log(vm.paginaActual);
                 console.log('todo bien pagina actualizar');
                 if (vm.paginaActual !== 0) {
                     vm.buttons['pagina-nueva'].disabled(false);

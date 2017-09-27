@@ -20,7 +20,6 @@
 
         vm.publicacion = BibliotecaGeneralServiceShare.publicacion;
 
-        console.log(vm.publicacion);
         function clear() {
             $uibModalInstance.dismiss('cancel');
         }

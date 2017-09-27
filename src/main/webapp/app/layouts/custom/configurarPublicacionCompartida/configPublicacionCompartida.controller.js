@@ -164,7 +164,6 @@
             }
             ConfigurarPublicacionCompartida.crearCapitulos({capitulo: capitulos}).success(function (response) {
                 vm.capitulos = response;
-                console.log(vm.capitulos);
                 asignarElegidos();
             }).error(function (error) {
                 console.log('error al crear capitulos compartida')
@@ -348,7 +347,6 @@
             }
             ConfigurarPublicacionCompartida.crearCapitulos({capitulo: capitulos}).success(function (response) {
                 vm.capitulos = response;
-                console.log(vm.capitulos);
                 asignarElegidos();
             }).error(function (error) {
                 console.log('error al crear capitulos compartida')

@@ -41,7 +41,6 @@
 
         $scope.submitFrmPublicacion = function () {
             if ($scope.crearPublicacionFrm.$valid) {
-                console.log(vm.publicacion);
                 crearPublicacion();
             }
         };
@@ -49,7 +48,6 @@
         vm.init = function () {
             Principal.identity().then(function (account) {
                 vm.cuentaActual = account;
-                console.log(vm.cuentaActual.id);
                 vm.publicacion.idUsuarioJhuser = vm.cuentaActual.id;
                 vm.idUsuarioActual = vm.cuentaActual.id;
                 obtenerUsuarioNormal();
@@ -71,10 +69,8 @@
         function obtenerUsuarioNormal() {
             PersonalizarCuenta.obtenerUsuarioNormal(vm.idUsuarioActual).success(function (response) {
                 vm.usuario = response;
-                console.log(vm.usuario);
                 vm.publicacion.usuarioId = vm.usuario.id;
             }).error(function (error) {
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser");
             });
         }
 
@@ -130,7 +126,6 @@
                         vm.publicacion.temaId = data[i].id;
                     }
                 }
-                console.log("Suggestion selected: " + suggestion + " id: " + vm.idTema);
             })
         }
 
@@ -175,7 +170,6 @@
                     rellenarListTema();
                     vm.verificar = false;
                 }).error(function () {
-                    console.log("fallo");
                     vm.completeTema = null;
                 })
             }

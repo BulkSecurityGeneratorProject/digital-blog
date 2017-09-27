@@ -16,6 +16,7 @@
     "angular-ui-router": "0.3.1",
     "bootstrap": "3.3.7",
     "bootstrap-ui-datetime-picker": "2.4.3",
+    "bootstrap-material-design": "0.5.10",
     "jquery": "3.1.0",
     "json3": "3.3.2",
     "messageformat": "0.3.1",
@@ -28,7 +29,11 @@
     "angular-bootstrap-contextmenu": "^0.9.9",
     "angular-animate": "1.5.8",
     "angular-ui-tinymce": "^0.0.19",
-    "angular-ui-notification": "^0.3.6"
+    "angular-ui-notification": "^0.3.6",
+    "arrive": "^2.4.1",
+    "bootstrap-sass": "^3.3.7",
+    "angular-notification-icons": "^0.4.4",
+    "tinymce": "^4.6.7"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
@@ -54,10 +59,10 @@
         "angular": "1.5.8"
       }
     },
-    "angular-animate":{
-    "dependencies": {
-      "angular": "1.5.8"
-    }
+    "angular-animate": {
+      "dependencies": {
+        "angular": "1.5.8"
+      }
     }
   },
   "resolutions": {

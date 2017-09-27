@@ -36,8 +36,6 @@
             });
             console.log('Publicacion!!!');
             vm.publicacion = PublicacionServiceShare.publicacion;
-            console.log(PublicacionServiceShare.publicacion);
-            console.log(vm.publicacion.usuarioId);
              // if(vm.publicacion.titulo === undefined){
              //     $state.go('crearPublicacionIndividual');
              // }
@@ -294,7 +292,6 @@
         function verPaginaAnterior() {
             vm.paginaActual = vm.paginaActual - 1;
             vm.pagina = vm.paginasCapitulo[vm.paginaActual];
-            console.log(vm.pagina);
             vm.buttons['editorTexto'].getBody().innerHTML = vm.pagina.contenido;
             vm.buttons['editorUndoManager'].clear();
             if (vm.paginaActual == 1) {

@@ -22,7 +22,6 @@
          * @param $index
          */
         vm.getImage=function($index){
-            console.log(vm.fotos[$index].urlImagen);
         }
         /**
          * @author Maureen Leon
@@ -39,7 +38,6 @@
                 vm.fotos=response;
                 console.log(response);
             }).error(function (error){
-                console.log("Problema al almacenar las imagenes en cloudinary");
             });
         }
         /**

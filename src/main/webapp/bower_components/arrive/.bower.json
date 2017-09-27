@@ -1,6 +1,6 @@
 {
   "name": "arrive",
-  "version": "2.3.0",
+  "version": "2.4.1",
   "description": "Watch for DOM elements creation and removal.",
   "main": "src/arrive.js",
   "keywords": [
@@ -29,13 +29,14 @@
     "node_modules",
     "bower_components"
   ],
-  "_release": "2.3.0",
+  "_release": "2.4.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.3.0",
-    "commit": "100bf9955db9d06bb33d906b6f47ac1c9431e41a"
+    "tag": "v2.4.1",
+    "commit": "cfabddbd2633a866742e98c88ba5e4b75cb5257b"
   },
   "_source": "https://github.com/uzairfarooq/arrive.git",
-  "_target": "2.3.0",
-  "_originalSource": "arrive"
+  "_target": "^2.4.1",
+  "_originalSource": "arrive",
+  "_direct": true
 }

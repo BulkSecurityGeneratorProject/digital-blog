@@ -41,7 +41,6 @@
                     if(error.description == "Internal server error"){
                         vm.errorCon =  true;
                     }
-                    console.log("Problema obtenerUsuarioNormal");
                 });
             });
         }
@@ -58,7 +57,6 @@
                     obtenerUsuarios();
                 }
             }).error(function (error){
-                console.log("Problema al obtenerla notificaciones de usuario ");
             });
         }
 
@@ -83,12 +81,10 @@
             if( vm.idPublicaciones.length!=0){
                 ListarNotificaciones.obtenerPublicaciones({ids: vm.idPublicaciones}).success(function(response) {
                     vm.listaPublicaciones=response;
-                     console.log(vm.listaPublicaciones);
                     if(vm.listaPublicaciones.length!= 0){
                         notificacionPublicacion();
                     }
                 }).error(function (error){
-                    console.log("Problema  obtener Publicaciones");
                 });
             }
 
@@ -129,7 +125,6 @@
                 }
 
             }).error(function (error){
-               console.log("Problema  notificaciones Colaborativas");
            });
 
        }
@@ -152,7 +147,6 @@
                  if(error.description == "Internal server error"){
                      vm.errorCon =  true;
                  }
-                console.log("Problema  obtener getSeguidores2");
             });
         }
 
@@ -166,7 +160,6 @@
             ListarNotificaciones.getSolicitudes({id: vm.usuario.id , opc: 2}).success(function(response) {
                 vm.notificacionesPublicacion=response;
                 if( vm.notificacionesPublicacion.length!= 0){
-                    console.log(vm.notificacionesPublicacion);
                     obtenerPublicaciones();
                 }
                 cambiarNotiLikeEstado();
@@ -174,7 +167,6 @@
                 if(error.description == "Internal server error"){
                     vm.errorCon =  true;
                 }
-                console.log("Problema  obtener getSeguidores2");
             });
 
         }
@@ -201,14 +193,12 @@
 
             }
 
-            console.log(vm.idsNotificacion);
             ListarNotificaciones.obtenerUsuariosNotificacion({ids: vm.users}).success(function(response) {
                 vm.users=response;
                 if(vm.users.length!= 0){
                     crearNotificacionesAmistad();
                 }
             }).error(function (error){
-                console.log("Problema usuarios por notificacion");
             });
         }
 
@@ -224,7 +214,6 @@
                console.log(response);
                 obtenerPublicacionNotificacion();
             }).error(function (error){
-                console.log("Problema  notificaciones Colaborativas");
             });
         }
 
@@ -245,7 +234,6 @@
                     $state.go('publicacionCompartidaEditor');
                 })
             }).error(function(error){
-                console.log("Problema en participar");
             })
         }
 
@@ -269,7 +257,6 @@
                 }
                 vm.notificacionesAmigos[i]=vm.noti;
             }
-            console.log(vm.notificacionesAmigos);
         }
         vm.aumentarlimiteNotificaciones=function() {
             vm.limiteNotificaciones = vm.limiteNotificaciones + 2;
@@ -299,7 +286,6 @@
             ListarNotificaciones.cambiarEstadoNotificacion({idNotificacion: idNotiPubli}).success(function(response) {
                 $state.go("comentarioSobrePublicacion",({idPublicacion:id}));
             }).error(function(error){
-                console.log("Problema al ver comentarios y setear estado de notificacion");
             })
         }
 
@@ -313,7 +299,6 @@
               vm.publicacionesResponse = response;
                generarNotificacionesColaborativas();
             }).error(function(error){
-                console.log("Problema get publicaciones por id capitulo");
             })
         }
 
@@ -340,7 +325,6 @@
              ListarNotificaciones.cambiarEstadoNotificacion({idNotificacion: idNotificacion}).success(function(response) {
                  $state.go('verPerfil', {id: jhiUserId});
              }).error(function(error){
-                 console.log("Problema al ver peril de seguidor y setear estado de notificacion");
              })
        }
 

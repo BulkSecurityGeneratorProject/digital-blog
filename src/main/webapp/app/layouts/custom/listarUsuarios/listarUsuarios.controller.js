@@ -18,11 +18,8 @@
          */
         ListarUsuarios.getAllUsuarios().success(function(response){
             vm.listaUsuarios=response;
-            console.log(vm.listaUsuarios);
-            console.log("EN LA VISTA LISTAR USUARIOS");
 
         }).error(function (error){
-            console.log("Problema inesperado al traer todos los usuarios");
         });
 
 

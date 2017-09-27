@@ -174,7 +174,6 @@
                 ListarSeguidos.obtenerSeguidos( vm.loginUser.id).success(function(response){
                     vm.seguidosLoginUser=response;
                     for(var i=0;i<vm.seguidosLoginUser.length;i++){
-                        console.log(vm.seguidosLoginUser[i].id +'='+ vm.usuario.id);
                         if(vm.usuario.id === vm.seguidosLoginUser[i].id){
                             vm.esSeguido=true;
                         }

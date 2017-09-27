@@ -31,7 +31,6 @@
          */
         function obtenerCapitulo() {
             vm.capitulo = CompartidaServiceShare.result;
-            console.log(vm.capitulo);
             //Si el numero de capitulo es mayor 1 se obtiene el capitulo anterior
             if (vm.capitulo.numeroCapitulo > 1) {
                 CrearPublicacionIndividual.obtenerCapituloAnterior({

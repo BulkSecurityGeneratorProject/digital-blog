@@ -40,7 +40,6 @@
             PersonalizarCuenta.obtenerUsuarioNormal(vm.usuario.id).success(function (response) {
                 vm.usuarioComentando = response;
             }).error(function (error) {
-                console.log("Problema inesperado al traer el usuario con el id de JHIuser error:" + error);
             });
         }
 
@@ -63,10 +62,7 @@
          */
         function getComentario() {
             comentarioSobrePublicacionService.getComentarioSobrePublicacion({idPublicacion: vm.idPublicacion}).success(function (responce) {
-                console.log(responce);
                 vm.comentarioMostrado = responce;
-                console.log("seguido por comentarios");
-                console.log(vm.comentarioMostrado);
                 vm.errorConnection = false;
             })
         }
@@ -122,7 +118,6 @@
         function onSaveError(result) {
             console.log(result);
             vm.isSaving = false;
-            console.log("kmvckmnvkfm");
             vm.success = null;
             if (result.status === 500) {
                 vm.errorConnection = true;
