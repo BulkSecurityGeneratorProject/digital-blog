@@ -97,7 +97,7 @@
         })
         .state('user-management-detail', {
             parent: 'user-management',
-            url: '/{login}',
+            url: '/user/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'digitalBLOG'

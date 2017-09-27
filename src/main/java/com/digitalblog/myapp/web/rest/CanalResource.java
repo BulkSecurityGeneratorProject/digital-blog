@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Canal.
@@ -26,7 +27,7 @@ public class CanalResource {
     private final Logger log = LoggerFactory.getLogger(CanalResource.class);
 
     private static final String ENTITY_NAME = "canal";
-
+        
     private final CanalService canalService;
 
     public CanalResource(CanalService canalService) {
@@ -59,7 +60,7 @@ public class CanalResource {
      * @param canalDTO the canalDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated canalDTO,
      * or with status 400 (Bad Request) if the canalDTO is not valid,
-     * or with status 500 (Internal Server Error) if the canalDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the canalDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/canals")
@@ -85,7 +86,7 @@ public class CanalResource {
     public List<CanalDTO> getAllCanals() {
         log.debug("REST request to get all Canals");
         return canalService.findAll();
-        }
+    }
 
     /**
      * GET  /canals/:id : get the "id" canal.
@@ -114,4 +115,5 @@ public class CanalResource {
         canalService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

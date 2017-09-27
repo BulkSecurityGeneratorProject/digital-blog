@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Coolaborador.
@@ -26,7 +27,7 @@ public class CoolaboradorResource {
     private final Logger log = LoggerFactory.getLogger(CoolaboradorResource.class);
 
     private static final String ENTITY_NAME = "coolaborador";
-
+        
     private final CoolaboradorService coolaboradorService;
 
     public CoolaboradorResource(CoolaboradorService coolaboradorService) {
@@ -59,7 +60,7 @@ public class CoolaboradorResource {
      * @param coolaboradorDTO the coolaboradorDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated coolaboradorDTO,
      * or with status 400 (Bad Request) if the coolaboradorDTO is not valid,
-     * or with status 500 (Internal Server Error) if the coolaboradorDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the coolaboradorDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/coolaboradors")
@@ -85,7 +86,7 @@ public class CoolaboradorResource {
     public List<CoolaboradorDTO> getAllCoolaboradors() {
         log.debug("REST request to get all Coolaboradors");
         return coolaboradorService.findAll();
-        }
+    }
 
     /**
      * GET  /coolaboradors/:id : get the "id" coolaborador.
@@ -114,4 +115,5 @@ public class CoolaboradorResource {
         coolaboradorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

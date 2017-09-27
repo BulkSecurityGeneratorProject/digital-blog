@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Nota.
@@ -26,7 +27,7 @@ public class NotaResource {
     private final Logger log = LoggerFactory.getLogger(NotaResource.class);
 
     private static final String ENTITY_NAME = "nota";
-
+        
     private final NotaService notaService;
 
     public NotaResource(NotaService notaService) {
@@ -59,7 +60,7 @@ public class NotaResource {
      * @param notaDTO the notaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated notaDTO,
      * or with status 400 (Bad Request) if the notaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the notaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the notaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/notas")
@@ -85,7 +86,7 @@ public class NotaResource {
     public List<NotaDTO> getAllNotas() {
         log.debug("REST request to get all Notas");
         return notaService.findAll();
-        }
+    }
 
     /**
      * GET  /notas/:id : get the "id" nota.
@@ -114,4 +115,5 @@ public class NotaResource {
         notaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

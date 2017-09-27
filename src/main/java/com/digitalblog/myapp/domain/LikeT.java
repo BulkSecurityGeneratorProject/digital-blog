@@ -27,7 +27,6 @@ public class LikeT implements Serializable {
     @ManyToOne
     private Publicacion idLikeP;
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -74,7 +73,6 @@ public class LikeT implements Serializable {
     public void setIdLikeP(Publicacion publicacion) {
         this.idLikeP = publicacion;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -85,22 +83,22 @@ public class LikeT implements Serializable {
             return false;
         }
         LikeT likeT = (LikeT) o;
-        if (likeT.getId() == null || getId() == null) {
+        if (likeT.id == null || id == null) {
             return false;
         }
-        return Objects.equals(getId(), likeT.getId());
+        return Objects.equals(id, likeT.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "LikeT{" +
-            "id=" + getId() +
-            ", cantidad='" + getCantidad() + "'" +
-            "}";
+            "id=" + id +
+            ", cantidad='" + cantidad + "'" +
+            '}';
     }
 }

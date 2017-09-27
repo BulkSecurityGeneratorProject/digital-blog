@@ -1,7 +1,5 @@
 package com.digitalblog.myapp.web.websocket.dto;
 
-import java.time.Instant;
-
 /**
  * DTO for storing a user's activity.
  */
@@ -15,7 +13,7 @@ public class ActivityDTO {
 
     private String page;
 
-    private Instant time;
+    private String time;
 
     public String getSessionId() {
         return sessionId;
@@ -49,11 +47,11 @@ public class ActivityDTO {
         this.page = page;
     }
 
-    public Instant getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Instant time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

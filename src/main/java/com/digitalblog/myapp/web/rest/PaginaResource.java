@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Pagina.
@@ -26,7 +27,7 @@ public class PaginaResource {
     private final Logger log = LoggerFactory.getLogger(PaginaResource.class);
 
     private static final String ENTITY_NAME = "pagina";
-
+        
     private final PaginaService paginaService;
 
     public PaginaResource(PaginaService paginaService) {
@@ -59,7 +60,7 @@ public class PaginaResource {
      * @param paginaDTO the paginaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated paginaDTO,
      * or with status 400 (Bad Request) if the paginaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the paginaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the paginaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/paginas")
@@ -85,7 +86,7 @@ public class PaginaResource {
     public List<PaginaDTO> getAllPaginas() {
         log.debug("REST request to get all Paginas");
         return paginaService.findAll();
-        }
+    }
 
     /**
      * GET  /paginas/:id : get the "id" pagina.
@@ -114,4 +115,5 @@ public class PaginaResource {
         paginaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

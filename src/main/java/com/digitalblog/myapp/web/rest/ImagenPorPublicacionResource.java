@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing ImagenPorPublicacion.
@@ -26,7 +27,7 @@ public class ImagenPorPublicacionResource {
     private final Logger log = LoggerFactory.getLogger(ImagenPorPublicacionResource.class);
 
     private static final String ENTITY_NAME = "imagenPorPublicacion";
-
+        
     private final ImagenPorPublicacionService imagenPorPublicacionService;
 
     public ImagenPorPublicacionResource(ImagenPorPublicacionService imagenPorPublicacionService) {
@@ -59,7 +60,7 @@ public class ImagenPorPublicacionResource {
      * @param imagenPorPublicacionDTO the imagenPorPublicacionDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated imagenPorPublicacionDTO,
      * or with status 400 (Bad Request) if the imagenPorPublicacionDTO is not valid,
-     * or with status 500 (Internal Server Error) if the imagenPorPublicacionDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the imagenPorPublicacionDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/imagen-por-publicacions")
@@ -85,7 +86,7 @@ public class ImagenPorPublicacionResource {
     public List<ImagenPorPublicacionDTO> getAllImagenPorPublicacions() {
         log.debug("REST request to get all ImagenPorPublicacions");
         return imagenPorPublicacionService.findAll();
-        }
+    }
 
     /**
      * GET  /imagen-por-publicacions/:id : get the "id" imagenPorPublicacion.
@@ -114,4 +115,5 @@ public class ImagenPorPublicacionResource {
         imagenPorPublicacionService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

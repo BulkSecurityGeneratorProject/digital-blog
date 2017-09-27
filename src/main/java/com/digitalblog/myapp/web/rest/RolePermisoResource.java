@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing RolePermiso.
@@ -26,7 +27,7 @@ public class RolePermisoResource {
     private final Logger log = LoggerFactory.getLogger(RolePermisoResource.class);
 
     private static final String ENTITY_NAME = "rolePermiso";
-
+        
     private final RolePermisoService rolePermisoService;
 
     public RolePermisoResource(RolePermisoService rolePermisoService) {
@@ -59,7 +60,7 @@ public class RolePermisoResource {
      * @param rolePermisoDTO the rolePermisoDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated rolePermisoDTO,
      * or with status 400 (Bad Request) if the rolePermisoDTO is not valid,
-     * or with status 500 (Internal Server Error) if the rolePermisoDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the rolePermisoDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/role-permisos")
@@ -85,7 +86,7 @@ public class RolePermisoResource {
     public List<RolePermisoDTO> getAllRolePermisos() {
         log.debug("REST request to get all RolePermisos");
         return rolePermisoService.findAll();
-        }
+    }
 
     /**
      * GET  /role-permisos/:id : get the "id" rolePermiso.
@@ -114,4 +115,5 @@ public class RolePermisoResource {
         rolePermisoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

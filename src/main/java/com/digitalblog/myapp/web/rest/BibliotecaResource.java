@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Biblioteca.
@@ -26,7 +27,7 @@ public class BibliotecaResource {
     private final Logger log = LoggerFactory.getLogger(BibliotecaResource.class);
 
     private static final String ENTITY_NAME = "biblioteca";
-
+        
     private final BibliotecaService bibliotecaService;
 
     public BibliotecaResource(BibliotecaService bibliotecaService) {
@@ -59,7 +60,7 @@ public class BibliotecaResource {
      * @param bibliotecaDTO the bibliotecaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated bibliotecaDTO,
      * or with status 400 (Bad Request) if the bibliotecaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the bibliotecaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the bibliotecaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/bibliotecas")
@@ -85,7 +86,7 @@ public class BibliotecaResource {
     public List<BibliotecaDTO> getAllBibliotecas() {
         log.debug("REST request to get all Bibliotecas");
         return bibliotecaService.findAll();
-        }
+    }
 
     /**
      * GET  /bibliotecas/:id : get the "id" biblioteca.
@@ -114,4 +115,5 @@ public class BibliotecaResource {
         bibliotecaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

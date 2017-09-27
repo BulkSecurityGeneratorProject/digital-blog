@@ -71,7 +71,7 @@ public class SeguidorResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SeguidorResource seguidorResource = new SeguidorResource(seguidorService);
+        SeguidorResource seguidorResource = new SeguidorResource(seguidorService);
         this.restSeguidorMockMvc = MockMvcBuilders.standaloneSetup(seguidorResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class SeguidorResourceIntTest {
      */
     public static Seguidor createEntity(EntityManager em) {
         Seguidor seguidor = new Seguidor()
-            .estadoSeguidor(DEFAULT_ESTADO_SEGUIDOR);
+                .estadoSeguidor(DEFAULT_ESTADO_SEGUIDOR);
         return seguidor;
     }
 
@@ -101,7 +101,8 @@ public class SeguidorResourceIntTest {
         int databaseSizeBeforeCreate = seguidorRepository.findAll().size();
 
         // Create the Seguidor
-        SeguidorDTO seguidorDTO = seguidorMapper.toDto(seguidor);
+        SeguidorDTO seguidorDTO = seguidorMapper.seguidorToSeguidorDTO(seguidor);
+
         restSeguidorMockMvc.perform(post("/api/seguidors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(seguidorDTO)))
@@ -120,16 +121,17 @@ public class SeguidorResourceIntTest {
         int databaseSizeBeforeCreate = seguidorRepository.findAll().size();
 
         // Create the Seguidor with an existing ID
-        seguidor.setId(1L);
-        SeguidorDTO seguidorDTO = seguidorMapper.toDto(seguidor);
+        Seguidor existingSeguidor = new Seguidor();
+        existingSeguidor.setId(1L);
+        SeguidorDTO existingSeguidorDTO = seguidorMapper.seguidorToSeguidorDTO(existingSeguidor);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSeguidorMockMvc.perform(post("/api/seguidors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(seguidorDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingSeguidorDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Seguidor in the database
+        // Validate the Alice in the database
         List<Seguidor> seguidorList = seguidorRepository.findAll();
         assertThat(seguidorList).hasSize(databaseSizeBeforeCreate);
     }
@@ -180,8 +182,8 @@ public class SeguidorResourceIntTest {
         // Update the seguidor
         Seguidor updatedSeguidor = seguidorRepository.findOne(seguidor.getId());
         updatedSeguidor
-            .estadoSeguidor(UPDATED_ESTADO_SEGUIDOR);
-        SeguidorDTO seguidorDTO = seguidorMapper.toDto(updatedSeguidor);
+                .estadoSeguidor(UPDATED_ESTADO_SEGUIDOR);
+        SeguidorDTO seguidorDTO = seguidorMapper.seguidorToSeguidorDTO(updatedSeguidor);
 
         restSeguidorMockMvc.perform(put("/api/seguidors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,7 +203,7 @@ public class SeguidorResourceIntTest {
         int databaseSizeBeforeUpdate = seguidorRepository.findAll().size();
 
         // Create the Seguidor
-        SeguidorDTO seguidorDTO = seguidorMapper.toDto(seguidor);
+        SeguidorDTO seguidorDTO = seguidorMapper.seguidorToSeguidorDTO(seguidor);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSeguidorMockMvc.perform(put("/api/seguidors")
@@ -232,40 +234,7 @@ public class SeguidorResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Seguidor.class);
-        Seguidor seguidor1 = new Seguidor();
-        seguidor1.setId(1L);
-        Seguidor seguidor2 = new Seguidor();
-        seguidor2.setId(seguidor1.getId());
-        assertThat(seguidor1).isEqualTo(seguidor2);
-        seguidor2.setId(2L);
-        assertThat(seguidor1).isNotEqualTo(seguidor2);
-        seguidor1.setId(null);
-        assertThat(seguidor1).isNotEqualTo(seguidor2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(SeguidorDTO.class);
-        SeguidorDTO seguidorDTO1 = new SeguidorDTO();
-        seguidorDTO1.setId(1L);
-        SeguidorDTO seguidorDTO2 = new SeguidorDTO();
-        assertThat(seguidorDTO1).isNotEqualTo(seguidorDTO2);
-        seguidorDTO2.setId(seguidorDTO1.getId());
-        assertThat(seguidorDTO1).isEqualTo(seguidorDTO2);
-        seguidorDTO2.setId(2L);
-        assertThat(seguidorDTO1).isNotEqualTo(seguidorDTO2);
-        seguidorDTO1.setId(null);
-        assertThat(seguidorDTO1).isNotEqualTo(seguidorDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(seguidorMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(seguidorMapper.fromId(null)).isNull();
     }
 }

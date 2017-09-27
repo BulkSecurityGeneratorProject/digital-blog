@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.PaginaDTO;
 import com.digitalblog.myapp.service.mapper.PaginaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class PaginaServiceImpl implements PaginaService{
 
     private final Logger log = LoggerFactory.getLogger(PaginaServiceImpl.class);
-
+    
     private final PaginaRepository paginaRepository;
 
     private final PaginaMapper paginaMapper;
@@ -41,23 +41,26 @@ public class PaginaServiceImpl implements PaginaService{
     @Override
     public PaginaDTO save(PaginaDTO paginaDTO) {
         log.debug("Request to save Pagina : {}", paginaDTO);
-        Pagina pagina = paginaMapper.toEntity(paginaDTO);
+        Pagina pagina = paginaMapper.paginaDTOToPagina(paginaDTO);
         pagina = paginaRepository.save(pagina);
-        return paginaMapper.toDto(pagina);
+        PaginaDTO result = paginaMapper.paginaToPaginaDTO(pagina);
+        return result;
     }
 
     /**
      *  Get all the paginas.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<PaginaDTO> findAll() {
         log.debug("Request to get all Paginas");
-        return paginaRepository.findAll().stream()
-            .map(paginaMapper::toDto)
+        List<PaginaDTO> result = paginaRepository.findAll().stream()
+            .map(paginaMapper::paginaToPaginaDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class PaginaServiceImpl implements PaginaService{
     public PaginaDTO findOne(Long id) {
         log.debug("Request to get Pagina : {}", id);
         Pagina pagina = paginaRepository.findOne(id);
-        return paginaMapper.toDto(pagina);
+        PaginaDTO paginaDTO = paginaMapper.paginaToPaginaDTO(pagina);
+        return paginaDTO;
     }
 
     /**

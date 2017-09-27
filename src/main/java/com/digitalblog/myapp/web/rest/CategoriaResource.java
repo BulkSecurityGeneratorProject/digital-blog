@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Categoria.
@@ -26,7 +27,7 @@ public class CategoriaResource {
     private final Logger log = LoggerFactory.getLogger(CategoriaResource.class);
 
     private static final String ENTITY_NAME = "categoria";
-
+        
     private final CategoriaService categoriaService;
 
     public CategoriaResource(CategoriaService categoriaService) {
@@ -59,7 +60,7 @@ public class CategoriaResource {
      * @param categoriaDTO the categoriaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated categoriaDTO,
      * or with status 400 (Bad Request) if the categoriaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the categoriaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the categoriaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/categorias")
@@ -85,7 +86,7 @@ public class CategoriaResource {
     public List<CategoriaDTO> getAllCategorias() {
         log.debug("REST request to get all Categorias");
         return categoriaService.findAll();
-        }
+    }
 
     /**
      * GET  /categorias/:id : get the "id" categoria.
@@ -114,4 +115,5 @@ public class CategoriaResource {
         categoriaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

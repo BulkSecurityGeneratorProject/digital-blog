@@ -28,7 +28,6 @@ public class NotificacionDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -36,7 +35,6 @@ public class NotificacionDTO implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
     public String getTipo() {
         return tipo;
     }
@@ -44,7 +42,6 @@ public class NotificacionDTO implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -52,7 +49,6 @@ public class NotificacionDTO implements Serializable {
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
-
     public String getLink() {
         return link;
     }
@@ -60,8 +56,7 @@ public class NotificacionDTO implements Serializable {
     public void setLink(String link) {
         this.link = link;
     }
-
-    public Boolean isEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
@@ -79,26 +74,26 @@ public class NotificacionDTO implements Serializable {
         }
 
         NotificacionDTO notificacionDTO = (NotificacionDTO) o;
-        if(notificacionDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), notificacionDTO.getId());
+
+        if ( ! Objects.equals(id, notificacionDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "NotificacionDTO{" +
-            "id=" + getId() +
-            ", descripcion='" + getDescripcion() + "'" +
-            ", tipo='" + getTipo() + "'" +
-            ", idUsuario='" + getIdUsuario() + "'" +
-            ", link='" + getLink() + "'" +
-            ", estado='" + isEstado() + "'" +
-            "}";
+            "id=" + id +
+            ", descripcion='" + descripcion + "'" +
+            ", tipo='" + tipo + "'" +
+            ", idUsuario='" + idUsuario + "'" +
+            ", link='" + link + "'" +
+            ", estado='" + estado + "'" +
+            '}';
     }
 }

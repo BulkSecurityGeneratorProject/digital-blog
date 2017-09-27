@@ -18,7 +18,7 @@ public interface CategoriaService {
 
     /**
      *  Get all the categorias.
-     *
+     *  
      *  @return the list of entities
      */
     List<CategoriaDTO> findAll();

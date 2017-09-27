@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Capitulo.
@@ -26,7 +27,7 @@ public class CapituloResource {
     private final Logger log = LoggerFactory.getLogger(CapituloResource.class);
 
     private static final String ENTITY_NAME = "capitulo";
-
+        
     private final CapituloService capituloService;
 
     public CapituloResource(CapituloService capituloService) {
@@ -59,7 +60,7 @@ public class CapituloResource {
      * @param capituloDTO the capituloDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated capituloDTO,
      * or with status 400 (Bad Request) if the capituloDTO is not valid,
-     * or with status 500 (Internal Server Error) if the capituloDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the capituloDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/capitulos")
@@ -85,7 +86,7 @@ public class CapituloResource {
     public List<CapituloDTO> getAllCapitulos() {
         log.debug("REST request to get all Capitulos");
         return capituloService.findAll();
-        }
+    }
 
     /**
      * GET  /capitulos/:id : get the "id" capitulo.
@@ -114,4 +115,5 @@ public class CapituloResource {
         capituloService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

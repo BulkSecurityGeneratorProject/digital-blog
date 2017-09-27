@@ -51,21 +51,21 @@ public class RolePermisoDTO implements Serializable {
         }
 
         RolePermisoDTO rolePermisoDTO = (RolePermisoDTO) o;
-        if(rolePermisoDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), rolePermisoDTO.getId());
+
+        if ( ! Objects.equals(id, rolePermisoDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "RolePermisoDTO{" +
-            "id=" + getId() +
-            "}";
+            "id=" + id +
+            '}';
     }
 }

@@ -18,7 +18,7 @@ public interface NotificacionService {
 
     /**
      *  Get all the notificacions.
-     *
+     *  
      *  @return the list of entities
      */
     List<NotificacionDTO> findAll();

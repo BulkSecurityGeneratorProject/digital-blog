@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.BibliotecaDTO;
 import com.digitalblog.myapp.service.mapper.BibliotecaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class BibliotecaServiceImpl implements BibliotecaService{
 
     private final Logger log = LoggerFactory.getLogger(BibliotecaServiceImpl.class);
-
+    
     private final BibliotecaRepository bibliotecaRepository;
 
     private final BibliotecaMapper bibliotecaMapper;
@@ -41,23 +41,26 @@ public class BibliotecaServiceImpl implements BibliotecaService{
     @Override
     public BibliotecaDTO save(BibliotecaDTO bibliotecaDTO) {
         log.debug("Request to save Biblioteca : {}", bibliotecaDTO);
-        Biblioteca biblioteca = bibliotecaMapper.toEntity(bibliotecaDTO);
+        Biblioteca biblioteca = bibliotecaMapper.bibliotecaDTOToBiblioteca(bibliotecaDTO);
         biblioteca = bibliotecaRepository.save(biblioteca);
-        return bibliotecaMapper.toDto(biblioteca);
+        BibliotecaDTO result = bibliotecaMapper.bibliotecaToBibliotecaDTO(biblioteca);
+        return result;
     }
 
     /**
      *  Get all the bibliotecas.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<BibliotecaDTO> findAll() {
         log.debug("Request to get all Bibliotecas");
-        return bibliotecaRepository.findAll().stream()
-            .map(bibliotecaMapper::toDto)
+        List<BibliotecaDTO> result = bibliotecaRepository.findAll().stream()
+            .map(bibliotecaMapper::bibliotecaToBibliotecaDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class BibliotecaServiceImpl implements BibliotecaService{
     public BibliotecaDTO findOne(Long id) {
         log.debug("Request to get Biblioteca : {}", id);
         Biblioteca biblioteca = bibliotecaRepository.findOne(id);
-        return bibliotecaMapper.toDto(biblioteca);
+        BibliotecaDTO bibliotecaDTO = bibliotecaMapper.bibliotecaToBibliotecaDTO(biblioteca);
+        return bibliotecaDTO;
     }
 
     /**

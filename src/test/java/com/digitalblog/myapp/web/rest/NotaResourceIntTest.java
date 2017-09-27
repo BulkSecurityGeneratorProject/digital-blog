@@ -71,7 +71,7 @@ public class NotaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NotaResource notaResource = new NotaResource(notaService);
+        NotaResource notaResource = new NotaResource(notaService);
         this.restNotaMockMvc = MockMvcBuilders.standaloneSetup(notaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class NotaResourceIntTest {
      */
     public static Nota createEntity(EntityManager em) {
         Nota nota = new Nota()
-            .contenido(DEFAULT_CONTENIDO);
+                .contenido(DEFAULT_CONTENIDO);
         return nota;
     }
 
@@ -101,7 +101,8 @@ public class NotaResourceIntTest {
         int databaseSizeBeforeCreate = notaRepository.findAll().size();
 
         // Create the Nota
-        NotaDTO notaDTO = notaMapper.toDto(nota);
+        NotaDTO notaDTO = notaMapper.notaToNotaDTO(nota);
+
         restNotaMockMvc.perform(post("/api/notas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(notaDTO)))
@@ -120,16 +121,17 @@ public class NotaResourceIntTest {
         int databaseSizeBeforeCreate = notaRepository.findAll().size();
 
         // Create the Nota with an existing ID
-        nota.setId(1L);
-        NotaDTO notaDTO = notaMapper.toDto(nota);
+        Nota existingNota = new Nota();
+        existingNota.setId(1L);
+        NotaDTO existingNotaDTO = notaMapper.notaToNotaDTO(existingNota);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNotaMockMvc.perform(post("/api/notas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(notaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingNotaDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Nota in the database
+        // Validate the Alice in the database
         List<Nota> notaList = notaRepository.findAll();
         assertThat(notaList).hasSize(databaseSizeBeforeCreate);
     }
@@ -180,8 +182,8 @@ public class NotaResourceIntTest {
         // Update the nota
         Nota updatedNota = notaRepository.findOne(nota.getId());
         updatedNota
-            .contenido(UPDATED_CONTENIDO);
-        NotaDTO notaDTO = notaMapper.toDto(updatedNota);
+                .contenido(UPDATED_CONTENIDO);
+        NotaDTO notaDTO = notaMapper.notaToNotaDTO(updatedNota);
 
         restNotaMockMvc.perform(put("/api/notas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,7 +203,7 @@ public class NotaResourceIntTest {
         int databaseSizeBeforeUpdate = notaRepository.findAll().size();
 
         // Create the Nota
-        NotaDTO notaDTO = notaMapper.toDto(nota);
+        NotaDTO notaDTO = notaMapper.notaToNotaDTO(nota);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restNotaMockMvc.perform(put("/api/notas")
@@ -232,40 +234,7 @@ public class NotaResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Nota.class);
-        Nota nota1 = new Nota();
-        nota1.setId(1L);
-        Nota nota2 = new Nota();
-        nota2.setId(nota1.getId());
-        assertThat(nota1).isEqualTo(nota2);
-        nota2.setId(2L);
-        assertThat(nota1).isNotEqualTo(nota2);
-        nota1.setId(null);
-        assertThat(nota1).isNotEqualTo(nota2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NotaDTO.class);
-        NotaDTO notaDTO1 = new NotaDTO();
-        notaDTO1.setId(1L);
-        NotaDTO notaDTO2 = new NotaDTO();
-        assertThat(notaDTO1).isNotEqualTo(notaDTO2);
-        notaDTO2.setId(notaDTO1.getId());
-        assertThat(notaDTO1).isEqualTo(notaDTO2);
-        notaDTO2.setId(2L);
-        assertThat(notaDTO1).isNotEqualTo(notaDTO2);
-        notaDTO1.setId(null);
-        assertThat(notaDTO1).isNotEqualTo(notaDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(notaMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(notaMapper.fromId(null)).isNull();
     }
 }

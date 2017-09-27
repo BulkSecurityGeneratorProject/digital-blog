@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.ImagenPorPublicacionDTO;
 import com.digitalblog.myapp.service.mapper.ImagenPorPublicacionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class ImagenPorPublicacionServiceImpl implements ImagenPorPublicacionService{
 
     private final Logger log = LoggerFactory.getLogger(ImagenPorPublicacionServiceImpl.class);
-
+    
     private final ImagenPorPublicacionRepository imagenPorPublicacionRepository;
 
     private final ImagenPorPublicacionMapper imagenPorPublicacionMapper;
@@ -41,23 +41,26 @@ public class ImagenPorPublicacionServiceImpl implements ImagenPorPublicacionServ
     @Override
     public ImagenPorPublicacionDTO save(ImagenPorPublicacionDTO imagenPorPublicacionDTO) {
         log.debug("Request to save ImagenPorPublicacion : {}", imagenPorPublicacionDTO);
-        ImagenPorPublicacion imagenPorPublicacion = imagenPorPublicacionMapper.toEntity(imagenPorPublicacionDTO);
+        ImagenPorPublicacion imagenPorPublicacion = imagenPorPublicacionMapper.imagenPorPublicacionDTOToImagenPorPublicacion(imagenPorPublicacionDTO);
         imagenPorPublicacion = imagenPorPublicacionRepository.save(imagenPorPublicacion);
-        return imagenPorPublicacionMapper.toDto(imagenPorPublicacion);
+        ImagenPorPublicacionDTO result = imagenPorPublicacionMapper.imagenPorPublicacionToImagenPorPublicacionDTO(imagenPorPublicacion);
+        return result;
     }
 
     /**
      *  Get all the imagenPorPublicacions.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<ImagenPorPublicacionDTO> findAll() {
         log.debug("Request to get all ImagenPorPublicacions");
-        return imagenPorPublicacionRepository.findAll().stream()
-            .map(imagenPorPublicacionMapper::toDto)
+        List<ImagenPorPublicacionDTO> result = imagenPorPublicacionRepository.findAll().stream()
+            .map(imagenPorPublicacionMapper::imagenPorPublicacionToImagenPorPublicacionDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class ImagenPorPublicacionServiceImpl implements ImagenPorPublicacionServ
     public ImagenPorPublicacionDTO findOne(Long id) {
         log.debug("Request to get ImagenPorPublicacion : {}", id);
         ImagenPorPublicacion imagenPorPublicacion = imagenPorPublicacionRepository.findOne(id);
-        return imagenPorPublicacionMapper.toDto(imagenPorPublicacion);
+        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.imagenPorPublicacionToImagenPorPublicacionDTO(imagenPorPublicacion);
+        return imagenPorPublicacionDTO;
     }
 
     /**

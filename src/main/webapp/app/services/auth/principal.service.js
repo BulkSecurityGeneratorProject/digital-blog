@@ -79,7 +79,7 @@
                 _identity = account.data;
                 _authenticated = true;
                 deferred.resolve(_identity);
-                JhiTrackerService.connect();
+               // JhiTrackerService.connect();
             }
 
             function getAccountCatch () {

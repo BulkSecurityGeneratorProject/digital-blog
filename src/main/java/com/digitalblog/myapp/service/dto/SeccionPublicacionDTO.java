@@ -51,21 +51,21 @@ public class SeccionPublicacionDTO implements Serializable {
         }
 
         SeccionPublicacionDTO seccionPublicacionDTO = (SeccionPublicacionDTO) o;
-        if(seccionPublicacionDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), seccionPublicacionDTO.getId());
+
+        if ( ! Objects.equals(id, seccionPublicacionDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "SeccionPublicacionDTO{" +
-            "id=" + getId() +
-            "}";
+            "id=" + id +
+            '}';
     }
 }

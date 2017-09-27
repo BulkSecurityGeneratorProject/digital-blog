@@ -24,7 +24,6 @@ public class NotaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getContenido() {
         return contenido;
     }
@@ -51,22 +50,22 @@ public class NotaDTO implements Serializable {
         }
 
         NotaDTO notaDTO = (NotaDTO) o;
-        if(notaDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), notaDTO.getId());
+
+        if ( ! Objects.equals(id, notaDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "NotaDTO{" +
-            "id=" + getId() +
-            ", contenido='" + getContenido() + "'" +
-            "}";
+            "id=" + id +
+            ", contenido='" + contenido + "'" +
+            '}';
     }
 }

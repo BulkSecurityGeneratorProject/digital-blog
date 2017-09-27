@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Seguidor.
@@ -26,7 +27,7 @@ public class SeguidorResource {
     private final Logger log = LoggerFactory.getLogger(SeguidorResource.class);
 
     private static final String ENTITY_NAME = "seguidor";
-
+        
     private final SeguidorService seguidorService;
 
     public SeguidorResource(SeguidorService seguidorService) {
@@ -59,7 +60,7 @@ public class SeguidorResource {
      * @param seguidorDTO the seguidorDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated seguidorDTO,
      * or with status 400 (Bad Request) if the seguidorDTO is not valid,
-     * or with status 500 (Internal Server Error) if the seguidorDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the seguidorDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/seguidors")
@@ -85,7 +86,7 @@ public class SeguidorResource {
     public List<SeguidorDTO> getAllSeguidors() {
         log.debug("REST request to get all Seguidors");
         return seguidorService.findAll();
-        }
+    }
 
     /**
      * GET  /seguidors/:id : get the "id" seguidor.
@@ -114,4 +115,5 @@ public class SeguidorResource {
         seguidorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

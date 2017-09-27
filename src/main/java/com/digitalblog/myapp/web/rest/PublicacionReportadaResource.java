@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing PublicacionReportada.
@@ -26,7 +27,7 @@ public class PublicacionReportadaResource {
     private final Logger log = LoggerFactory.getLogger(PublicacionReportadaResource.class);
 
     private static final String ENTITY_NAME = "publicacionReportada";
-
+        
     private final PublicacionReportadaService publicacionReportadaService;
 
     public PublicacionReportadaResource(PublicacionReportadaService publicacionReportadaService) {
@@ -59,7 +60,7 @@ public class PublicacionReportadaResource {
      * @param publicacionReportadaDTO the publicacionReportadaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated publicacionReportadaDTO,
      * or with status 400 (Bad Request) if the publicacionReportadaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the publicacionReportadaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the publicacionReportadaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/publicacion-reportadas")
@@ -85,7 +86,7 @@ public class PublicacionReportadaResource {
     public List<PublicacionReportadaDTO> getAllPublicacionReportadas() {
         log.debug("REST request to get all PublicacionReportadas");
         return publicacionReportadaService.findAll();
-        }
+    }
 
     /**
      * GET  /publicacion-reportadas/:id : get the "id" publicacionReportada.
@@ -114,4 +115,5 @@ public class PublicacionReportadaResource {
         publicacionReportadaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

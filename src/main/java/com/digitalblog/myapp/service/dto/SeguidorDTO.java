@@ -26,8 +26,7 @@ public class SeguidorDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Boolean isEstadoSeguidor() {
+    public Boolean getEstadoSeguidor() {
         return estadoSeguidor;
     }
 
@@ -61,22 +60,22 @@ public class SeguidorDTO implements Serializable {
         }
 
         SeguidorDTO seguidorDTO = (SeguidorDTO) o;
-        if(seguidorDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), seguidorDTO.getId());
+
+        if ( ! Objects.equals(id, seguidorDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "SeguidorDTO{" +
-            "id=" + getId() +
-            ", estadoSeguidor='" + isEstadoSeguidor() + "'" +
-            "}";
+            "id=" + id +
+            ", estadoSeguidor='" + estadoSeguidor + "'" +
+            '}';
     }
 }

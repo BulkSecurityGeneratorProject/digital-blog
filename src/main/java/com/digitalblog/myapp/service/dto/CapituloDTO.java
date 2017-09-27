@@ -26,7 +26,6 @@ public class CapituloDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public Integer getNumeroCapitulo() {
         return numeroCapitulo;
     }
@@ -61,22 +60,22 @@ public class CapituloDTO implements Serializable {
         }
 
         CapituloDTO capituloDTO = (CapituloDTO) o;
-        if(capituloDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), capituloDTO.getId());
+
+        if ( ! Objects.equals(id, capituloDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "CapituloDTO{" +
-            "id=" + getId() +
-            ", numeroCapitulo='" + getNumeroCapitulo() + "'" +
-            "}";
+            "id=" + id +
+            ", numeroCapitulo='" + numeroCapitulo + "'" +
+            '}';
     }
 }

@@ -27,7 +27,6 @@ public class Capitulo implements Serializable {
     @ManyToOne
     private Publicacion idPublicacionC;
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -74,7 +73,6 @@ public class Capitulo implements Serializable {
     public void setIdPublicacionC(Publicacion publicacion) {
         this.idPublicacionC = publicacion;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -85,22 +83,22 @@ public class Capitulo implements Serializable {
             return false;
         }
         Capitulo capitulo = (Capitulo) o;
-        if (capitulo.getId() == null || getId() == null) {
+        if (capitulo.id == null || id == null) {
             return false;
         }
-        return Objects.equals(getId(), capitulo.getId());
+        return Objects.equals(id, capitulo.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Capitulo{" +
-            "id=" + getId() +
-            ", numeroCapitulo='" + getNumeroCapitulo() + "'" +
-            "}";
+            "id=" + id +
+            ", numeroCapitulo='" + numeroCapitulo + "'" +
+            '}';
     }
 }

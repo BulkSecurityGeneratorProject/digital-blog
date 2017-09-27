@@ -4,28 +4,41 @@ import com.digitalblog.myapp.domain.*;
 import com.digitalblog.myapp.service.dto.LikeTDTO;
 
 import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity LikeT and its DTO LikeTDTO.
  */
-@Mapper(componentModel = "spring", uses = {UsuarioMapper.class, PublicacionMapper.class, })
-public interface LikeTMapper extends EntityMapper <LikeTDTO, LikeT> {
+@Mapper(componentModel = "spring", uses = {})
+public interface LikeTMapper {
 
     @Mapping(source = "idUsuarioL.id", target = "idUsuarioLId")
-
     @Mapping(source = "idLikeP.id", target = "idLikePId")
-    LikeTDTO toDto(LikeT likeT); 
+    LikeTDTO likeTToLikeTDTO(LikeT likeT);
+
+    List<LikeTDTO> likeTSToLikeTDTOs(List<LikeT> likeTS);
 
     @Mapping(source = "idUsuarioLId", target = "idUsuarioL")
-
     @Mapping(source = "idLikePId", target = "idLikeP")
-    LikeT toEntity(LikeTDTO likeTDTO); 
-    default LikeT fromId(Long id) {
+    LikeT likeTDTOToLikeT(LikeTDTO likeTDTO);
+
+    List<LikeT> likeTDTOsToLikeTS(List<LikeTDTO> likeTDTOs);
+
+    default Usuario usuarioFromId(Long id) {
         if (id == null) {
             return null;
         }
-        LikeT likeT = new LikeT();
-        likeT.setId(id);
-        return likeT;
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        return usuario;
+    }
+
+    default Publicacion publicacionFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Publicacion publicacion = new Publicacion();
+        publicacion.setId(id);
+        return publicacion;
     }
 }

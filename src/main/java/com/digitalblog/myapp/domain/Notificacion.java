@@ -27,13 +27,12 @@ public class Notificacion implements Serializable {
     @Column(name = "id_usuario")
     private Integer idUsuario;
 
-    @Column(name = "jhi_link")
+    @Column(name = "link")
     private String link;
 
     @Column(name = "estado")
     private Boolean estado;
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -106,7 +105,6 @@ public class Notificacion implements Serializable {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -117,26 +115,26 @@ public class Notificacion implements Serializable {
             return false;
         }
         Notificacion notificacion = (Notificacion) o;
-        if (notificacion.getId() == null || getId() == null) {
+        if (notificacion.id == null || id == null) {
             return false;
         }
-        return Objects.equals(getId(), notificacion.getId());
+        return Objects.equals(id, notificacion.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Notificacion{" +
-            "id=" + getId() +
-            ", descripcion='" + getDescripcion() + "'" +
-            ", tipo='" + getTipo() + "'" +
-            ", idUsuario='" + getIdUsuario() + "'" +
-            ", link='" + getLink() + "'" +
-            ", estado='" + isEstado() + "'" +
-            "}";
+            "id=" + id +
+            ", descripcion='" + descripcion + "'" +
+            ", tipo='" + tipo + "'" +
+            ", idUsuario='" + idUsuario + "'" +
+            ", link='" + link + "'" +
+            ", estado='" + estado + "'" +
+            '}';
     }
 }

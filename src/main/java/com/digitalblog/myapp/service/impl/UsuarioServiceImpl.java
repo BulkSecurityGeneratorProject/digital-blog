@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.UsuarioDTO;
 import com.digitalblog.myapp.service.mapper.UsuarioMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class UsuarioServiceImpl implements UsuarioService{
 
     private final Logger log = LoggerFactory.getLogger(UsuarioServiceImpl.class);
-
+    
     private final UsuarioRepository usuarioRepository;
 
     private final UsuarioMapper usuarioMapper;
@@ -41,23 +41,26 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
         log.debug("Request to save Usuario : {}", usuarioDTO);
-        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        Usuario usuario = usuarioMapper.usuarioDTOToUsuario(usuarioDTO);
         usuario = usuarioRepository.save(usuario);
-        return usuarioMapper.toDto(usuario);
+        UsuarioDTO result = usuarioMapper.usuarioToUsuarioDTO(usuario);
+        return result;
     }
 
     /**
      *  Get all the usuarios.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<UsuarioDTO> findAll() {
         log.debug("Request to get all Usuarios");
-        return usuarioRepository.findAll().stream()
-            .map(usuarioMapper::toDto)
+        List<UsuarioDTO> result = usuarioRepository.findAll().stream()
+            .map(usuarioMapper::usuarioToUsuarioDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class UsuarioServiceImpl implements UsuarioService{
     public UsuarioDTO findOne(Long id) {
         log.debug("Request to get Usuario : {}", id);
         Usuario usuario = usuarioRepository.findOne(id);
-        return usuarioMapper.toDto(usuario);
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(usuario);
+        return usuarioDTO;
     }
 
     /**

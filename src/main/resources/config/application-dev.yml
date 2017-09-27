@@ -3,8 +3,8 @@
 #
 # This configuration overrides the application.yml file.
 #
-# More information on profiles: http://www.jhipster.tech/profiles/
-# More information on configuration properties: http://www.jhipster.tech/common-application-properties/
+# More information on profiles: https://jhipster.github.io/profiles/
+# More information on configuration properties: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 # ===================================================================
@@ -21,14 +21,14 @@ spring:
         restart:
             enabled: true
         livereload:
-            enabled: false # we use gulp + BrowserSync for livereload
+            enabled: true # we use gulp + BrowserSync for livereload
     jackson:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/digitalBLOG?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password:
+        password: cenfotec2017@
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -45,10 +45,17 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+       host: smtp.gmail.com
+       port: 587
+       username: digitalblogcenfotec@gmail.com
+       password: digitalblog2017
+       protocol: smtp
+       tls: true
+       properties.mail.smtp:
+         starttls.enable: true
+         auth: true
+         ssl.trust: smtp.gmail.com
+
     messages:
         cache-seconds: 1
     thymeleaf:
@@ -80,18 +87,17 @@ server:
 # ===================================================================
 # JHipster specific properties
 #
-# Full reference is available at: http://www.jhipster.tech/common-application-properties/
+# Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 jhipster:
     http:
         version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
-    # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
     cors:
         allowed-origins: "*"
-        allowed-methods: "*"
+        allowed-methods: GET, PUT, POST, DELETE, OPTIONS
         allowed-headers: "*"
-        exposed-headers: "Authorization"
+        exposed-headers: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         allow-credentials: true
         max-age: 1800
     security:
@@ -103,7 +109,9 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: digitalBLOG@localhost
-        base-url: http://127.0.0.1:8080
+        base-url: http://192.168.43.107:8080
+        #http://192.168.40.198:8080
+        #original base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         graphite: # Use the "graphite" Maven profile to have the Graphite dependencies
@@ -116,7 +124,7 @@ jhipster:
             endpoint: /prometheusMetrics
         logs: # Reports Dropwizard metrics in the logs
             enabled: false
-            report-frequency: 60 # in seconds
+            reportFrequency: 60 # in seconds
     logging:
         logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
             enabled: false
@@ -130,7 +138,7 @@ jhipster:
 # to have type-safe configuration, like in the JHipsterProperties above
 #
 # More documentation is available at:
-# http://www.jhipster.tech/common-application-properties/
+# https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 application:

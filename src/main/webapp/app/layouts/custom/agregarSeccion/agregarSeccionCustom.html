@@ -1,0 +1,40 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" >
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySeccionLabel">Agrega una publicación a una sección de tu biblioteca</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger alert-dismissable fade in" ng-if="vm.errorConnection == true">
+            <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>El sistema no está disponible en este momento!</strong> Inténtelo más tarde.
+        </div>
+        <div class="alert alert-danger alert-dismissable fade in" ng-if="vm.errorDuplicado == true">
+            <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>La publicación ya se encuentra en esa sección!</strong>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Titulo: </label>  {{  vm.publicacion.titulo}}
+        </div>
+        <div class="form-group">
+        <label class="control-label" for="seccion">Seccion</label>
+        <select class="form-control" id="seccion" name="seccion"  ng-model="vm.seccion.id" ng-options="seccion.id as seccion.nombre for seccion in vm.listaSeccion | orderBy:'id'">
+            <option value=""></option>
+        </select>
+        <div ng-show="editForm.nombre.$dirty && editForm.nombre.$invalid">
+            <p class="help-block"
+               ng-show="editForm.nombre.$error.required">
+                Sección es requerida.
+            </p>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancelar</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Guardar</span>
+        </button>
+    </div>
+</form>

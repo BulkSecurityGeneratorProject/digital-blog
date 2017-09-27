@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing LikeT.
@@ -26,7 +27,7 @@ public class LikeTResource {
     private final Logger log = LoggerFactory.getLogger(LikeTResource.class);
 
     private static final String ENTITY_NAME = "likeT";
-
+        
     private final LikeTService likeTService;
 
     public LikeTResource(LikeTService likeTService) {
@@ -59,7 +60,7 @@ public class LikeTResource {
      * @param likeTDTO the likeTDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated likeTDTO,
      * or with status 400 (Bad Request) if the likeTDTO is not valid,
-     * or with status 500 (Internal Server Error) if the likeTDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the likeTDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/like-ts")
@@ -85,7 +86,7 @@ public class LikeTResource {
     public List<LikeTDTO> getAllLikeTS() {
         log.debug("REST request to get all LikeTS");
         return likeTService.findAll();
-        }
+    }
 
     /**
      * GET  /like-ts/:id : get the "id" likeT.
@@ -114,4 +115,5 @@ public class LikeTResource {
         likeTService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

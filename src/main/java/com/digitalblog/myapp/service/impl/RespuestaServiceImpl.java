@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.RespuestaDTO;
 import com.digitalblog.myapp.service.mapper.RespuestaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RespuestaServiceImpl implements RespuestaService{
 
     private final Logger log = LoggerFactory.getLogger(RespuestaServiceImpl.class);
-
+    
     private final RespuestaRepository respuestaRepository;
 
     private final RespuestaMapper respuestaMapper;
@@ -41,23 +41,26 @@ public class RespuestaServiceImpl implements RespuestaService{
     @Override
     public RespuestaDTO save(RespuestaDTO respuestaDTO) {
         log.debug("Request to save Respuesta : {}", respuestaDTO);
-        Respuesta respuesta = respuestaMapper.toEntity(respuestaDTO);
+        Respuesta respuesta = respuestaMapper.respuestaDTOToRespuesta(respuestaDTO);
         respuesta = respuestaRepository.save(respuesta);
-        return respuestaMapper.toDto(respuesta);
+        RespuestaDTO result = respuestaMapper.respuestaToRespuestaDTO(respuesta);
+        return result;
     }
 
     /**
      *  Get all the respuestas.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<RespuestaDTO> findAll() {
         log.debug("Request to get all Respuestas");
-        return respuestaRepository.findAll().stream()
-            .map(respuestaMapper::toDto)
+        List<RespuestaDTO> result = respuestaRepository.findAll().stream()
+            .map(respuestaMapper::respuestaToRespuestaDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class RespuestaServiceImpl implements RespuestaService{
     public RespuestaDTO findOne(Long id) {
         log.debug("Request to get Respuesta : {}", id);
         Respuesta respuesta = respuestaRepository.findOne(id);
-        return respuestaMapper.toDto(respuesta);
+        RespuestaDTO respuestaDTO = respuestaMapper.respuestaToRespuestaDTO(respuesta);
+        return respuestaDTO;
     }
 
     /**

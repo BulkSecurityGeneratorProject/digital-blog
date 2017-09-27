@@ -4,28 +4,32 @@ import com.digitalblog.myapp.domain.*;
 import com.digitalblog.myapp.service.dto.SeguidorDTO;
 
 import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity Seguidor and its DTO SeguidorDTO.
  */
-@Mapper(componentModel = "spring", uses = {UsuarioMapper.class, })
-public interface SeguidorMapper extends EntityMapper <SeguidorDTO, Seguidor> {
+@Mapper(componentModel = "spring", uses = {})
+public interface SeguidorMapper {
 
     @Mapping(source = "idSeguidor.id", target = "idSeguidorId")
-
     @Mapping(source = "idSeguido.id", target = "idSeguidoId")
-    SeguidorDTO toDto(Seguidor seguidor); 
+    SeguidorDTO seguidorToSeguidorDTO(Seguidor seguidor);
+
+    List<SeguidorDTO> seguidorsToSeguidorDTOs(List<Seguidor> seguidors);
 
     @Mapping(source = "idSeguidorId", target = "idSeguidor")
-
     @Mapping(source = "idSeguidoId", target = "idSeguido")
-    Seguidor toEntity(SeguidorDTO seguidorDTO); 
-    default Seguidor fromId(Long id) {
+    Seguidor seguidorDTOToSeguidor(SeguidorDTO seguidorDTO);
+
+    List<Seguidor> seguidorDTOsToSeguidors(List<SeguidorDTO> seguidorDTOs);
+
+    default Usuario usuarioFromId(Long id) {
         if (id == null) {
             return null;
         }
-        Seguidor seguidor = new Seguidor();
-        seguidor.setId(id);
-        return seguidor;
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        return usuario;
     }
 }

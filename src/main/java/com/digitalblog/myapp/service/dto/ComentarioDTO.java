@@ -21,6 +21,26 @@ public class ComentarioDTO implements Serializable {
 
     private Long idComentarioPId;
 
+    private String respuesta;
+
+    private String fotoComentador;
+
+    public String getFotoComentador() {
+        return fotoComentador;
+    }
+
+    public void setFotoComentador(String fotoComentador) {
+        this.fotoComentador = fotoComentador;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
     public Long getId() {
         return id;
     }
@@ -28,7 +48,6 @@ public class ComentarioDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getContenido() {
         return contenido;
     }
@@ -71,22 +90,22 @@ public class ComentarioDTO implements Serializable {
         }
 
         ComentarioDTO comentarioDTO = (ComentarioDTO) o;
-        if(comentarioDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), comentarioDTO.getId());
+
+        if ( ! Objects.equals(id, comentarioDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "ComentarioDTO{" +
-            "id=" + getId() +
-            ", contenido='" + getContenido() + "'" +
-            "}";
+            "id=" + id +
+            ", contenido='" + contenido + "'" +
+            '}';
     }
 }

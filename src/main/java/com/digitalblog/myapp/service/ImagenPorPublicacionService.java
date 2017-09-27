@@ -18,7 +18,7 @@ public interface ImagenPorPublicacionService {
 
     /**
      *  Get all the imagenPorPublicacions.
-     *
+     *  
      *  @return the list of entities
      */
     List<ImagenPorPublicacionDTO> findAll();

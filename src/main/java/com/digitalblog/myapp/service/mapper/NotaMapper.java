@@ -4,24 +4,30 @@ import com.digitalblog.myapp.domain.*;
 import com.digitalblog.myapp.service.dto.NotaDTO;
 
 import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity Nota and its DTO NotaDTO.
  */
-@Mapper(componentModel = "spring", uses = {PaginaMapper.class, })
-public interface NotaMapper extends EntityMapper <NotaDTO, Nota> {
+@Mapper(componentModel = "spring", uses = {})
+public interface NotaMapper {
 
     @Mapping(source = "paginaNota.id", target = "paginaNotaId")
-    NotaDTO toDto(Nota nota); 
+    NotaDTO notaToNotaDTO(Nota nota);
+
+    List<NotaDTO> notasToNotaDTOs(List<Nota> notas);
 
     @Mapping(source = "paginaNotaId", target = "paginaNota")
-    Nota toEntity(NotaDTO notaDTO); 
-    default Nota fromId(Long id) {
+    Nota notaDTOToNota(NotaDTO notaDTO);
+
+    List<Nota> notaDTOsToNotas(List<NotaDTO> notaDTOs);
+
+    default Pagina paginaFromId(Long id) {
         if (id == null) {
             return null;
         }
-        Nota nota = new Nota();
-        nota.setId(id);
-        return nota;
+        Pagina pagina = new Pagina();
+        pagina.setId(id);
+        return pagina;
     }
 }

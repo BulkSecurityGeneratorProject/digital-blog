@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Notificacion.
@@ -26,7 +27,7 @@ public class NotificacionResource {
     private final Logger log = LoggerFactory.getLogger(NotificacionResource.class);
 
     private static final String ENTITY_NAME = "notificacion";
-
+        
     private final NotificacionService notificacionService;
 
     public NotificacionResource(NotificacionService notificacionService) {
@@ -59,7 +60,7 @@ public class NotificacionResource {
      * @param notificacionDTO the notificacionDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated notificacionDTO,
      * or with status 400 (Bad Request) if the notificacionDTO is not valid,
-     * or with status 500 (Internal Server Error) if the notificacionDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the notificacionDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/notificacions")
@@ -85,7 +86,7 @@ public class NotificacionResource {
     public List<NotificacionDTO> getAllNotificacions() {
         log.debug("REST request to get all Notificacions");
         return notificacionService.findAll();
-        }
+    }
 
     /**
      * GET  /notificacions/:id : get the "id" notificacion.
@@ -114,4 +115,5 @@ public class NotificacionResource {
         notificacionService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

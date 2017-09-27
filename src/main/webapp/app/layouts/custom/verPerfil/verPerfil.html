@@ -1,0 +1,105 @@
+<div class="container">
+
+    <div ng-if ="vm.errorConection ==  true" class="alert alert-danger">
+        <p>
+            ¡Lo sentimos! Error en el sistema , intente mas tarde.
+        </p>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    <div class="   panel fontColor  col-lg-8">
+        <div class="panel-body">
+
+            <div class="text-center ">
+                <div class="col-md-6">
+                    <img  class="img-circle "  ng-show =" vm.usuario.fotoperfilContentType != undefined|| vm.usuario.fotoperfilContentType != null"  data-ng-src="{{vm.usuario.fotoperfilContentType}}"  height="170" width="170"/>
+                    <hr>
+                    <div class="col-md-4 text-center pull-right">
+                        <h4 class="">{{vm.cantSeguidores}}</h4>
+                        <a ui-sref="listarSeguidores({id:vm.usuario.id})"><h5 class="standartitle">Seguidores</h5></a>
+                    </div>
+                    <div class="col-md-4 text-center pull-left">
+                        <h4 class="" >{{vm.cantSeguidos}}</h4>
+                        <a ui-sref="listarSeguidos({id:vm.usuario.id})" ><h5 class="standartitle">Seguidos</h5></a>
+                    </div>
+                    <div ng-hide="vm.usuario.idJHIUser == vm.cuentaActual.id" class="little-top">
+                        <a id="btnSeguir" type="submit"  ng-click="vm.seguir(vm.usuario.id)">
+                            <img src="{{vm.icon}}" width="40">
+                        </a>
+                    </div>
+                </div>
+                <div class=" " style="text-align: left">
+                    <div class="pull-right" ng-show="vm.usuario.idJHIUser == vm.cuentaActual.id">
+                        <a  ui-sref="personalizarPerfilCustom"  type="submit">
+                            <img src="../../../../content/images/pencil.svg" width="35">
+                        </a>
+                    </div>
+                    <h3 class=" ">{{vm.usuario.nombre +' '+vm.usuario.primerApelldio +' '+vm.usuario.segundoApellido}}</h3>
+                    <h5 class="standartitle ">{{vm.usuario.descripcion}}</h5>
+                    <hr>
+                    <div class="" >
+                        <h5  class="standartitle ">Edad : <strong> {{vm.usuario.edad}} años </strong> </h5>
+                        <br>
+                        <h5 class="standartitle  ">Email : <strong> {{vm.usuario.correo}}</strong> </h5>
+                        <br>
+                        <h5  class="standartitle ">Fecha nacimiento : <strong> {{vm.usuario.fechaNacimiento|date}}  </strong></h5>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!----->
+    </div>
+    <div class="col-lg-12">
+        <div ng-show="vm.publicaciones!=null">
+            <div class="panel " ng-repeat="publicacion in vm.listaPublicacionesLikes | limitTo : vm.limite"  >
+                <div class="panel-body">
+                   <div class="col-lg-9">
+                       <h4 class="">{{publicacion.titulo}}</h4>
+                       <p class="standartitle">{{publicacion.descripcion}}</p>
+
+                       <div class="row pull-left col-md-5">
+                           <button type="button" ng-model="vm.botonLike" class="btn"
+                                   ng-click="vm.like(publicacion,$index)">
+                               <i ng-show="publicacion.estadoLike == true" class="btnColorPublicacion"><img src="../../../../content/images/like.svg" width="30"></i>
+                               <i ng-show="publicacion.estadoLike == false" class="btnColorPublicacion"><img src="../../../../content/images/unlike.svg" width="30"></i>
+                           </button>
+                           <button type="submit" class="btn" ng-click="vm.comentar(publicacion.id)">
+                               <img src="../../../../content/images/chat.svg" width="30">
+                           </button>
+                           <button type="submit" class="btn" ng-click="vm.verPublicacion(publicacion)">
+                               <img src="../../../../content/images/eye.svg" width="30">
+                           </button>
+                           <span ng-show=" publicacion.contenido!= 0">Esta publicación tiene {{publicacion.contenido}} like<span ng-show="publicacion.contenido>1">s</span></span>
+
+                       </div>
+                   </div>
+                    <div class="">
+                        <img class="img-thumbnail pull-right" data-ng-src="{{publicacion.fotopublicacionContentType}}"  style="min-width: 150px;max-width: 150px; max-height: 130px; min-height: 130px">
+                    </div>
+                </div>
+            </div>
+            <button  ng-disabled="vm.limite > vm.publicaciones.length" class="btn btn-default pull-right" ng-click="vm.aumentarLimite()"> ver más </button>
+
+        </div>
+
+        <div ng-show="vm.publicaciones.length ==0" class="panel">
+            <div class="panel-body text-center">
+
+                <div class="row">
+                    <h3 class="standartitle">No hay publicaciones que mostrar</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12 text-center">
+        <img src="../../../../content/images/group.svg" width="50">
+        <a class="secondaryfontColor row" ui-sref="listarUsuarios">Conectar con otros usuarios</a>
+
+
+            </div>
+    </div>
+</div>

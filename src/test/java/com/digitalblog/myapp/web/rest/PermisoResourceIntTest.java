@@ -74,7 +74,7 @@ public class PermisoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PermisoResource permisoResource = new PermisoResource(permisoService);
+        PermisoResource permisoResource = new PermisoResource(permisoService);
         this.restPermisoMockMvc = MockMvcBuilders.standaloneSetup(permisoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,8 +89,8 @@ public class PermisoResourceIntTest {
      */
     public static Permiso createEntity(EntityManager em) {
         Permiso permiso = new Permiso()
-            .descripcion(DEFAULT_DESCRIPCION)
-            .nombre(DEFAULT_NOMBRE);
+                .descripcion(DEFAULT_DESCRIPCION)
+                .nombre(DEFAULT_NOMBRE);
         return permiso;
     }
 
@@ -105,7 +105,8 @@ public class PermisoResourceIntTest {
         int databaseSizeBeforeCreate = permisoRepository.findAll().size();
 
         // Create the Permiso
-        PermisoDTO permisoDTO = permisoMapper.toDto(permiso);
+        PermisoDTO permisoDTO = permisoMapper.permisoToPermisoDTO(permiso);
+
         restPermisoMockMvc.perform(post("/api/permisos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(permisoDTO)))
@@ -125,16 +126,17 @@ public class PermisoResourceIntTest {
         int databaseSizeBeforeCreate = permisoRepository.findAll().size();
 
         // Create the Permiso with an existing ID
-        permiso.setId(1L);
-        PermisoDTO permisoDTO = permisoMapper.toDto(permiso);
+        Permiso existingPermiso = new Permiso();
+        existingPermiso.setId(1L);
+        PermisoDTO existingPermisoDTO = permisoMapper.permisoToPermisoDTO(existingPermiso);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPermisoMockMvc.perform(post("/api/permisos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(permisoDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingPermisoDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Permiso in the database
+        // Validate the Alice in the database
         List<Permiso> permisoList = permisoRepository.findAll();
         assertThat(permisoList).hasSize(databaseSizeBeforeCreate);
     }
@@ -187,9 +189,9 @@ public class PermisoResourceIntTest {
         // Update the permiso
         Permiso updatedPermiso = permisoRepository.findOne(permiso.getId());
         updatedPermiso
-            .descripcion(UPDATED_DESCRIPCION)
-            .nombre(UPDATED_NOMBRE);
-        PermisoDTO permisoDTO = permisoMapper.toDto(updatedPermiso);
+                .descripcion(UPDATED_DESCRIPCION)
+                .nombre(UPDATED_NOMBRE);
+        PermisoDTO permisoDTO = permisoMapper.permisoToPermisoDTO(updatedPermiso);
 
         restPermisoMockMvc.perform(put("/api/permisos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -210,7 +212,7 @@ public class PermisoResourceIntTest {
         int databaseSizeBeforeUpdate = permisoRepository.findAll().size();
 
         // Create the Permiso
-        PermisoDTO permisoDTO = permisoMapper.toDto(permiso);
+        PermisoDTO permisoDTO = permisoMapper.permisoToPermisoDTO(permiso);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPermisoMockMvc.perform(put("/api/permisos")
@@ -241,40 +243,7 @@ public class PermisoResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Permiso.class);
-        Permiso permiso1 = new Permiso();
-        permiso1.setId(1L);
-        Permiso permiso2 = new Permiso();
-        permiso2.setId(permiso1.getId());
-        assertThat(permiso1).isEqualTo(permiso2);
-        permiso2.setId(2L);
-        assertThat(permiso1).isNotEqualTo(permiso2);
-        permiso1.setId(null);
-        assertThat(permiso1).isNotEqualTo(permiso2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(PermisoDTO.class);
-        PermisoDTO permisoDTO1 = new PermisoDTO();
-        permisoDTO1.setId(1L);
-        PermisoDTO permisoDTO2 = new PermisoDTO();
-        assertThat(permisoDTO1).isNotEqualTo(permisoDTO2);
-        permisoDTO2.setId(permisoDTO1.getId());
-        assertThat(permisoDTO1).isEqualTo(permisoDTO2);
-        permisoDTO2.setId(2L);
-        assertThat(permisoDTO1).isNotEqualTo(permisoDTO2);
-        permisoDTO1.setId(null);
-        assertThat(permisoDTO1).isNotEqualTo(permisoDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(permisoMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(permisoMapper.fromId(null)).isNull();
     }
 }

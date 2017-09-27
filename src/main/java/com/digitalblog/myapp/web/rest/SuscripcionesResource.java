@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Suscripciones.
@@ -26,7 +27,7 @@ public class SuscripcionesResource {
     private final Logger log = LoggerFactory.getLogger(SuscripcionesResource.class);
 
     private static final String ENTITY_NAME = "suscripciones";
-
+        
     private final SuscripcionesService suscripcionesService;
 
     public SuscripcionesResource(SuscripcionesService suscripcionesService) {
@@ -59,7 +60,7 @@ public class SuscripcionesResource {
      * @param suscripcionesDTO the suscripcionesDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated suscripcionesDTO,
      * or with status 400 (Bad Request) if the suscripcionesDTO is not valid,
-     * or with status 500 (Internal Server Error) if the suscripcionesDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the suscripcionesDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/suscripciones")
@@ -85,7 +86,7 @@ public class SuscripcionesResource {
     public List<SuscripcionesDTO> getAllSuscripciones() {
         log.debug("REST request to get all Suscripciones");
         return suscripcionesService.findAll();
-        }
+    }
 
     /**
      * GET  /suscripciones/:id : get the "id" suscripciones.
@@ -114,4 +115,5 @@ public class SuscripcionesResource {
         suscripcionesService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

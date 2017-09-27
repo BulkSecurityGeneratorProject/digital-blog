@@ -4,24 +4,30 @@ import com.digitalblog.myapp.domain.*;
 import com.digitalblog.myapp.service.dto.RespuestaDTO;
 
 import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity Respuesta and its DTO RespuestaDTO.
  */
-@Mapper(componentModel = "spring", uses = {ComentarioMapper.class, })
-public interface RespuestaMapper extends EntityMapper <RespuestaDTO, Respuesta> {
+@Mapper(componentModel = "spring", uses = {})
+public interface RespuestaMapper {
 
     @Mapping(source = "idComentarioR.id", target = "idComentarioRId")
-    RespuestaDTO toDto(Respuesta respuesta); 
+    RespuestaDTO respuestaToRespuestaDTO(Respuesta respuesta);
+
+    List<RespuestaDTO> respuestasToRespuestaDTOs(List<Respuesta> respuestas);
 
     @Mapping(source = "idComentarioRId", target = "idComentarioR")
-    Respuesta toEntity(RespuestaDTO respuestaDTO); 
-    default Respuesta fromId(Long id) {
+    Respuesta respuestaDTOToRespuesta(RespuestaDTO respuestaDTO);
+
+    List<Respuesta> respuestaDTOsToRespuestas(List<RespuestaDTO> respuestaDTOs);
+
+    default Comentario comentarioFromId(Long id) {
         if (id == null) {
             return null;
         }
-        Respuesta respuesta = new Respuesta();
-        respuesta.setId(id);
-        return respuesta;
+        Comentario comentario = new Comentario();
+        comentario.setId(id);
+        return comentario;
     }
 }

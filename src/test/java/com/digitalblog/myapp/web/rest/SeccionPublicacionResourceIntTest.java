@@ -68,7 +68,7 @@ public class SeccionPublicacionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SeccionPublicacionResource seccionPublicacionResource = new SeccionPublicacionResource(seccionPublicacionService);
+        SeccionPublicacionResource seccionPublicacionResource = new SeccionPublicacionResource(seccionPublicacionService);
         this.restSeccionPublicacionMockMvc = MockMvcBuilders.standaloneSetup(seccionPublicacionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -97,7 +97,8 @@ public class SeccionPublicacionResourceIntTest {
         int databaseSizeBeforeCreate = seccionPublicacionRepository.findAll().size();
 
         // Create the SeccionPublicacion
-        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.toDto(seccionPublicacion);
+        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.seccionPublicacionToSeccionPublicacionDTO(seccionPublicacion);
+
         restSeccionPublicacionMockMvc.perform(post("/api/seccion-publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(seccionPublicacionDTO)))
@@ -115,16 +116,17 @@ public class SeccionPublicacionResourceIntTest {
         int databaseSizeBeforeCreate = seccionPublicacionRepository.findAll().size();
 
         // Create the SeccionPublicacion with an existing ID
-        seccionPublicacion.setId(1L);
-        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.toDto(seccionPublicacion);
+        SeccionPublicacion existingSeccionPublicacion = new SeccionPublicacion();
+        existingSeccionPublicacion.setId(1L);
+        SeccionPublicacionDTO existingSeccionPublicacionDTO = seccionPublicacionMapper.seccionPublicacionToSeccionPublicacionDTO(existingSeccionPublicacion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSeccionPublicacionMockMvc.perform(post("/api/seccion-publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(seccionPublicacionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingSeccionPublicacionDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the SeccionPublicacion in the database
+        // Validate the Alice in the database
         List<SeccionPublicacion> seccionPublicacionList = seccionPublicacionRepository.findAll();
         assertThat(seccionPublicacionList).hasSize(databaseSizeBeforeCreate);
     }
@@ -172,7 +174,7 @@ public class SeccionPublicacionResourceIntTest {
 
         // Update the seccionPublicacion
         SeccionPublicacion updatedSeccionPublicacion = seccionPublicacionRepository.findOne(seccionPublicacion.getId());
-        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.toDto(updatedSeccionPublicacion);
+        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.seccionPublicacionToSeccionPublicacionDTO(updatedSeccionPublicacion);
 
         restSeccionPublicacionMockMvc.perform(put("/api/seccion-publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -191,7 +193,7 @@ public class SeccionPublicacionResourceIntTest {
         int databaseSizeBeforeUpdate = seccionPublicacionRepository.findAll().size();
 
         // Create the SeccionPublicacion
-        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.toDto(seccionPublicacion);
+        SeccionPublicacionDTO seccionPublicacionDTO = seccionPublicacionMapper.seccionPublicacionToSeccionPublicacionDTO(seccionPublicacion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSeccionPublicacionMockMvc.perform(put("/api/seccion-publicacions")
@@ -222,40 +224,7 @@ public class SeccionPublicacionResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(SeccionPublicacion.class);
-        SeccionPublicacion seccionPublicacion1 = new SeccionPublicacion();
-        seccionPublicacion1.setId(1L);
-        SeccionPublicacion seccionPublicacion2 = new SeccionPublicacion();
-        seccionPublicacion2.setId(seccionPublicacion1.getId());
-        assertThat(seccionPublicacion1).isEqualTo(seccionPublicacion2);
-        seccionPublicacion2.setId(2L);
-        assertThat(seccionPublicacion1).isNotEqualTo(seccionPublicacion2);
-        seccionPublicacion1.setId(null);
-        assertThat(seccionPublicacion1).isNotEqualTo(seccionPublicacion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(SeccionPublicacionDTO.class);
-        SeccionPublicacionDTO seccionPublicacionDTO1 = new SeccionPublicacionDTO();
-        seccionPublicacionDTO1.setId(1L);
-        SeccionPublicacionDTO seccionPublicacionDTO2 = new SeccionPublicacionDTO();
-        assertThat(seccionPublicacionDTO1).isNotEqualTo(seccionPublicacionDTO2);
-        seccionPublicacionDTO2.setId(seccionPublicacionDTO1.getId());
-        assertThat(seccionPublicacionDTO1).isEqualTo(seccionPublicacionDTO2);
-        seccionPublicacionDTO2.setId(2L);
-        assertThat(seccionPublicacionDTO1).isNotEqualTo(seccionPublicacionDTO2);
-        seccionPublicacionDTO1.setId(null);
-        assertThat(seccionPublicacionDTO1).isNotEqualTo(seccionPublicacionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(seccionPublicacionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(seccionPublicacionMapper.fromId(null)).isNull();
     }
 }

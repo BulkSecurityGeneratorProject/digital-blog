@@ -2,46 +2,46 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Permiso.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Biblioteca.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Capitulo.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Categoria.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Comentario.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Coolaborador.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Tema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_LikeT.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Nota.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Notificacion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Pagina.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Canal.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Publicacion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_PublicacionReportada.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Respuesta.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Rol.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_RolePermiso.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Seccion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_SeccionPublicacion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Seguidor.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Suscripciones.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_Usuario.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170312225118_added_entity_ImagenPorPublicacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Publicacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Biblioteca.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Capitulo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Categoria.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Comentario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Coolaborador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_LikeT.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Nota.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Notificacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Pagina.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Permiso.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Canal.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_PublicacionReportada.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Respuesta.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Rol.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_RolePermiso.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Seccion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_SeccionPublicacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Seguidor.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Suscripciones.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Tema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_Usuario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170312225118_added_entity_ImagenPorPublicacion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Biblioteca.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Capitulo.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Comentario.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Coolaborador.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_LikeT.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Nota.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Pagina.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Publicacion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Respuesta.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_RolePermiso.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Seccion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_SeccionPublicacion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Seguidor.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20170311213456_added_entity_constraints_Usuario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Publicacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Biblioteca.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Capitulo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Comentario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Coolaborador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_LikeT.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Nota.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Pagina.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Respuesta.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_RolePermiso.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Seccion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_SeccionPublicacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Seguidor.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170311213456_added_entity_constraints_Usuario.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -8,6 +8,6 @@
     Register.$inject = ['$resource'];
 
     function Register ($resource) {
-        return $resource('api/register', {}, {});
+        return $resource('apiCustom/register', {}, {});
     }
 })();

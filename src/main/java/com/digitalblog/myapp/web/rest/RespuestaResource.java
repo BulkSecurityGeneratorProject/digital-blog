@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Respuesta.
@@ -26,7 +27,7 @@ public class RespuestaResource {
     private final Logger log = LoggerFactory.getLogger(RespuestaResource.class);
 
     private static final String ENTITY_NAME = "respuesta";
-
+        
     private final RespuestaService respuestaService;
 
     public RespuestaResource(RespuestaService respuestaService) {
@@ -59,7 +60,7 @@ public class RespuestaResource {
      * @param respuestaDTO the respuestaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated respuestaDTO,
      * or with status 400 (Bad Request) if the respuestaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the respuestaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the respuestaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/respuestas")
@@ -85,7 +86,7 @@ public class RespuestaResource {
     public List<RespuestaDTO> getAllRespuestas() {
         log.debug("REST request to get all Respuestas");
         return respuestaService.findAll();
-        }
+    }
 
     /**
      * GET  /respuestas/:id : get the "id" respuesta.
@@ -114,4 +115,5 @@ public class RespuestaResource {
         respuestaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

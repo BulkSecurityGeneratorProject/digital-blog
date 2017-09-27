@@ -18,7 +18,7 @@ public interface RolService {
 
     /**
      *  Get all the rols.
-     *
+     *  
      *  @return the list of entities
      */
     List<RolDTO> findAll();

@@ -4,25 +4,31 @@ import com.digitalblog.myapp.domain.*;
 import com.digitalblog.myapp.service.dto.UsuarioDTO;
 
 import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity Usuario and its DTO UsuarioDTO.
  */
-@Mapper(componentModel = "spring", uses = {RolMapper.class, })
-public interface UsuarioMapper extends EntityMapper <UsuarioDTO, Usuario> {
+@Mapper(componentModel = "spring", uses = {})
+public interface UsuarioMapper {
 
     @Mapping(source = "rol.id", target = "rolId")
-    UsuarioDTO toDto(Usuario usuario); 
-    @Mapping(target = "usuarios", ignore = true)
+    UsuarioDTO usuarioToUsuarioDTO(Usuario usuario);
 
+    List<UsuarioDTO> usuariosToUsuarioDTOs(List<Usuario> usuarios);
+
+    @Mapping(target = "usuarios", ignore = true)
     @Mapping(source = "rolId", target = "rol")
-    Usuario toEntity(UsuarioDTO usuarioDTO); 
-    default Usuario fromId(Long id) {
+    Usuario usuarioDTOToUsuario(UsuarioDTO usuarioDTO);
+
+    List<Usuario> usuarioDTOsToUsuarios(List<UsuarioDTO> usuarioDTOs);
+
+    default Rol rolFromId(Long id) {
         if (id == null) {
             return null;
         }
-        Usuario usuario = new Usuario();
-        usuario.setId(id);
-        return usuario;
+        Rol rol = new Rol();
+        rol.setId(id);
+        return rol;
     }
 }

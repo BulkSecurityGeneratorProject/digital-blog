@@ -1,0 +1,22 @@
+<form name="deleteForm" ng-submit="vm.confirmDelete(vm.seccion.id)">
+    <div class="modal-header">
+        <h4 class="modal-title"></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="alert alert-danger alert-dismissable fade in" ng-if="vm.errorConnection == true">
+            <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>El sistema no está disponible en este momento!</strong> Inténtelo más tarde.
+        </div>
+
+        <p>Esta seguro que desea eliminar esta sección?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Delete</span>
+        </button>
+    </div>
+</form>

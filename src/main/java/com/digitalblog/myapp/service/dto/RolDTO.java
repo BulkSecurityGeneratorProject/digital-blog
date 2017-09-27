@@ -24,7 +24,6 @@ public class RolDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getNombre() {
         return nombre;
     }
@@ -32,7 +31,6 @@ public class RolDTO implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -51,23 +49,23 @@ public class RolDTO implements Serializable {
         }
 
         RolDTO rolDTO = (RolDTO) o;
-        if(rolDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), rolDTO.getId());
+
+        if ( ! Objects.equals(id, rolDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "RolDTO{" +
-            "id=" + getId() +
-            ", nombre='" + getNombre() + "'" +
-            ", descripcion='" + getDescripcion() + "'" +
-            "}";
+            "id=" + id +
+            ", nombre='" + nombre + "'" +
+            ", descripcion='" + descripcion + "'" +
+            '}';
     }
 }

@@ -26,7 +26,6 @@ public class BibliotecaDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public Integer getIdSeccion() {
         return idSeccion;
     }
@@ -34,7 +33,6 @@ public class BibliotecaDTO implements Serializable {
     public void setIdSeccion(Integer idSeccion) {
         this.idSeccion = idSeccion;
     }
-
     public Long getIdJhiUser() {
         return idJhiUser;
     }
@@ -61,23 +59,23 @@ public class BibliotecaDTO implements Serializable {
         }
 
         BibliotecaDTO bibliotecaDTO = (BibliotecaDTO) o;
-        if(bibliotecaDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), bibliotecaDTO.getId());
+
+        if ( ! Objects.equals(id, bibliotecaDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "BibliotecaDTO{" +
-            "id=" + getId() +
-            ", idSeccion='" + getIdSeccion() + "'" +
-            ", idJhiUser='" + getIdJhiUser() + "'" +
-            "}";
+            "id=" + id +
+            ", idSeccion='" + idSeccion + "'" +
+            ", idJhiUser='" + idJhiUser + "'" +
+            '}';
     }
 }

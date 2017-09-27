@@ -1,0 +1,84 @@
+<div class="container " id="listPubliSecc">
+    <div class="alert alert-danger alert-dismissable fade in" ng-if="vm.errorConnection == true">
+        <strong>El sistema no está disponible en este momento!</strong> Inténtelo más tarde.
+    </div>
+    <div class="row">
+        <div class="panel col-lg-12">
+            <div class="panel-body col-lg-6">
+
+                <img class="img-thumbnail pull-left" data-ng-src="{{vm.publicacion.fotopublicacionContentType}}"
+                     style="min-width: 150px;max-width: 150px; max-height: 150px; min-height: 150px">
+                <h2 class="col-lg-8">{{vm.publicacion.titulo}}</h2>
+                <p class="col-lg-8">{{vm.publicacion.descripcion}}</p>
+                <span type="button" class="iconStyle">
+                    <span ng-show="vm.publicacion.contenido > 1" >{{vm.publicacion.contenido}} Likes</span>
+                     <span ng-show="vm.publicacion.contenido == 1" >{{vm.publicacion.contenido}} Like</span>
+                </span>
+
+                <a type="submit"  ng-click="vm.verPublicacion(vm.publicacion)" class="iconStyle">
+                    <i class="btnColorPublicacion"><img src="../../../../content/images/eye.svg"
+                                                        width="30"></i>
+                </a>
+
+            </div>
+
+            <div class="panel-body col-lg-6">
+
+                    <textarea ng-disabled="vm.usuarioComentando.id == vm.publicacion.usuarioId" id="areaComentario "
+                              class="form-control " ng-model="vm.textoComentado"
+                              placeholder="Escriba su comentario sobre {{vm.publicacion.titulo}}">
+
+                </textarea>
+                <button ng-disabled="vm.usuarioComentando.id == vm.publicacion.usuarioId" type="submit" type="submit"
+                        class="btn pull-right btn-raised btn-primary" ng-click="vm.salvarComentario()">
+                    <i class="glyphicon  glyphicon-check  "> Comentar</i>
+                </button>
+            </div>
+
+            <div  class="panel col-lg-12" ng-repeat="comentario in vm.comentarioMostrado">
+
+                <!--<h5 class=" col-lg-12">{{vm.usuarioComentando.nombre +' '+vm.usuarioComentando.primerApelldio + ' '+ vm.usuarioComentando.segundoApellido}}</h5>-->
+                <div id="comentario" class="panel-heading col-lg-12 ">
+                    <div class=" col-lg-1">
+                        <img class="img-circle col-lg-12"
+                             ng-show=" comentario.fotoComentador != undefined|| comentario.fotoComentador != null"
+                             data-ng-src="{{comentario.fotoComentador}}" height="30" width="30"/>
+                    </div>
+                    <span class=" col-lg-11">{{comentario.contenido}}</span>
+
+                </div>
+
+                <!--<h5 class="pull-right col-lg-11">Autor {{vm.usuarioComentando.nombre +' '+vm.usuarioComentando.primerApelldio + ' '+ vm.usuarioComentando.segundoApellido}}</h5>-->
+                <div id="respuesta" class="panel-heading pull-left col-lg-11"
+                     ng-show=" comentario.respuesta != undefined|| comentario.respuesta != null">
+                    <div class=" col-lg-1">
+                        <img class="img-circle col-lg-12"
+                             ng-show=" vm.publicacion.fotoPublicador != undefined|| vm.publicacion.fotoPublicador != null"
+                             data-ng-src="{{vm.publicacion.fotoPublicador}}" height="30"/>
+                    </div>
+                    <span class=" col-lg-10">{{comentario.respuesta}}</span>
+
+                </div>
+
+                <div class="pull-right col-lg-11"
+                     ng-show="vm.comentarioCopia==comentario">
+                    <!--ng-show =" (comentario.respuesta == undefined|| comentario.respuesta == null) && usuarioComentando.id == publicacion.id">-->
+
+                    <textarea class="form-control " ng-model="vm.textoRespondido"
+                              placeholder="Escriba su respuesta "></textarea>
+
+                </div>
+                <!--<button type="submit" type="submit" class="btn pull-right btn-raised btn-primary"-->
+                <!--ng-click="vm.salvarRespuesta(comentario)">-->
+                <!--<i class="glyphicon  glyphicon-check  "> Responder</i>-->
+                <!--</button>-->
+                <button type="submit" type="submit" class="btn pull-right btn-raised btn-primary"
+                        ng-click="vm.salvarRespuesta(comentario)"
+                        ng-hide=" vm.usuarioComentando.id != vm.publicacion.usuarioId || comentario.respuesta != undefined || comentario.respuesta != null">
+                    <i class="glyphicon  glyphicon-check  "> Responder</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

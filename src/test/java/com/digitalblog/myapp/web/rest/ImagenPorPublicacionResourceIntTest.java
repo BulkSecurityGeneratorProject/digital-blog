@@ -77,7 +77,7 @@ public class ImagenPorPublicacionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ImagenPorPublicacionResource imagenPorPublicacionResource = new ImagenPorPublicacionResource(imagenPorPublicacionService);
+        ImagenPorPublicacionResource imagenPorPublicacionResource = new ImagenPorPublicacionResource(imagenPorPublicacionService);
         this.restImagenPorPublicacionMockMvc = MockMvcBuilders.standaloneSetup(imagenPorPublicacionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -92,9 +92,9 @@ public class ImagenPorPublicacionResourceIntTest {
      */
     public static ImagenPorPublicacion createEntity(EntityManager em) {
         ImagenPorPublicacion imagenPorPublicacion = new ImagenPorPublicacion()
-            .idPublicacion(DEFAULT_ID_PUBLICACION)
-            .imagen(DEFAULT_IMAGEN)
-            .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE);
+                .idPublicacion(DEFAULT_ID_PUBLICACION)
+                .imagen(DEFAULT_IMAGEN)
+                .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE);
         return imagenPorPublicacion;
     }
 
@@ -109,7 +109,8 @@ public class ImagenPorPublicacionResourceIntTest {
         int databaseSizeBeforeCreate = imagenPorPublicacionRepository.findAll().size();
 
         // Create the ImagenPorPublicacion
-        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.toDto(imagenPorPublicacion);
+        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.imagenPorPublicacionToImagenPorPublicacionDTO(imagenPorPublicacion);
+
         restImagenPorPublicacionMockMvc.perform(post("/api/imagen-por-publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(imagenPorPublicacionDTO)))
@@ -130,16 +131,17 @@ public class ImagenPorPublicacionResourceIntTest {
         int databaseSizeBeforeCreate = imagenPorPublicacionRepository.findAll().size();
 
         // Create the ImagenPorPublicacion with an existing ID
-        imagenPorPublicacion.setId(1L);
-        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.toDto(imagenPorPublicacion);
+        ImagenPorPublicacion existingImagenPorPublicacion = new ImagenPorPublicacion();
+        existingImagenPorPublicacion.setId(1L);
+        ImagenPorPublicacionDTO existingImagenPorPublicacionDTO = imagenPorPublicacionMapper.imagenPorPublicacionToImagenPorPublicacionDTO(existingImagenPorPublicacion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restImagenPorPublicacionMockMvc.perform(post("/api/imagen-por-publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(imagenPorPublicacionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingImagenPorPublicacionDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the ImagenPorPublicacion in the database
+        // Validate the Alice in the database
         List<ImagenPorPublicacion> imagenPorPublicacionList = imagenPorPublicacionRepository.findAll();
         assertThat(imagenPorPublicacionList).hasSize(databaseSizeBeforeCreate);
     }
@@ -194,10 +196,10 @@ public class ImagenPorPublicacionResourceIntTest {
         // Update the imagenPorPublicacion
         ImagenPorPublicacion updatedImagenPorPublicacion = imagenPorPublicacionRepository.findOne(imagenPorPublicacion.getId());
         updatedImagenPorPublicacion
-            .idPublicacion(UPDATED_ID_PUBLICACION)
-            .imagen(UPDATED_IMAGEN)
-            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE);
-        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.toDto(updatedImagenPorPublicacion);
+                .idPublicacion(UPDATED_ID_PUBLICACION)
+                .imagen(UPDATED_IMAGEN)
+                .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE);
+        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.imagenPorPublicacionToImagenPorPublicacionDTO(updatedImagenPorPublicacion);
 
         restImagenPorPublicacionMockMvc.perform(put("/api/imagen-por-publicacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -219,7 +221,7 @@ public class ImagenPorPublicacionResourceIntTest {
         int databaseSizeBeforeUpdate = imagenPorPublicacionRepository.findAll().size();
 
         // Create the ImagenPorPublicacion
-        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.toDto(imagenPorPublicacion);
+        ImagenPorPublicacionDTO imagenPorPublicacionDTO = imagenPorPublicacionMapper.imagenPorPublicacionToImagenPorPublicacionDTO(imagenPorPublicacion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restImagenPorPublicacionMockMvc.perform(put("/api/imagen-por-publicacions")
@@ -250,40 +252,7 @@ public class ImagenPorPublicacionResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(ImagenPorPublicacion.class);
-        ImagenPorPublicacion imagenPorPublicacion1 = new ImagenPorPublicacion();
-        imagenPorPublicacion1.setId(1L);
-        ImagenPorPublicacion imagenPorPublicacion2 = new ImagenPorPublicacion();
-        imagenPorPublicacion2.setId(imagenPorPublicacion1.getId());
-        assertThat(imagenPorPublicacion1).isEqualTo(imagenPorPublicacion2);
-        imagenPorPublicacion2.setId(2L);
-        assertThat(imagenPorPublicacion1).isNotEqualTo(imagenPorPublicacion2);
-        imagenPorPublicacion1.setId(null);
-        assertThat(imagenPorPublicacion1).isNotEqualTo(imagenPorPublicacion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ImagenPorPublicacionDTO.class);
-        ImagenPorPublicacionDTO imagenPorPublicacionDTO1 = new ImagenPorPublicacionDTO();
-        imagenPorPublicacionDTO1.setId(1L);
-        ImagenPorPublicacionDTO imagenPorPublicacionDTO2 = new ImagenPorPublicacionDTO();
-        assertThat(imagenPorPublicacionDTO1).isNotEqualTo(imagenPorPublicacionDTO2);
-        imagenPorPublicacionDTO2.setId(imagenPorPublicacionDTO1.getId());
-        assertThat(imagenPorPublicacionDTO1).isEqualTo(imagenPorPublicacionDTO2);
-        imagenPorPublicacionDTO2.setId(2L);
-        assertThat(imagenPorPublicacionDTO1).isNotEqualTo(imagenPorPublicacionDTO2);
-        imagenPorPublicacionDTO1.setId(null);
-        assertThat(imagenPorPublicacionDTO1).isNotEqualTo(imagenPorPublicacionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(imagenPorPublicacionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(imagenPorPublicacionMapper.fromId(null)).isNull();
     }
 }

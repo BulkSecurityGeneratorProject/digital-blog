@@ -1,0 +1,36 @@
+.whiteColor{
+    color: #FFFFFF;
+}
+.secondaryText{
+    color:#757575;
+}
+.color{
+    background-color: #607D8B;
+}
+.btnColorPublicacion{
+    color: #607D8B;
+    font-size: 16px;
+}
+.fontColor{
+    color:#212121;
+}
+.secondaryfontColor{
+    color:#757575;
+}
+.btnsize{
+    font-size: 30px;
+}
+.top-head{
+    margin-top: 77px;
+}
+#filtrarUsuarios {
+    border-bottom: 1px solid grey;
+}
+.seguir{
+  background-image: url("../../images/follow.svg");
+}
+
+.noseguir{
+    background-image: url("../../images/unfollow.svg");
+
+}

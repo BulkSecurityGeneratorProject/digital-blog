@@ -18,7 +18,7 @@ public interface RespuestaService {
 
     /**
      *  Get all the respuestas.
-     *
+     *  
      *  @return the list of entities
      */
     List<RespuestaDTO> findAll();

@@ -20,7 +20,6 @@ public class CanalDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -39,22 +38,22 @@ public class CanalDTO implements Serializable {
         }
 
         CanalDTO canalDTO = (CanalDTO) o;
-        if(canalDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), canalDTO.getId());
+
+        if ( ! Objects.equals(id, canalDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "CanalDTO{" +
-            "id=" + getId() +
-            ", idUsuario='" + getIdUsuario() + "'" +
-            "}";
+            "id=" + id +
+            ", idUsuario='" + idUsuario + "'" +
+            '}';
     }
 }

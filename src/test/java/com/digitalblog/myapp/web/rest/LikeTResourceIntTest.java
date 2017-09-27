@@ -71,7 +71,7 @@ public class LikeTResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LikeTResource likeTResource = new LikeTResource(likeTService);
+        LikeTResource likeTResource = new LikeTResource(likeTService);
         this.restLikeTMockMvc = MockMvcBuilders.standaloneSetup(likeTResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class LikeTResourceIntTest {
      */
     public static LikeT createEntity(EntityManager em) {
         LikeT likeT = new LikeT()
-            .cantidad(DEFAULT_CANTIDAD);
+                .cantidad(DEFAULT_CANTIDAD);
         return likeT;
     }
 
@@ -101,7 +101,8 @@ public class LikeTResourceIntTest {
         int databaseSizeBeforeCreate = likeTRepository.findAll().size();
 
         // Create the LikeT
-        LikeTDTO likeTDTO = likeTMapper.toDto(likeT);
+        LikeTDTO likeTDTO = likeTMapper.likeTToLikeTDTO(likeT);
+
         restLikeTMockMvc.perform(post("/api/like-ts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(likeTDTO)))
@@ -120,16 +121,17 @@ public class LikeTResourceIntTest {
         int databaseSizeBeforeCreate = likeTRepository.findAll().size();
 
         // Create the LikeT with an existing ID
-        likeT.setId(1L);
-        LikeTDTO likeTDTO = likeTMapper.toDto(likeT);
+        LikeT existingLikeT = new LikeT();
+        existingLikeT.setId(1L);
+        LikeTDTO existingLikeTDTO = likeTMapper.likeTToLikeTDTO(existingLikeT);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLikeTMockMvc.perform(post("/api/like-ts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(likeTDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingLikeTDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the LikeT in the database
+        // Validate the Alice in the database
         List<LikeT> likeTList = likeTRepository.findAll();
         assertThat(likeTList).hasSize(databaseSizeBeforeCreate);
     }
@@ -180,8 +182,8 @@ public class LikeTResourceIntTest {
         // Update the likeT
         LikeT updatedLikeT = likeTRepository.findOne(likeT.getId());
         updatedLikeT
-            .cantidad(UPDATED_CANTIDAD);
-        LikeTDTO likeTDTO = likeTMapper.toDto(updatedLikeT);
+                .cantidad(UPDATED_CANTIDAD);
+        LikeTDTO likeTDTO = likeTMapper.likeTToLikeTDTO(updatedLikeT);
 
         restLikeTMockMvc.perform(put("/api/like-ts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,7 +203,7 @@ public class LikeTResourceIntTest {
         int databaseSizeBeforeUpdate = likeTRepository.findAll().size();
 
         // Create the LikeT
-        LikeTDTO likeTDTO = likeTMapper.toDto(likeT);
+        LikeTDTO likeTDTO = likeTMapper.likeTToLikeTDTO(likeT);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restLikeTMockMvc.perform(put("/api/like-ts")
@@ -232,40 +234,7 @@ public class LikeTResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(LikeT.class);
-        LikeT likeT1 = new LikeT();
-        likeT1.setId(1L);
-        LikeT likeT2 = new LikeT();
-        likeT2.setId(likeT1.getId());
-        assertThat(likeT1).isEqualTo(likeT2);
-        likeT2.setId(2L);
-        assertThat(likeT1).isNotEqualTo(likeT2);
-        likeT1.setId(null);
-        assertThat(likeT1).isNotEqualTo(likeT2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LikeTDTO.class);
-        LikeTDTO likeTDTO1 = new LikeTDTO();
-        likeTDTO1.setId(1L);
-        LikeTDTO likeTDTO2 = new LikeTDTO();
-        assertThat(likeTDTO1).isNotEqualTo(likeTDTO2);
-        likeTDTO2.setId(likeTDTO1.getId());
-        assertThat(likeTDTO1).isEqualTo(likeTDTO2);
-        likeTDTO2.setId(2L);
-        assertThat(likeTDTO1).isNotEqualTo(likeTDTO2);
-        likeTDTO1.setId(null);
-        assertThat(likeTDTO1).isNotEqualTo(likeTDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(likeTMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(likeTMapper.fromId(null)).isNull();
     }
 }

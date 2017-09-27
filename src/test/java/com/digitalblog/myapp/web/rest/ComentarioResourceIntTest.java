@@ -71,7 +71,7 @@ public class ComentarioResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ComentarioResource comentarioResource = new ComentarioResource(comentarioService);
+        ComentarioResource comentarioResource = new ComentarioResource(comentarioService);
         this.restComentarioMockMvc = MockMvcBuilders.standaloneSetup(comentarioResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +86,7 @@ public class ComentarioResourceIntTest {
      */
     public static Comentario createEntity(EntityManager em) {
         Comentario comentario = new Comentario()
-            .contenido(DEFAULT_CONTENIDO);
+                .contenido(DEFAULT_CONTENIDO);
         return comentario;
     }
 
@@ -101,7 +101,8 @@ public class ComentarioResourceIntTest {
         int databaseSizeBeforeCreate = comentarioRepository.findAll().size();
 
         // Create the Comentario
-        ComentarioDTO comentarioDTO = comentarioMapper.toDto(comentario);
+        ComentarioDTO comentarioDTO = comentarioMapper.comentarioToComentarioDTO(comentario);
+
         restComentarioMockMvc.perform(post("/api/comentarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(comentarioDTO)))
@@ -120,16 +121,17 @@ public class ComentarioResourceIntTest {
         int databaseSizeBeforeCreate = comentarioRepository.findAll().size();
 
         // Create the Comentario with an existing ID
-        comentario.setId(1L);
-        ComentarioDTO comentarioDTO = comentarioMapper.toDto(comentario);
+        Comentario existingComentario = new Comentario();
+        existingComentario.setId(1L);
+        ComentarioDTO existingComentarioDTO = comentarioMapper.comentarioToComentarioDTO(existingComentario);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restComentarioMockMvc.perform(post("/api/comentarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comentarioDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingComentarioDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Comentario in the database
+        // Validate the Alice in the database
         List<Comentario> comentarioList = comentarioRepository.findAll();
         assertThat(comentarioList).hasSize(databaseSizeBeforeCreate);
     }
@@ -180,8 +182,8 @@ public class ComentarioResourceIntTest {
         // Update the comentario
         Comentario updatedComentario = comentarioRepository.findOne(comentario.getId());
         updatedComentario
-            .contenido(UPDATED_CONTENIDO);
-        ComentarioDTO comentarioDTO = comentarioMapper.toDto(updatedComentario);
+                .contenido(UPDATED_CONTENIDO);
+        ComentarioDTO comentarioDTO = comentarioMapper.comentarioToComentarioDTO(updatedComentario);
 
         restComentarioMockMvc.perform(put("/api/comentarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,7 +203,7 @@ public class ComentarioResourceIntTest {
         int databaseSizeBeforeUpdate = comentarioRepository.findAll().size();
 
         // Create the Comentario
-        ComentarioDTO comentarioDTO = comentarioMapper.toDto(comentario);
+        ComentarioDTO comentarioDTO = comentarioMapper.comentarioToComentarioDTO(comentario);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restComentarioMockMvc.perform(put("/api/comentarios")
@@ -232,40 +234,7 @@ public class ComentarioResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Comentario.class);
-        Comentario comentario1 = new Comentario();
-        comentario1.setId(1L);
-        Comentario comentario2 = new Comentario();
-        comentario2.setId(comentario1.getId());
-        assertThat(comentario1).isEqualTo(comentario2);
-        comentario2.setId(2L);
-        assertThat(comentario1).isNotEqualTo(comentario2);
-        comentario1.setId(null);
-        assertThat(comentario1).isNotEqualTo(comentario2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ComentarioDTO.class);
-        ComentarioDTO comentarioDTO1 = new ComentarioDTO();
-        comentarioDTO1.setId(1L);
-        ComentarioDTO comentarioDTO2 = new ComentarioDTO();
-        assertThat(comentarioDTO1).isNotEqualTo(comentarioDTO2);
-        comentarioDTO2.setId(comentarioDTO1.getId());
-        assertThat(comentarioDTO1).isEqualTo(comentarioDTO2);
-        comentarioDTO2.setId(2L);
-        assertThat(comentarioDTO1).isNotEqualTo(comentarioDTO2);
-        comentarioDTO1.setId(null);
-        assertThat(comentarioDTO1).isNotEqualTo(comentarioDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(comentarioMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(comentarioMapper.fromId(null)).isNull();
     }
 }

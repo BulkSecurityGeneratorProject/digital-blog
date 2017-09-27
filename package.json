@@ -64,5 +64,8 @@
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "gulp-install": "^1.1.0"
   }
 }

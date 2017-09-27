@@ -18,7 +18,7 @@ public interface RolePermisoService {
 
     /**
      *  Get all the rolePermisos.
-     *
+     *  
      *  @return the list of entities
      */
     List<RolePermisoDTO> findAll();

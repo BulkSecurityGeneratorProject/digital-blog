@@ -1,0 +1,23 @@
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+    </div>
+    <div class="modal-body text-center">
+    <img src="../../../../content/images/remove-user.svg" width="80">
+        <h5 class="modal-title">Deseas dejar de serguir a este usuario?</h5>
+
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-raised btn-danger" data-dismiss="modal" ng-click="vm.clear()">
+                <span class="text-capitalize">Cancelar</span>
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-raised btn-primary"  ng-click="vm.dejarSeguir()">
+                <span class="text-capitalize">No seguir</span>
+            </button>
+        </div>
+
+    </div>

@@ -1,0 +1,8 @@
+<div class="container">
+    <div class="alert alert-danger alert-dismissable fade in" ng-if="vm.errorConnection == true">
+        <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>El sistema no esta disponible en este momento</strong> Intentelo mas tarde.
+    </div>
+    <textarea ui-tinymce="vm.tinymceOptions" ng-model="vm.paginaContenido">
+    </textarea>
+</div>

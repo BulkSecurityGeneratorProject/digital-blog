@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Comentario.
@@ -26,7 +27,7 @@ public class ComentarioResource {
     private final Logger log = LoggerFactory.getLogger(ComentarioResource.class);
 
     private static final String ENTITY_NAME = "comentario";
-
+        
     private final ComentarioService comentarioService;
 
     public ComentarioResource(ComentarioService comentarioService) {
@@ -59,7 +60,7 @@ public class ComentarioResource {
      * @param comentarioDTO the comentarioDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated comentarioDTO,
      * or with status 400 (Bad Request) if the comentarioDTO is not valid,
-     * or with status 500 (Internal Server Error) if the comentarioDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the comentarioDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/comentarios")
@@ -85,7 +86,7 @@ public class ComentarioResource {
     public List<ComentarioDTO> getAllComentarios() {
         log.debug("REST request to get all Comentarios");
         return comentarioService.findAll();
-        }
+    }
 
     /**
      * GET  /comentarios/:id : get the "id" comentario.
@@ -114,4 +115,5 @@ public class ComentarioResource {
         comentarioService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

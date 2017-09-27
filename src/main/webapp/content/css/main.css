@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
     background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #333;
+    background-image: url("../images/background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 }
+
 
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
@@ -52,14 +63,7 @@ Version number in navbar
 ========================================================================== */
 .navbar-version {
     font-size: 10px;
-    color: #444;
-}
-
-/* ==========================================================================
-navbar text
-========================================================================== */
-.navbar-default .navbar-brand {
-    color: #444;
+    color: #ccc
 }
 
 /* ==========================================================================
@@ -162,11 +166,11 @@ Generic styles
 /* ==========================================================================
 make sure browsers use the pointer cursor for anchors, even with no href
 ========================================================================== */
-a {
-    color: #1c0cf5;
+a:hover {
+  cursor: pointer;
 }
 
-a:hover, .hand, [jh-sort-by] {
+.hand {
     cursor: pointer;
 }
 
@@ -303,16 +307,16 @@ entity tables helpers
 /* ==========================================================================
 entity detail page css
 ========================================================================== */
-.dl-horizontal.jh-entity-details > dd {
+.row.jh-entity-details > dd {
     margin-bottom: 15px;
 }
 
 @media screen and (min-width: 768px) {
-    .dl-horizontal.jh-entity-details > dt {
+    .row.jh-entity-details > dt {
         margin-bottom: 15px;
     }
 
-    .dl-horizontal.jh-entity-details > dd {
+    .row.jh-entity-details > dd {
         border-bottom: 1px solid #eee;
         padding-left: 180px;
         margin-left: 0;
@@ -338,5 +342,48 @@ ui bootstrap tweaks
 
 
 
-
+/* ==========================================================================
+Fix error field display
+========================================================================== */
+.form-group .help-block {
+    position: static;
+}
+.secondaryfontColor{
+    color:#757575;
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+.color{
+    background-color: #607D8B;
+}
+.size{
+    font-size: 20px;
+}
+
+footer {
+
+    background-color:#607D8B;
+    color: whitesmoke;
+    left:0px;
+    bottom:0px;
+    height:40px;
+    width:100%;
+
+}
+.border{
+   background-color:  #455a64;
+    color: whitesmoke;
+}
+
+.footerp{
+    margin: 10px;
+}
+
+.standartitle{
+    color: #757575;
+}
+.fontStyle{
+    font-family: 'Roboto', sans-serif;
+
+}
+

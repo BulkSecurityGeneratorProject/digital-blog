@@ -6,10 +6,9 @@ import com.digitalblog.myapp.domain.Authority;
 import com.digitalblog.myapp.domain.User;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.*;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,6 @@ public class UserDTO {
 
     private Long id;
 
-    @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
     private String login;
@@ -45,16 +43,16 @@ public class UserDTO {
 
     private String createdBy;
 
-    private Instant createdDate;
+    private ZonedDateTime createdDate;
 
     private String lastModifiedBy;
 
-    private Instant lastModifiedDate;
+    private ZonedDateTime lastModifiedDate;
 
     private Set<String> authorities;
 
     public UserDTO() {
-        // Empty constructor needed for Jackson.
+        // Empty constructor needed for MapStruct.
     }
 
     public UserDTO(User user) {
@@ -67,7 +65,7 @@ public class UserDTO {
 
     public UserDTO(Long id, String login, String firstName, String lastName,
         String email, boolean activated, String imageUrl, String langKey,
-        String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+        String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
         Set<String> authorities) {
 
         this.id = id;
@@ -129,7 +127,7 @@ public class UserDTO {
         return createdBy;
     }
 
-    public Instant getCreatedDate() {
+    public ZonedDateTime getCreatedDate() {
         return createdDate;
     }
 
@@ -137,11 +135,11 @@ public class UserDTO {
         return lastModifiedBy;
     }
 
-    public Instant getLastModifiedDate() {
+    public ZonedDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Instant lastModifiedDate) {
+    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

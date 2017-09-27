@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.NotaDTO;
 import com.digitalblog.myapp.service.mapper.NotaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class NotaServiceImpl implements NotaService{
 
     private final Logger log = LoggerFactory.getLogger(NotaServiceImpl.class);
-
+    
     private final NotaRepository notaRepository;
 
     private final NotaMapper notaMapper;
@@ -41,23 +41,26 @@ public class NotaServiceImpl implements NotaService{
     @Override
     public NotaDTO save(NotaDTO notaDTO) {
         log.debug("Request to save Nota : {}", notaDTO);
-        Nota nota = notaMapper.toEntity(notaDTO);
+        Nota nota = notaMapper.notaDTOToNota(notaDTO);
         nota = notaRepository.save(nota);
-        return notaMapper.toDto(nota);
+        NotaDTO result = notaMapper.notaToNotaDTO(nota);
+        return result;
     }
 
     /**
      *  Get all the notas.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<NotaDTO> findAll() {
         log.debug("Request to get all Notas");
-        return notaRepository.findAll().stream()
-            .map(notaMapper::toDto)
+        List<NotaDTO> result = notaRepository.findAll().stream()
+            .map(notaMapper::notaToNotaDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class NotaServiceImpl implements NotaService{
     public NotaDTO findOne(Long id) {
         log.debug("Request to get Nota : {}", id);
         Nota nota = notaRepository.findOne(id);
-        return notaMapper.toDto(nota);
+        NotaDTO notaDTO = notaMapper.notaToNotaDTO(nota);
+        return notaDTO;
     }
 
     /**

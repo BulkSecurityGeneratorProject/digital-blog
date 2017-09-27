@@ -74,7 +74,7 @@ public class PaginaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PaginaResource paginaResource = new PaginaResource(paginaService);
+        PaginaResource paginaResource = new PaginaResource(paginaService);
         this.restPaginaMockMvc = MockMvcBuilders.standaloneSetup(paginaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,8 +89,8 @@ public class PaginaResourceIntTest {
      */
     public static Pagina createEntity(EntityManager em) {
         Pagina pagina = new Pagina()
-            .contenido(DEFAULT_CONTENIDO)
-            .numeroPagina(DEFAULT_NUMERO_PAGINA);
+                .contenido(DEFAULT_CONTENIDO)
+                .numeroPagina(DEFAULT_NUMERO_PAGINA);
         return pagina;
     }
 
@@ -105,7 +105,8 @@ public class PaginaResourceIntTest {
         int databaseSizeBeforeCreate = paginaRepository.findAll().size();
 
         // Create the Pagina
-        PaginaDTO paginaDTO = paginaMapper.toDto(pagina);
+        PaginaDTO paginaDTO = paginaMapper.paginaToPaginaDTO(pagina);
+
         restPaginaMockMvc.perform(post("/api/paginas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(paginaDTO)))
@@ -125,16 +126,17 @@ public class PaginaResourceIntTest {
         int databaseSizeBeforeCreate = paginaRepository.findAll().size();
 
         // Create the Pagina with an existing ID
-        pagina.setId(1L);
-        PaginaDTO paginaDTO = paginaMapper.toDto(pagina);
+        Pagina existingPagina = new Pagina();
+        existingPagina.setId(1L);
+        PaginaDTO existingPaginaDTO = paginaMapper.paginaToPaginaDTO(existingPagina);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPaginaMockMvc.perform(post("/api/paginas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(paginaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingPaginaDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Pagina in the database
+        // Validate the Alice in the database
         List<Pagina> paginaList = paginaRepository.findAll();
         assertThat(paginaList).hasSize(databaseSizeBeforeCreate);
     }
@@ -187,9 +189,9 @@ public class PaginaResourceIntTest {
         // Update the pagina
         Pagina updatedPagina = paginaRepository.findOne(pagina.getId());
         updatedPagina
-            .contenido(UPDATED_CONTENIDO)
-            .numeroPagina(UPDATED_NUMERO_PAGINA);
-        PaginaDTO paginaDTO = paginaMapper.toDto(updatedPagina);
+                .contenido(UPDATED_CONTENIDO)
+                .numeroPagina(UPDATED_NUMERO_PAGINA);
+        PaginaDTO paginaDTO = paginaMapper.paginaToPaginaDTO(updatedPagina);
 
         restPaginaMockMvc.perform(put("/api/paginas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -210,7 +212,7 @@ public class PaginaResourceIntTest {
         int databaseSizeBeforeUpdate = paginaRepository.findAll().size();
 
         // Create the Pagina
-        PaginaDTO paginaDTO = paginaMapper.toDto(pagina);
+        PaginaDTO paginaDTO = paginaMapper.paginaToPaginaDTO(pagina);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPaginaMockMvc.perform(put("/api/paginas")
@@ -241,40 +243,7 @@ public class PaginaResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Pagina.class);
-        Pagina pagina1 = new Pagina();
-        pagina1.setId(1L);
-        Pagina pagina2 = new Pagina();
-        pagina2.setId(pagina1.getId());
-        assertThat(pagina1).isEqualTo(pagina2);
-        pagina2.setId(2L);
-        assertThat(pagina1).isNotEqualTo(pagina2);
-        pagina1.setId(null);
-        assertThat(pagina1).isNotEqualTo(pagina2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(PaginaDTO.class);
-        PaginaDTO paginaDTO1 = new PaginaDTO();
-        paginaDTO1.setId(1L);
-        PaginaDTO paginaDTO2 = new PaginaDTO();
-        assertThat(paginaDTO1).isNotEqualTo(paginaDTO2);
-        paginaDTO2.setId(paginaDTO1.getId());
-        assertThat(paginaDTO1).isEqualTo(paginaDTO2);
-        paginaDTO2.setId(2L);
-        assertThat(paginaDTO1).isNotEqualTo(paginaDTO2);
-        paginaDTO1.setId(null);
-        assertThat(paginaDTO1).isNotEqualTo(paginaDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(paginaMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(paginaMapper.fromId(null)).isNull();
     }
 }

@@ -106,7 +106,7 @@ public class UsuarioResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final UsuarioResource usuarioResource = new UsuarioResource(usuarioService);
+        UsuarioResource usuarioResource = new UsuarioResource(usuarioService);
         this.restUsuarioMockMvc = MockMvcBuilders.standaloneSetup(usuarioResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -121,17 +121,17 @@ public class UsuarioResourceIntTest {
      */
     public static Usuario createEntity(EntityManager em) {
         Usuario usuario = new Usuario()
-            .nombre(DEFAULT_NOMBRE)
-            .primerApelldio(DEFAULT_PRIMER_APELLDIO)
-            .segundoApellido(DEFAULT_SEGUNDO_APELLIDO)
-            .edad(DEFAULT_EDAD)
-            .correo(DEFAULT_CORREO)
-            .descripcion(DEFAULT_DESCRIPCION)
-            .fotoperfil(DEFAULT_FOTOPERFIL)
-            .fotoperfilContentType(DEFAULT_FOTOPERFIL_CONTENT_TYPE)
-            .estado(DEFAULT_ESTADO)
-            .idJHIUser(DEFAULT_ID_JHI_USER)
-            .fechaNacimiento(DEFAULT_FECHA_NACIMIENTO);
+                .nombre(DEFAULT_NOMBRE)
+                .primerApelldio(DEFAULT_PRIMER_APELLDIO)
+                .segundoApellido(DEFAULT_SEGUNDO_APELLIDO)
+                .edad(DEFAULT_EDAD)
+                .correo(DEFAULT_CORREO)
+                .descripcion(DEFAULT_DESCRIPCION)
+                .fotoperfil(DEFAULT_FOTOPERFIL)
+                .fotoperfilContentType(DEFAULT_FOTOPERFIL_CONTENT_TYPE)
+                .estado(DEFAULT_ESTADO)
+                .idJHIUser(DEFAULT_ID_JHI_USER)
+                .fechaNacimiento(DEFAULT_FECHA_NACIMIENTO);
         return usuario;
     }
 
@@ -146,7 +146,8 @@ public class UsuarioResourceIntTest {
         int databaseSizeBeforeCreate = usuarioRepository.findAll().size();
 
         // Create the Usuario
-        UsuarioDTO usuarioDTO = usuarioMapper.toDto(usuario);
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(usuario);
+
         restUsuarioMockMvc.perform(post("/api/usuarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(usuarioDTO)))
@@ -175,16 +176,17 @@ public class UsuarioResourceIntTest {
         int databaseSizeBeforeCreate = usuarioRepository.findAll().size();
 
         // Create the Usuario with an existing ID
-        usuario.setId(1L);
-        UsuarioDTO usuarioDTO = usuarioMapper.toDto(usuario);
+        Usuario existingUsuario = new Usuario();
+        existingUsuario.setId(1L);
+        UsuarioDTO existingUsuarioDTO = usuarioMapper.usuarioToUsuarioDTO(existingUsuario);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUsuarioMockMvc.perform(post("/api/usuarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(usuarioDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingUsuarioDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Usuario in the database
+        // Validate the Alice in the database
         List<Usuario> usuarioList = usuarioRepository.findAll();
         assertThat(usuarioList).hasSize(databaseSizeBeforeCreate);
     }
@@ -255,18 +257,18 @@ public class UsuarioResourceIntTest {
         // Update the usuario
         Usuario updatedUsuario = usuarioRepository.findOne(usuario.getId());
         updatedUsuario
-            .nombre(UPDATED_NOMBRE)
-            .primerApelldio(UPDATED_PRIMER_APELLDIO)
-            .segundoApellido(UPDATED_SEGUNDO_APELLIDO)
-            .edad(UPDATED_EDAD)
-            .correo(UPDATED_CORREO)
-            .descripcion(UPDATED_DESCRIPCION)
-            .fotoperfil(UPDATED_FOTOPERFIL)
-            .fotoperfilContentType(UPDATED_FOTOPERFIL_CONTENT_TYPE)
-            .estado(UPDATED_ESTADO)
-            .idJHIUser(UPDATED_ID_JHI_USER)
-            .fechaNacimiento(UPDATED_FECHA_NACIMIENTO);
-        UsuarioDTO usuarioDTO = usuarioMapper.toDto(updatedUsuario);
+                .nombre(UPDATED_NOMBRE)
+                .primerApelldio(UPDATED_PRIMER_APELLDIO)
+                .segundoApellido(UPDATED_SEGUNDO_APELLIDO)
+                .edad(UPDATED_EDAD)
+                .correo(UPDATED_CORREO)
+                .descripcion(UPDATED_DESCRIPCION)
+                .fotoperfil(UPDATED_FOTOPERFIL)
+                .fotoperfilContentType(UPDATED_FOTOPERFIL_CONTENT_TYPE)
+                .estado(UPDATED_ESTADO)
+                .idJHIUser(UPDATED_ID_JHI_USER)
+                .fechaNacimiento(UPDATED_FECHA_NACIMIENTO);
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(updatedUsuario);
 
         restUsuarioMockMvc.perform(put("/api/usuarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -296,7 +298,7 @@ public class UsuarioResourceIntTest {
         int databaseSizeBeforeUpdate = usuarioRepository.findAll().size();
 
         // Create the Usuario
-        UsuarioDTO usuarioDTO = usuarioMapper.toDto(usuario);
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(usuario);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restUsuarioMockMvc.perform(put("/api/usuarios")
@@ -327,40 +329,7 @@ public class UsuarioResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Usuario.class);
-        Usuario usuario1 = new Usuario();
-        usuario1.setId(1L);
-        Usuario usuario2 = new Usuario();
-        usuario2.setId(usuario1.getId());
-        assertThat(usuario1).isEqualTo(usuario2);
-        usuario2.setId(2L);
-        assertThat(usuario1).isNotEqualTo(usuario2);
-        usuario1.setId(null);
-        assertThat(usuario1).isNotEqualTo(usuario2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(UsuarioDTO.class);
-        UsuarioDTO usuarioDTO1 = new UsuarioDTO();
-        usuarioDTO1.setId(1L);
-        UsuarioDTO usuarioDTO2 = new UsuarioDTO();
-        assertThat(usuarioDTO1).isNotEqualTo(usuarioDTO2);
-        usuarioDTO2.setId(usuarioDTO1.getId());
-        assertThat(usuarioDTO1).isEqualTo(usuarioDTO2);
-        usuarioDTO2.setId(2L);
-        assertThat(usuarioDTO1).isNotEqualTo(usuarioDTO2);
-        usuarioDTO1.setId(null);
-        assertThat(usuarioDTO1).isNotEqualTo(usuarioDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(usuarioMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(usuarioMapper.fromId(null)).isNull();
     }
 }

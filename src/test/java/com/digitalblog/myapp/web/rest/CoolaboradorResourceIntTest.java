@@ -68,7 +68,7 @@ public class CoolaboradorResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CoolaboradorResource coolaboradorResource = new CoolaboradorResource(coolaboradorService);
+        CoolaboradorResource coolaboradorResource = new CoolaboradorResource(coolaboradorService);
         this.restCoolaboradorMockMvc = MockMvcBuilders.standaloneSetup(coolaboradorResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -97,7 +97,8 @@ public class CoolaboradorResourceIntTest {
         int databaseSizeBeforeCreate = coolaboradorRepository.findAll().size();
 
         // Create the Coolaborador
-        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.toDto(coolaborador);
+        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.coolaboradorToCoolaboradorDTO(coolaborador);
+
         restCoolaboradorMockMvc.perform(post("/api/coolaboradors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(coolaboradorDTO)))
@@ -115,16 +116,17 @@ public class CoolaboradorResourceIntTest {
         int databaseSizeBeforeCreate = coolaboradorRepository.findAll().size();
 
         // Create the Coolaborador with an existing ID
-        coolaborador.setId(1L);
-        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.toDto(coolaborador);
+        Coolaborador existingCoolaborador = new Coolaborador();
+        existingCoolaborador.setId(1L);
+        CoolaboradorDTO existingCoolaboradorDTO = coolaboradorMapper.coolaboradorToCoolaboradorDTO(existingCoolaborador);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCoolaboradorMockMvc.perform(post("/api/coolaboradors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(coolaboradorDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingCoolaboradorDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Coolaborador in the database
+        // Validate the Alice in the database
         List<Coolaborador> coolaboradorList = coolaboradorRepository.findAll();
         assertThat(coolaboradorList).hasSize(databaseSizeBeforeCreate);
     }
@@ -172,7 +174,7 @@ public class CoolaboradorResourceIntTest {
 
         // Update the coolaborador
         Coolaborador updatedCoolaborador = coolaboradorRepository.findOne(coolaborador.getId());
-        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.toDto(updatedCoolaborador);
+        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.coolaboradorToCoolaboradorDTO(updatedCoolaborador);
 
         restCoolaboradorMockMvc.perform(put("/api/coolaboradors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -191,7 +193,7 @@ public class CoolaboradorResourceIntTest {
         int databaseSizeBeforeUpdate = coolaboradorRepository.findAll().size();
 
         // Create the Coolaborador
-        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.toDto(coolaborador);
+        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.coolaboradorToCoolaboradorDTO(coolaborador);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCoolaboradorMockMvc.perform(put("/api/coolaboradors")
@@ -222,40 +224,7 @@ public class CoolaboradorResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Coolaborador.class);
-        Coolaborador coolaborador1 = new Coolaborador();
-        coolaborador1.setId(1L);
-        Coolaborador coolaborador2 = new Coolaborador();
-        coolaborador2.setId(coolaborador1.getId());
-        assertThat(coolaborador1).isEqualTo(coolaborador2);
-        coolaborador2.setId(2L);
-        assertThat(coolaborador1).isNotEqualTo(coolaborador2);
-        coolaborador1.setId(null);
-        assertThat(coolaborador1).isNotEqualTo(coolaborador2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(CoolaboradorDTO.class);
-        CoolaboradorDTO coolaboradorDTO1 = new CoolaboradorDTO();
-        coolaboradorDTO1.setId(1L);
-        CoolaboradorDTO coolaboradorDTO2 = new CoolaboradorDTO();
-        assertThat(coolaboradorDTO1).isNotEqualTo(coolaboradorDTO2);
-        coolaboradorDTO2.setId(coolaboradorDTO1.getId());
-        assertThat(coolaboradorDTO1).isEqualTo(coolaboradorDTO2);
-        coolaboradorDTO2.setId(2L);
-        assertThat(coolaboradorDTO1).isNotEqualTo(coolaboradorDTO2);
-        coolaboradorDTO1.setId(null);
-        assertThat(coolaboradorDTO1).isNotEqualTo(coolaboradorDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(coolaboradorMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(coolaboradorMapper.fromId(null)).isNull();
     }
 }

@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Usuario.
@@ -26,7 +27,7 @@ public class UsuarioResource {
     private final Logger log = LoggerFactory.getLogger(UsuarioResource.class);
 
     private static final String ENTITY_NAME = "usuario";
-
+        
     private final UsuarioService usuarioService;
 
     public UsuarioResource(UsuarioService usuarioService) {
@@ -59,7 +60,7 @@ public class UsuarioResource {
      * @param usuarioDTO the usuarioDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated usuarioDTO,
      * or with status 400 (Bad Request) if the usuarioDTO is not valid,
-     * or with status 500 (Internal Server Error) if the usuarioDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the usuarioDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/usuarios")
@@ -85,7 +86,7 @@ public class UsuarioResource {
     public List<UsuarioDTO> getAllUsuarios() {
         log.debug("REST request to get all Usuarios");
         return usuarioService.findAll();
-        }
+    }
 
     /**
      * GET  /usuarios/:id : get the "id" usuario.
@@ -114,4 +115,5 @@ public class UsuarioResource {
         usuarioService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

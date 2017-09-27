@@ -1,9 +1,10 @@
 package com.digitalblog.myapp.domain;
 
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class PersistentAuditEvent implements Serializable {
     private String principal;
 
     @Column(name = "event_date")
-    private Instant auditEventDate;
+    private LocalDateTime auditEventDate;
     @Column(name = "event_type")
     private String auditEventType;
 
@@ -51,11 +52,11 @@ public class PersistentAuditEvent implements Serializable {
         this.principal = principal;
     }
 
-    public Instant getAuditEventDate() {
+    public LocalDateTime getAuditEventDate() {
         return auditEventDate;
     }
 
-    public void setAuditEventDate(Instant auditEventDate) {
+    public void setAuditEventDate(LocalDateTime auditEventDate) {
         this.auditEventDate = auditEventDate;
     }
 

@@ -83,7 +83,7 @@ public class NotificacionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NotificacionResource notificacionResource = new NotificacionResource(notificacionService);
+        NotificacionResource notificacionResource = new NotificacionResource(notificacionService);
         this.restNotificacionMockMvc = MockMvcBuilders.standaloneSetup(notificacionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -98,11 +98,11 @@ public class NotificacionResourceIntTest {
      */
     public static Notificacion createEntity(EntityManager em) {
         Notificacion notificacion = new Notificacion()
-            .descripcion(DEFAULT_DESCRIPCION)
-            .tipo(DEFAULT_TIPO)
-            .idUsuario(DEFAULT_ID_USUARIO)
-            .link(DEFAULT_LINK)
-            .estado(DEFAULT_ESTADO);
+                .descripcion(DEFAULT_DESCRIPCION)
+                .tipo(DEFAULT_TIPO)
+                .idUsuario(DEFAULT_ID_USUARIO)
+                .link(DEFAULT_LINK)
+                .estado(DEFAULT_ESTADO);
         return notificacion;
     }
 
@@ -117,7 +117,8 @@ public class NotificacionResourceIntTest {
         int databaseSizeBeforeCreate = notificacionRepository.findAll().size();
 
         // Create the Notificacion
-        NotificacionDTO notificacionDTO = notificacionMapper.toDto(notificacion);
+        NotificacionDTO notificacionDTO = notificacionMapper.notificacionToNotificacionDTO(notificacion);
+
         restNotificacionMockMvc.perform(post("/api/notificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(notificacionDTO)))
@@ -140,16 +141,17 @@ public class NotificacionResourceIntTest {
         int databaseSizeBeforeCreate = notificacionRepository.findAll().size();
 
         // Create the Notificacion with an existing ID
-        notificacion.setId(1L);
-        NotificacionDTO notificacionDTO = notificacionMapper.toDto(notificacion);
+        Notificacion existingNotificacion = new Notificacion();
+        existingNotificacion.setId(1L);
+        NotificacionDTO existingNotificacionDTO = notificacionMapper.notificacionToNotificacionDTO(existingNotificacion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNotificacionMockMvc.perform(post("/api/notificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(notificacionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(existingNotificacionDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Notificacion in the database
+        // Validate the Alice in the database
         List<Notificacion> notificacionList = notificacionRepository.findAll();
         assertThat(notificacionList).hasSize(databaseSizeBeforeCreate);
     }
@@ -208,12 +210,12 @@ public class NotificacionResourceIntTest {
         // Update the notificacion
         Notificacion updatedNotificacion = notificacionRepository.findOne(notificacion.getId());
         updatedNotificacion
-            .descripcion(UPDATED_DESCRIPCION)
-            .tipo(UPDATED_TIPO)
-            .idUsuario(UPDATED_ID_USUARIO)
-            .link(UPDATED_LINK)
-            .estado(UPDATED_ESTADO);
-        NotificacionDTO notificacionDTO = notificacionMapper.toDto(updatedNotificacion);
+                .descripcion(UPDATED_DESCRIPCION)
+                .tipo(UPDATED_TIPO)
+                .idUsuario(UPDATED_ID_USUARIO)
+                .link(UPDATED_LINK)
+                .estado(UPDATED_ESTADO);
+        NotificacionDTO notificacionDTO = notificacionMapper.notificacionToNotificacionDTO(updatedNotificacion);
 
         restNotificacionMockMvc.perform(put("/api/notificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -237,7 +239,7 @@ public class NotificacionResourceIntTest {
         int databaseSizeBeforeUpdate = notificacionRepository.findAll().size();
 
         // Create the Notificacion
-        NotificacionDTO notificacionDTO = notificacionMapper.toDto(notificacion);
+        NotificacionDTO notificacionDTO = notificacionMapper.notificacionToNotificacionDTO(notificacion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restNotificacionMockMvc.perform(put("/api/notificacions")
@@ -268,40 +270,7 @@ public class NotificacionResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Notificacion.class);
-        Notificacion notificacion1 = new Notificacion();
-        notificacion1.setId(1L);
-        Notificacion notificacion2 = new Notificacion();
-        notificacion2.setId(notificacion1.getId());
-        assertThat(notificacion1).isEqualTo(notificacion2);
-        notificacion2.setId(2L);
-        assertThat(notificacion1).isNotEqualTo(notificacion2);
-        notificacion1.setId(null);
-        assertThat(notificacion1).isNotEqualTo(notificacion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NotificacionDTO.class);
-        NotificacionDTO notificacionDTO1 = new NotificacionDTO();
-        notificacionDTO1.setId(1L);
-        NotificacionDTO notificacionDTO2 = new NotificacionDTO();
-        assertThat(notificacionDTO1).isNotEqualTo(notificacionDTO2);
-        notificacionDTO2.setId(notificacionDTO1.getId());
-        assertThat(notificacionDTO1).isEqualTo(notificacionDTO2);
-        notificacionDTO2.setId(2L);
-        assertThat(notificacionDTO1).isNotEqualTo(notificacionDTO2);
-        notificacionDTO1.setId(null);
-        assertThat(notificacionDTO1).isNotEqualTo(notificacionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(notificacionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(notificacionMapper.fromId(null)).isNull();
     }
 }

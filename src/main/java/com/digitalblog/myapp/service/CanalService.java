@@ -18,7 +18,7 @@ public interface CanalService {
 
     /**
      *  Get all the canals.
-     *
+     *  
      *  @return the list of entities
      */
     List<CanalDTO> findAll();

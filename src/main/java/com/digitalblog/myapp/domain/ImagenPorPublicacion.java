@@ -28,7 +28,6 @@ public class ImagenPorPublicacion implements Serializable {
     @Column(name = "imagen_content_type")
     private String imagenContentType;
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -75,7 +74,6 @@ public class ImagenPorPublicacion implements Serializable {
     public void setImagenContentType(String imagenContentType) {
         this.imagenContentType = imagenContentType;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -86,24 +84,24 @@ public class ImagenPorPublicacion implements Serializable {
             return false;
         }
         ImagenPorPublicacion imagenPorPublicacion = (ImagenPorPublicacion) o;
-        if (imagenPorPublicacion.getId() == null || getId() == null) {
+        if (imagenPorPublicacion.id == null || id == null) {
             return false;
         }
-        return Objects.equals(getId(), imagenPorPublicacion.getId());
+        return Objects.equals(id, imagenPorPublicacion.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "ImagenPorPublicacion{" +
-            "id=" + getId() +
-            ", idPublicacion='" + getIdPublicacion() + "'" +
-            ", imagen='" + getImagen() + "'" +
+            "id=" + id +
+            ", idPublicacion='" + idPublicacion + "'" +
+            ", imagen='" + imagen + "'" +
             ", imagenContentType='" + imagenContentType + "'" +
-            "}";
+            '}';
     }
 }

@@ -1,0 +1,129 @@
+<div class="container">
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <!--TODO: Falta  lo de la imagen -->
+                <div class="">
+
+                    <form name="crearPublicacionFrm" class="form-horizontal" ng-submit="submitFrmPublicacion()">
+                            <h2 class="secondaryText">Crear una publicación individual</h2>
+
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : crearPublicacionFrm.titulo.$invalid && !crearPublicacionFrm.titulo.$pristine }">
+                                <label for="inputTitulo" class="control-label">Titulo</label>
+                                <div>
+                                    <input type="text" name="titulo" class="form-control" id="inputTitulo"
+                                           ng-model="vm.publicacion.titulo" placeholder="" required>
+                                    <p ng-show="crearPublicacionFrm.titulo.$invalid && !crearPublicacionFrm.titulo.$pristine"
+                                       class="help-block">El título es requerido</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : crearPublicacionFrm.descripcion.$invalid && !crearPublicacionFrm.descripcion.$pristine }">
+                                <label for="inputDescripcion" class=" control-label">Descripción</label>
+                                <div>
+                                    <input type="text" name="descripcion" class="form-control" id="inputDescripcion"
+                                           ng-model="vm.publicacion.descripcion" splaceholder="" required>
+                                    <p ng-show="crearPublicacionFrm.descripcion.$invalid && !crearPublicacionFrm.descripcion.$pristine"
+                                       class="help-block">La descripción es requerida</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : crearPublicacionFrm.categoriaId.$invalid && !crearPublicacionFrm.categoriaId.$pristine }">
+                                <label for="sltCategoria" class=" control-label">Categoría</label>
+                                <div>
+                                    <select id="sltCategoria" name="categoriaId" class="form-control  secondaryText"
+                                            ng-model="vm.publicacion.categoriaId" required>
+                                        <option value="" class="text-center">--- Seleccione una categoría ---</option>
+                                        <option ng-selected="{{categoria.nombre == vm.publicacion.categoriaId}}"
+                                                ng-repeat="categoria in vm.categorias"
+                                                value="{{categoria.id}}">{{categoria.nombre}}
+                                        </option>
+                                    </select>
+                                    <p ng-show="crearPublicacionFrm.categoriaId.$invalid && !crearPublicacionFrm.categoriaId.$pristine"
+                                       class="help-block">La categoría es requerida</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : crearPublicacionFrm.temaId.$invalid && !crearPublicacionFrm.temaId.$pristine }">
+                                <label for="sltTema" class=" control-label">Tema</label>
+                                <div>
+                                    <div ng-controller="CrearPublicacionIndividualCustomController">
+                                        <autocomplete type="text"
+                                                      name="temaId"
+                                                      id="sltTema"
+                                                      attr-class="form-control"
+                                                      click-activation="true"
+                                                      attr-placeholder="--- Seleccione o escriba una categoría ---"
+                                                      ng-model="vm.completeTema"
+                                                      data="vm.temass" on-type="vm.updateTemas"
+                                                      on-select="vm.obtenerIdTema" required>
+                                        </autocomplete>
+                                    </div>
+                                    <p ng-show="crearPublicacionFrm.temaId.$invalid && !crearPublicacionFrm.temaId.$pristine"
+                                       class="help-block">El tema es requerido</p>
+                                    <p ng-show="crearPublicacionFrm.temaId.$error.pattern && !crearPublicacionFrm.temaId.$pristine"
+                                       class="help-block">
+                                        Tema no puede contener numeros o caracteres.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                <div class=" col-md-4">
+                    <div class="form-group text-center" ngf-drop ngf-change="vm.setFotopublicacion($file)"
+                         ngf-pattern="'image/*'">
+                        <label for="inputImagen" class="control-label">Imagen publicación</label>
+                    <div class="text-center">
+                        <img ng-hide=" vm.publicacion.fotopublicacion != undefined" src="../../../../content/images/pictures.svg" width="150">
+
+                        <img
+                            data-ng-src="{{'data:' + vm.publicacion.fotopublicacionContentType + ';base64,' + vm.publicacion.fotopublicacion}}"
+                            style="max-height: 150px;" ng-if="vm.publicacion.fotopublicacion"
+                            alt="publicacion image" class="text-center img-thumbnail "/>
+                    </div>
+
+                        <div>
+                            <a type="submit" id="inputImagen" ngf-select class="btn"
+                                    ngf-change="vm.setFotopublicacion($file)"
+                                    accept="image/*">
+                                <img src="../../../../content/images/image.svg" width="50">
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="form-control" name="fotopublicacion" id="field_fotopublicacion"
+                           ng-model="vm.publicacion.fotopublicacion"
+                    />
+                    <input type="hidden" class="form-control" name="fotopublicacionContentType"
+                           id="field_fotopublicacionContentType"
+                           ng-model="vm.publicacion.fotopublicacionContentType"/>
+
+
+
+                    <div class="form-group">
+                        <div class="">
+                            <button type="submit" class="btn btn-raised btn-primary pull-right"
+                                    ng-disabled="crearPublicacionFrm.$invalid">Crear
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

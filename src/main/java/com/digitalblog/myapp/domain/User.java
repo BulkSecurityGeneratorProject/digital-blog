@@ -3,7 +3,6 @@ package com.digitalblog.myapp.domain;
 import com.digitalblog.myapp.config.Constants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
 
@@ -14,16 +13,14 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 /**
  * A user.
  */
 @Entity
 @Table(name = "jhi_user")
-
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,7 +50,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String lastName;
 
     @Email
-    @Size(min = 5, max = 100)
+    @Size(max = 100)
     @Column(length = 100, unique = true)
     private String email;
 
@@ -76,11 +73,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Size(max = 20)
     @Column(name = "reset_key", length = 20)
-    @JsonIgnore
     private String resetKey;
 
     @Column(name = "reset_date")
-    private Instant resetDate = null;
+    private ZonedDateTime resetDate = null;
 
     @JsonIgnore
     @ManyToMany
@@ -88,7 +84,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
         name = "jhi_user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
-
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
@@ -106,7 +101,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     //Lowercase the login before saving it in database
     public void setLogin(String login) {
-        this.login = StringUtils.lowerCase(login, Locale.ENGLISH);
+        this.login = login.toLowerCase(Locale.ENGLISH);
     }
 
     public String getPassword() {
@@ -173,13 +168,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.resetKey = resetKey;
     }
 
-    public Instant getResetDate() {
+    public ZonedDateTime getResetDate() {
        return resetDate;
     }
 
-    public void setResetDate(Instant resetDate) {
+    public void setResetDate(ZonedDateTime resetDate) {
        this.resetDate = resetDate;
     }
+
     public String getLangKey() {
         return langKey;
     }
@@ -206,12 +202,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
         }
 
         User user = (User) o;
-        return !(user.getId() == null || getId() == null) && Objects.equals(getId(), user.getId());
+
+        if (!login.equals(user.login)) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return login.hashCode();
     }
 
     @Override

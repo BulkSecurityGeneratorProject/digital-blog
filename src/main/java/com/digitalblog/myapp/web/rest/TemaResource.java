@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Tema.
@@ -26,7 +27,7 @@ public class TemaResource {
     private final Logger log = LoggerFactory.getLogger(TemaResource.class);
 
     private static final String ENTITY_NAME = "tema";
-
+        
     private final TemaService temaService;
 
     public TemaResource(TemaService temaService) {
@@ -59,7 +60,7 @@ public class TemaResource {
      * @param temaDTO the temaDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated temaDTO,
      * or with status 400 (Bad Request) if the temaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the temaDTO couldn't be updated
+     * or with status 500 (Internal Server Error) if the temaDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/temas")
@@ -85,7 +86,7 @@ public class TemaResource {
     public List<TemaDTO> getAllTemas() {
         log.debug("REST request to get all Temas");
         return temaService.findAll();
-        }
+    }
 
     /**
      * GET  /temas/:id : get the "id" tema.
@@ -114,4 +115,5 @@ public class TemaResource {
         temaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

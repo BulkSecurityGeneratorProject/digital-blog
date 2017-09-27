@@ -27,7 +27,6 @@ public class Seguidor implements Serializable {
     @ManyToOne
     private Usuario idSeguido;
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -74,7 +73,6 @@ public class Seguidor implements Serializable {
     public void setIdSeguido(Usuario usuario) {
         this.idSeguido = usuario;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -85,22 +83,22 @@ public class Seguidor implements Serializable {
             return false;
         }
         Seguidor seguidor = (Seguidor) o;
-        if (seguidor.getId() == null || getId() == null) {
+        if (seguidor.id == null || id == null) {
             return false;
         }
-        return Objects.equals(getId(), seguidor.getId());
+        return Objects.equals(id, seguidor.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Seguidor{" +
-            "id=" + getId() +
-            ", estadoSeguidor='" + isEstadoSeguidor() + "'" +
-            "}";
+            "id=" + id +
+            ", estadoSeguidor='" + estadoSeguidor + "'" +
+            '}';
     }
 }

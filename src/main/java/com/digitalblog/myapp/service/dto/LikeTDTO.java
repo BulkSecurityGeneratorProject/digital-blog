@@ -26,7 +26,6 @@ public class LikeTDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public Integer getCantidad() {
         return cantidad;
     }
@@ -61,22 +60,22 @@ public class LikeTDTO implements Serializable {
         }
 
         LikeTDTO likeTDTO = (LikeTDTO) o;
-        if(likeTDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), likeTDTO.getId());
+
+        if ( ! Objects.equals(id, likeTDTO.id)) { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "LikeTDTO{" +
-            "id=" + getId() +
-            ", cantidad='" + getCantidad() + "'" +
-            "}";
+            "id=" + id +
+            ", cantidad='" + cantidad + "'" +
+            '}';
     }
 }

@@ -7,8 +7,8 @@ import com.digitalblog.myapp.service.dto.CoolaboradorDTO;
 import com.digitalblog.myapp.service.mapper.CoolaboradorMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class CoolaboradorServiceImpl implements CoolaboradorService{
 
     private final Logger log = LoggerFactory.getLogger(CoolaboradorServiceImpl.class);
-
+    
     private final CoolaboradorRepository coolaboradorRepository;
 
     private final CoolaboradorMapper coolaboradorMapper;
@@ -41,23 +41,26 @@ public class CoolaboradorServiceImpl implements CoolaboradorService{
     @Override
     public CoolaboradorDTO save(CoolaboradorDTO coolaboradorDTO) {
         log.debug("Request to save Coolaborador : {}", coolaboradorDTO);
-        Coolaborador coolaborador = coolaboradorMapper.toEntity(coolaboradorDTO);
+        Coolaborador coolaborador = coolaboradorMapper.coolaboradorDTOToCoolaborador(coolaboradorDTO);
         coolaborador = coolaboradorRepository.save(coolaborador);
-        return coolaboradorMapper.toDto(coolaborador);
+        CoolaboradorDTO result = coolaboradorMapper.coolaboradorToCoolaboradorDTO(coolaborador);
+        return result;
     }
 
     /**
      *  Get all the coolaboradors.
-     *
+     *  
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<CoolaboradorDTO> findAll() {
         log.debug("Request to get all Coolaboradors");
-        return coolaboradorRepository.findAll().stream()
-            .map(coolaboradorMapper::toDto)
+        List<CoolaboradorDTO> result = coolaboradorRepository.findAll().stream()
+            .map(coolaboradorMapper::coolaboradorToCoolaboradorDTO)
             .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class CoolaboradorServiceImpl implements CoolaboradorService{
     public CoolaboradorDTO findOne(Long id) {
         log.debug("Request to get Coolaborador : {}", id);
         Coolaborador coolaborador = coolaboradorRepository.findOne(id);
-        return coolaboradorMapper.toDto(coolaborador);
+        CoolaboradorDTO coolaboradorDTO = coolaboradorMapper.coolaboradorToCoolaboradorDTO(coolaborador);
+        return coolaboradorDTO;
     }
 
     /**
