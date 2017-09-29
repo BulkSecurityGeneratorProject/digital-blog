@@ -29,11 +29,11 @@
     "angular-animate": "1.5.8",
     "bootstrap-material-design": "0.5.10",
     "angular-bootstrap-contextmenu": "0.9.9",
+    "tinymce": "^4.6.7",
     "angular-ui-tinymce": "^0.0.18",
     "angular-notification-icons": "^0.4.4",
-    "angular-toastr": "^2.1.1",
-    "allmighty-autocomplete": "https://github.com/JustGoscha/allmighty-autocomplete",
-    "tinymce": "^4.6.7"
+    "angular-toastr": "^2.1.1"
+
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"

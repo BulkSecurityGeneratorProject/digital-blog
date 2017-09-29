@@ -47,6 +47,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/bootstrap-material-design/dist/js/material.js',
             'src/main/webapp/bower_components/bootstrap-material-design/dist/js/ripples.js',
             'src/main/webapp/bower_components/angular-bootstrap-contextmenu/contextMenu.js',
+            'src/main/webapp/bower_components/tinymce/tinymce.js',
             'src/main/webapp/bower_components/angular-ui-tinymce/src/tinymce.js',
             'src/main/webapp/bower_components/angular-notification-icons/dist/angular-notification-icons.js',
             'src/main/webapp/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
