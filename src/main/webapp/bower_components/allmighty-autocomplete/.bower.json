@@ -1,0 +1,14 @@
+{
+    "name": "allmighty-autocomplete",
+    "_cacheHeaders": {
+        "Content-Type": "text/html; charset=utf-8"
+    },
+    "main": "autocomplete.js",
+    "dependencies": {
+        "angular": "1.5.8"
+    },
+    "_source": "https://github.com/JustGoscha/allmighty-autocomplete",
+    "_target": "*",
+    "_originalSource": "https://github.com/JustGoscha/allmighty-autocomplete",
+    "_direct": true
+}
