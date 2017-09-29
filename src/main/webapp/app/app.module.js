@@ -18,6 +18,7 @@
             'ui.tinymce',
             'infinite-scroll',
             'toastr',
+            'autocomplete',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar',
             'angular-notification-icons'
