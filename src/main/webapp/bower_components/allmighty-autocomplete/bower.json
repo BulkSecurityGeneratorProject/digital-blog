@@ -1,0 +1,9 @@
+{
+  "name": "allmighty-autocomplete",
+  "license": "MIT",
+  "main": "autocomplete.js",
+  "ignore": [],
+  "dependencies": {
+    "angular": "1.5.8"
+  }
+}

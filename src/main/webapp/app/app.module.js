@@ -20,9 +20,10 @@
             'ui.bootstrap.contextMenu',
             'ui.bootstrap.modal',
             'ngSanitize',
-            // jhipster-needle-angularjs-add-module JHipster will add new module here
             'autocomplete',
-            'toastr',
+            'toastr'
+            // jhipster-needle-angularjs-add-module JHipster will add new module here
+
 
         ])
         .run(run);

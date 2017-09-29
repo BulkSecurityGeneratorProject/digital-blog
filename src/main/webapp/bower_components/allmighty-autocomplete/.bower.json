@@ -1,14 +1,21 @@
 {
-  "name": "allmighty-autocomplete",
-  "_cacheHeaders": {
-    "Content-Type": "text/html; charset=utf-8"
-  },
+    "author": {
+        "name": "https://github.com/JustGoscha/allmighty-autocompletes"
+    },
+    "name": "allmighty-autocomplete",
+    "_cacheHeaders": {
+        "Content-Type": "text/html; charset=utf-8"
+    },
     "dependencies": {
         "angular": "1.5.8"
     },
-  "main": ["autocomplete.js","autocomplete.css"],
-  "_source": "https://github.com/JustGoscha/allmighty-autocomplete",
-  "_target": "*",
-  "_originalSource": "https://github.com/JustGoscha/allmighty-autocomplete",
-  "_direct": true
+    "license": "MIT",
+    "main": [
+        "autocomplete.js",
+        "autocomplete.css"
+    ],
+    "_source": "https://github.com/JustGoscha/allmighty-autocomplete",
+    "_target": "*",
+    "_originalSource": "https://github.com/JustGoscha/allmighty-autocomplete",
+    "_direct": true
 }
