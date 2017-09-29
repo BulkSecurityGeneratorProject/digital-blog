@@ -18,7 +18,6 @@
             'ui.tinymce',
             'angular-notification-icons',
             'ui.bootstrap.contextMenu',
-            'ui.bootstrap.modal',
             'toastr'
             // jhipster-needle-angularjs-add-module JHipster will add new module here
 
