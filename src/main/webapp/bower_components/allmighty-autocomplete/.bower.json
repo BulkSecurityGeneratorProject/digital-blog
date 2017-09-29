@@ -1,0 +1,11 @@
+{
+  "name": "allmighty-autocomplete",
+  "_cacheHeaders": {
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "main": "index",
+  "_source": "https://github.com/JustGoscha/allmighty-autocomplete",
+  "_target": "*",
+  "_originalSource": "https://github.com/JustGoscha/allmighty-autocomplete",
+  "_direct": true
+}
