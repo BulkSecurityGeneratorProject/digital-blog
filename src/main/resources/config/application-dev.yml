@@ -109,7 +109,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: digitalBLOG@localhost
-        base-url: http://192.168.43.107:8080
+        base-url: https://digitalblog.herokuapp.com
         #http://192.168.40.198:8080
         #original base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

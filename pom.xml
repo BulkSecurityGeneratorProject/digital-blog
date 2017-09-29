@@ -409,6 +409,17 @@
                     Remove when the m2e plugin can correctly bind to Maven lifecycle
                 -->
                 <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                    <configuration>
+                        <processTypes>
+                            <web>web: java $JAVA_OPTS -Xmx256m --war target/*.war  --server.port=$PORT --spring.datasource.heroku-url=$DATABASE_URL --metrics.jmx.enabled=false --spring.datasource.jmx-enabled=false --spring.jmx.enabled=false --management.security.enabled=false --endpoints.jmx.enabled=false
+                            </web>
+                        </processTypes>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
@@ -846,17 +857,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.heroku.sdk</groupId>
-                        <artifactId>heroku-maven-plugin</artifactId>
-                        <version>1.2.0</version>
-                        <configuration>
-                            <processTypes>
-                                <web>web: java $JAVA_OPTS -Xmx256m -jar target/*.war  --server.port=$PORT --spring.datasource.heroku-url=$DATABASE_URL --metrics.jmx.enabled=false --spring.datasource.jmx-enabled=false --spring.jmx.enabled=false --management.security.enabled=false --endpoints.jmx.enabled=false
-                                </web>
-                            </processTypes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
                         <groupId>net.alchim31.maven</groupId>
                         <artifactId>scala-maven-plugin</artifactId>
                         <version>${scala-maven-plugin.version}</version>
@@ -895,20 +895,6 @@
                             <execution>
                                 <id>default-testCompile</id>
                                 <phase>none</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>copy-dependencies</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
