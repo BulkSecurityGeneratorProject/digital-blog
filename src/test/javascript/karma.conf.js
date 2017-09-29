@@ -50,7 +50,6 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/angular-ui-tinymce/src/tinymce.js',
             'src/main/webapp/bower_components/angular-notification-icons/dist/angular-notification-icons.js',
             'src/main/webapp/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
-            'src/main/webapp/bower_components/allmighty-autocomplete/autocomplete.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'src/main/webapp/app/app.module.js',

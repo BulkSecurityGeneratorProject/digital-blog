@@ -19,8 +19,6 @@
             'angular-notification-icons',
             'ui.bootstrap.contextMenu',
             'ui.bootstrap.modal',
-            'ngSanitize',
-            'autocomplete',
             'toastr'
             // jhipster-needle-angularjs-add-module JHipster will add new module here
 
