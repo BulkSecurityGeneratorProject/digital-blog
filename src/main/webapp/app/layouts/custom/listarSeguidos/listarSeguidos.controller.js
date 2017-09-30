@@ -5,9 +5,9 @@
         .module('digitalBlogApp')
         .controller('ListarSeguidosController', ListarSeguidosController);
 
-    ListarSeguidosController.$inject = ['$scope','ListarSeguidos','$stateParams','$state'];
+    ListarSeguidosController.$inject = ['ListarSeguidos','$stateParams'];
 
-    function ListarSeguidosController ($scope,ListarSeguidos,$stateParams,$state) {
+    function ListarSeguidosController (ListarSeguidos,$stateParams) {
         var vm = this;
         vm.seguidos;
         vm.usuarioid =  $stateParams.id;

@@ -8,9 +8,9 @@
         .module('digitalBlogApp')
         .controller('VisorPublicacionCustomController', VisorPublicacionCustomController);
 
-    VisorPublicacionCustomController.$inject = ['$scope','$timeout', '$state', '$q', '$stateParams', 'VisorPublicacion', 'PublicacionServiceShare'];
+    VisorPublicacionCustomController.$inject = ['$scope','$timeout', '$state', '$q', 'VisorPublicacion', 'PublicacionServiceShare'];
 
-    function VisorPublicacionCustomController($scope, $timeout, $state, $q, $stateParams, VisorPublicacion, PublicacionServiceShare) {
+    function VisorPublicacionCustomController($scope, $timeout, $state, $q, VisorPublicacion, PublicacionServiceShare) {
         var vm = this;
         // Variables
 
